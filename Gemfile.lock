@@ -256,12 +256,6 @@ GEM
     pghero (1.5.3)
       activerecord
     phantomjs (2.1.1.0)
-    postmark (1.8.1)
-      json
-      rake
-    postmark-rails (0.13.0)
-      actionmailer (>= 3.0.0)
-      postmark (~> 1.8.0)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -478,8 +472,6 @@ DEPENDENCIES
   omniauth-github
   pg
   pghero
-  postmark
-  postmark-rails
   pry-byebug
   puma
   rack-attack
@@ -515,4 +507,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.13.2
+   1.13.6

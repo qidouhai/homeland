@@ -97,10 +97,6 @@ gem 'simple_form'
 # API
 gem 'active_model_serializers'
 
-# Mailer Service
-gem 'postmark'
-gem 'postmark-rails'
-
 # Dalli, kgio is for Dalli
 gem 'kgio'
 gem 'dalli'
