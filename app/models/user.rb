@@ -26,6 +26,7 @@ class User < ApplicationRecord
                ext_fields: [:large_avatar_url, :name]
 
   mount_uploader :avatar, AvatarUploader
+  mount_uploader :qrcode, QrcodeUploader
 
   has_many :topics, dependent: :destroy
   has_many :notes
@@ -41,7 +42,7 @@ class User < ApplicationRecord
   attr_accessor :password_confirmation
 
   ACCESSABLE_ATTRS = [:name, :email_public, :location, :company, :bio, :website, :github, :twitter,
-                      :tagline, :avatar, :by, :current_password, :password, :password_confirmation,
+                      :tagline, :avatar, :qrcode, :by, :current_password, :password, :password_confirmation,
                       :_rucaptcha]
 
   enum state: { deleted: -1, normal: 1, blocked: 2 }
@@ -231,6 +232,14 @@ class User < ApplicationRecord
       self.avatar.url(:lg)
     else
       self.letter_avatar_url(192)
+    end
+  end
+
+  def qrcode_url
+    if self[:qrcode].present?
+      self.qrcode.url(:lg)
+    else
+      nil
     end
   end
 

@@ -24,6 +24,34 @@ module UsersHelper
   end
   alias_method :team_name_tag, :user_name_tag
 
+  def user_qrcode_width_for_size(size)
+    case size
+      when :xs then 16
+      when :sm then 32
+      when :md then 48
+      when :lg then 96
+      else size
+    end
+  end
+
+  def user_qrcode_tag(user, version = :lg, opts = {})
+    width = user_qrcode_width_for_size(version)
+    img_class = "center-block qrcode-img qrcode-#{width}"
+
+    if user.blank?
+      return image_tag("qrcode/#{version}.png", class: img_class)
+    end
+
+    img = image_tag(user.qrcode.url(version), class: img_class)
+    options = {}
+
+    if opts[:link] != false
+      link_to(raw(img), user_path(user), options)
+    else
+      raw img
+    end
+  end
+
   def user_avatar_width_for_size(size)
     case size
     when :xs then 16

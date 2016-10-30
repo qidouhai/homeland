@@ -56,6 +56,9 @@
 
     <%= render partial: "ban_reason" %>
     <%= render partial: "cannot_be_shared" %>
+    <% if @topic.topic_pay_url %>
+        <%= render partial: "reward" %>
+    <%end%>
 
   <% if @replies.blank? %>
     <div class="no-result">

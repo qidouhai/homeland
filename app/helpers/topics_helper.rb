@@ -52,4 +52,11 @@ module TopicsHelper
     return '' unless topic.closed?
     content_tag(:i, '', title: '问题已解决／话题已结束讨论', class: 'fa fa-check', data: { toggle: 'tooltip' })
   end
+
+  def topic_qrcode_pay_tag(topic)
+    link_title = "打赏"
+    icon = raw(content_tag("i", "", class: "fa fa-money"))
+    link_to(raw("#{icon} 打赏"), "#",  title: link_title, class: "btn pay-qrcode", 'data-url' => (topic.topic_pay_url))
+  end
+
 end

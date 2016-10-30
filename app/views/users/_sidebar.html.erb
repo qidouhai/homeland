@@ -79,7 +79,14 @@
       <% end %>
     </div>
   </div>
-
+  <% if not user.qrcode_url.blank? %>
+      <div class="panel panel-default" id="user_qrcode">
+        <div class="panel-heading">我的打赏二维码</div>
+        <div class="panel-body">
+          <%= user_qrcode_tag(@user, :lg, link: false) %>
+        </div>
+      </div>
+  <% end %>
   <% if Setting.has_module?(:team) %>
     <% if !@user.teams.blank? %>
     <div class="panel user-teams">

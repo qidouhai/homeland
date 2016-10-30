@@ -22,6 +22,7 @@ window.TopicView = Backbone.View.extend
     "click .notify-updated .update": "updateReplies"
     "click #node-selector .nodes .name a": "nodeSelectorNodeSelected"
     "tap .topics .topic": "topicRowClick"
+    "click .topic-reward a.pay-qrcode": "testerhome_qrcode_pay"
 
   initialize: (opts) ->
     @parentView = opts.parentView
@@ -277,6 +278,14 @@ window.TopicView = Backbone.View.extend
             return msg
       else
         $(window).unbind("beforeunload")
+
+  testerhome_qrcode_pay : (e) ->
+    $('#qrcode-pay-modal').modal
+      keyboard : true
+      backdrop : true
+      show : true
+    false
+
 
   bookmark : (e) ->
     target = $(e.currentTarget)

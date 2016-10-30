@@ -9,6 +9,7 @@
         <%= render "shared/error_messages", target: resource if params[:by].blank? %>
         <%= f.input :name %>
         <%= f.input :avatar %>
+        <%= f.input :qrcode, label: '打赏二维码' %>
         <%= f.input :email, input_html: { class: "span4", disabled: (resource.email_locked?) } %>
         <div class="form-group">
           <div class="checkbox">
