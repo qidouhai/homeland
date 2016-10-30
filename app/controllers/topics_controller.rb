@@ -145,6 +145,7 @@ class TopicsController < ApplicationController
     @topic.team_id = ability_team_id
     @topic.title = topic_params[:title]
     @topic.body = topic_params[:body]
+    @topic.cannot_be_shared = topic_params[:cannot_be_shared]
     @topic.save
   end
 
@@ -202,7 +203,7 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :body, :node_id, :team_id)
+    params.require(:topic).permit(:title, :body, :node_id, :team_id, :cannot_be_shared)
   end
 
   def ability_team_id

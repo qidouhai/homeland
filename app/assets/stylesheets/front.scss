@@ -303,6 +303,21 @@
   a.btn-move-page { color: #666; }
 }
 
+.label-legal {
+  font-size: 13px;
+  padding: 3px 15px;
+  border-top: 1px solid #eae5e4;
+
+  a {
+    color: #aAa5a4;
+  }
+}
+
+.topic-copyright {
+  color: grey;
+  border: 1px solid rgba(0,0,0,0.07);
+}
+
 #replies {
   margin-bottom: 15px;
   .panel-body {
