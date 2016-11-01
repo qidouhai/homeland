@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   resources :photos
   resources :likes
   resources :jobs
+  resources :ads
 
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'
@@ -131,6 +132,7 @@ Rails.application.routes.draw do
     namespace :v3 do
       get 'hello', to: 'root#hello'
 
+      resource :ads
       resource :devices
       resource :likes
       resources :nodes
