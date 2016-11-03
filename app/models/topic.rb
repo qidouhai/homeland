@@ -205,6 +205,7 @@ class Topic < ApplicationRecord
 
   def ban!
     update_attributes(lock_node: true, node_id: Node.no_point.id, admin_editing: true)
+    Reply.create_system_event(action: 'ban', topic_id: self.id)
   end
 
   def excellent!

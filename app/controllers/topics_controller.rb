@@ -186,7 +186,7 @@ class TopicsController < ApplicationController
       redirect_to @topic, notice: '加精已经取消。'
     when 'ban'
       @topic.ban!
-      redirect_to @topic, notice: '已转移到 NoPoint 节点。'
+      redirect_to @topic, notice: '已转移到违规处理区节点。'
     when 'close'
       @topic.close!
       redirect_to @topic, notice: '话题已关闭，将不再接受任何新的回复。'
