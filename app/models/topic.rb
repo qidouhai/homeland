@@ -40,6 +40,7 @@ class Topic < ApplicationRecord
   scope :suggest,            -> { where('suggested_at IS NOT NULL').order(suggested_at: :desc) }
   scope :without_suggest,    -> { where(suggested_at: nil) }
   scope :high_likes,         -> { order(likes_count: :desc).order(id: :desc) }
+  scope :with_replies_or_likes,       -> { where('replies_count > 1 or likes_count > 1') }
   scope :high_replies,       -> { order(replies_count: :desc).order(id: :desc) }
   scope :no_reply,           -> { where(replies_count: 0) }
   scope :popular,            -> { where('likes_count > 5') }

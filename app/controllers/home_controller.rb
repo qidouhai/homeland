@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     @excellent_topics = Topic.excellent.recent.fields_for_list.limit(20).to_a
+    @latest_topics = Topic.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(10).to_a
     fresh_when([@excellent_topics, Setting.index_html])
   end
 
