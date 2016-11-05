@@ -119,6 +119,13 @@ class TopicsController < ApplicationController
     @topic.user_id = current_user.id
     @topic.node_id = params[:node] || topic_params[:node_id]
     @topic.team_id = ability_team_id
+    # 加入匿名功能
+    if @topic.node_id
+      node = Node.find(@topic.node_id)
+      if node.name.index("匿名")
+        @topic.user_id = 12
+      end
+    end
     @topic.save
   end
 
