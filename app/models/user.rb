@@ -280,8 +280,15 @@ class User < ApplicationRecord
     0
   end
 
-  # for Searchable
-  def as_indexed_json(_options = {})
-    as_json(only: [:login, :name])
+  def type_order
+    10
+  end
+
+  def as_indexed_json(options={})
+    {
+        login: self.login,
+        name: self.name,
+        type_order: self.type_order
+    }
   end
 end

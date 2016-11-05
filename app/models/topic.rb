@@ -74,8 +74,13 @@ class Topic < ApplicationRecord
     {
       title: self.title,
       body: self.full_body,
-      node_name: self.node_name
+      node_name: self.node_name,
+      type_order: self.type_order
     }
+  end
+
+  def type_order
+    1
   end
 
   def related_topics(size = 5)

@@ -1,25 +1,29 @@
 class SearchController < ApplicationController
-  before_action :authenticate_user!, only: [:users]
+  before_action :require_user, only: [:users]
 
   def index
-    search_modules = [Topic]
-    search_modules << Page if Setting.has_module?(:wiki)
     search_params = {
-      query: {
-        simple_query_string: {
-          query: params[:q],
-          default_operator: 'AND',
-          minimum_should_match: '70%',
-          fields: %w(title body name login)
+        sort: [
+            {type_order: {order: "desc", ignore_unmapped: true}},
+            {updated_at: {order: "desc", ignore_unmapped: true}},
+            {excellent: {order: "desc", ignore_unmapped: true}}
+        ],
+        query: {
+            multi_match: {
+                query: params[:q],
+                fields: ['title', 'body', 'name', 'login'],
+                fuzziness: 2,
+                prefix_length: 5,
+                operator: :and
+            }
+        },
+        highlight: {
+            pre_tags: ["[h]"],
+            post_tags: ["[/h]"],
+            fields: {title: {}, body: {}, name: {}, login: {}}
         }
-      },
-      highlight: {
-        pre_tags: ['[h]'],
-        post_tags: ['[/h]'],
-        fields: { title: {}, body: {}, name: {}, login: {} }
-      }
     }
-    @result = Elasticsearch::Model.search(search_params, search_modules).paginate(page: params[:page], per_page: 30)
+    @result = Elasticsearch::Model.search(search_params, [User, Page, Topic]).paginate(page: params[:page], per_page: 30)
   end
 
   def users
@@ -32,6 +36,7 @@ class SearchController < ApplicationController
       users = current_user.following.limit(10)
       @result = users.collect { |u| { login: u.login, name: u.name, avatar_url: u.large_avatar_url } }
     end
-    render json: @result
+
+    render json: @result, :root => false
   end
 end
