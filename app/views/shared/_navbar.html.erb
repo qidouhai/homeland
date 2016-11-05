@@ -3,9 +3,19 @@
     <li class="nav-topics">
       <%= link_to(t("menu.topics"), Setting.has_module?(:home) ? main_app.topics_path : main_app.root_path) %>
     </li>
+    <li class="nav-jobs">
+      <%= link_to(t("menu.jobs"), Setting.has_module?(:job) ? main_app.jobs_path : main_app.root_path) %>
+    </li>
+
     <% if !mobile? %>
       <% if Setting.has_module?(:wiki) %>
         <li class="nav-pages"><%= link_to(t("menu.wiki"), main_app.pages_path) %></li>
+      <% end %>
+      <% if Setting.has_module?(:bug) %>
+          <li class="nav-bugs"><%= link_to(t("menu.bugs"), main_app.bugs_path) %></li>
+      <% end %>
+      <% if Setting.has_module?(:opencourse) %>
+          <li class="nav-opencourses"><%= link_to(t("menu.opencourses"), main_app.opencourses_path) %></li>
       <% end %>
       <% if Setting.has_module?(:site) %>
         <li class="nav-sites"><%= link_to(t("menu.sites"), main_app.sites_path) %></li>

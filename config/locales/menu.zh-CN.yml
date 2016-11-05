@@ -88,6 +88,8 @@
     nodes: "节点"
     sites: "酷站"
     jobs: "招聘"
+    bugs: "臭虫广播站"
+    open_course: "公开课"
     my_home_page: "我的主页"
     edit_account_path: "个人资料设置"
     likes: "我的收藏"

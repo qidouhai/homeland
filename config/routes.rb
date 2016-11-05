@@ -82,6 +82,8 @@ Rails.application.routes.draw do
   resources :likes
   resources :jobs
   resources :ads
+  resources :bugs
+  resources :opencourses
 
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'

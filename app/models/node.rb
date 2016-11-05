@@ -23,12 +23,20 @@ class Node < ApplicationRecord
 
   # 内建 [招聘] 节点
   def self.job
-    @job ||= self.find_builtin_node(25, '招聘')
+    @job ||= self.find_builtin_node(19, '招聘')
   end
 
   # 内建 [NoPoint] 节点
   def self.no_point
     @no_point ||= self.find_builtin_node(55, 'NoPoint')
+  end
+
+  def self.bugs_id
+    47
+  end
+
+  def self.opencourse_id
+    67
   end
 
   # 是否 Summary 过多需要折叠
