@@ -15,7 +15,7 @@
           <li class="nav-bugs"><%= link_to(t("menu.bugs"), main_app.bugs_path) %></li>
       <% end %>
       <% if Setting.has_module?(:opencourse) %>
-          <li class="nav-opencourses"><%= link_to(t("menu.opencourses"), main_app.opencourses_path) %></li>
+          <li class="nav-opencourses"><%= link_to(t("menu.open_course"), main_app.opencourses_path) %></li>
       <% end %>
       <% if Setting.has_module?(:site) %>
         <li class="nav-sites"><%= link_to(t("menu.sites"), main_app.sites_path) %></li>
