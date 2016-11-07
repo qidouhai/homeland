@@ -180,6 +180,8 @@ class InitPgDb < ActiveRecord::Migration[4.2]
       t.datetime 'deleted_at'
       t.datetime 'created_at'
       t.datetime 'updated_at'
+      t.string   'action'
+      t.integer  'anonymous',          default: 0,  null: false
     end
 
     add_index 'replies', ['topic_id'], name: 'index_replies_on_topic_id', using: :btree
@@ -237,6 +239,8 @@ class InitPgDb < ActiveRecord::Migration[4.2]
       t.string   'last_reply_user_login'
       t.string   'node_name'
       t.string   'who_deleted'
+      t.integer  'modified_admin_id'
+      t.boolean  'cannot_be_shared',          default: false
       t.integer  'last_active_mark'
       t.boolean  'lock_node', default: false
       t.datetime 'suggested_at'
@@ -268,6 +272,7 @@ class InitPgDb < ActiveRecord::Migration[4.2]
       t.string   'location'
       t.integer  'location_id'
       t.string   'bio'
+      t.string   'qrcode'
       t.string   'website'
       t.string   'company'
       t.string   'github'
