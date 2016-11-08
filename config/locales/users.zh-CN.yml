@@ -42,7 +42,7 @@
     webchat_permission: "公开 微信"
     weibo_permission: "公开 微博"
     menu:
-      topics: "帖子"
+      topics: "话题"
       recent_reply_topics: "最近回帖"
       like: "赞"
       profile: "个人信息"
