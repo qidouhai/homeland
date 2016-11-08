@@ -16,6 +16,25 @@
             <label for="user_email_public" class="checkbox"><%= f.check_box :email_public %> <%= t("users.email_permission")%></label>
           </div>
         </div>
+        <%= f.input :webchat, label: '微信' %>
+        <div class="form-group">
+          <div class="checkbox">
+            <label for="user_webchat_public" class="checkbox"><%= f.check_box :webchat_public %> <%= t("users.webchat_permission")%></label>
+          </div>
+        </div>
+        <%= f.input :qq ,label: 'QQ' %>
+        <div class="form-group">
+          <div class="checkbox">
+            <label for="user_qq_public" class="checkbox"><%= f.check_box :qq_public %> <%= t("users.qq_permission")%></label>
+          </div>
+        </div>
+        <%= f.input :weibo, label: '微博' %>
+        <div class="form-group">
+          <div class="checkbox">
+            <label for="user_weibo_public" class="checkbox"><%= f.check_box :weibo_public %> <%= t("users.weibo_permission")%></label>
+          </div>
+        </div>
+        <br>
         <%= f.input :location  %>
         <%= f.input :company %>
         <div class="form-group">

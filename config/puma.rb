@@ -1,9 +1,9 @@
-app_root = '/var/www/homeland'
+app_root = '/Users/doctorq/Documents/Developer/git-project/homeland'
 pidfile "#{app_root}/tmp/pids/puma.pid"
 state_path "#{app_root}/tmp/pids/puma.state"
 stdout_redirect "#{app_root}/log/puma.stdout.log", "#{app_root}/log/puma.stderr.log", true
 bind 'unix:/tmp/homeland.puma.sock'
-daemonize true
+daemonize false
 port 7000
 workers 4
 threads 8, 16

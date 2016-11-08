@@ -38,6 +38,9 @@
     delete_account: "Delete account"
     confirm_delete_account: "Enter password to delete your account"
     ensure_to_delete: "Delete my account"
+    qq_permission: "Show my qq to others"
+    webchat_permission: "Show my webchat to others"
+    weibo_permission: "Show my weibo to others"
   menu:
     topics: "Topics"
     recent_reply_topics: "Recent replies"

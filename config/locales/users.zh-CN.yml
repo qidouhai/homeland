@@ -38,6 +38,9 @@
     delete_account: "删除账号"
     confirm_delete_account: "要删除账号，请输入你的密码"
     ensure_to_delete: "确定删除我的账号"
+    qq_permission: "公开 QQ"
+    webchat_permission: "公开 微信"
+    weibo_permission: "公开 微博"
     menu:
       topics: "帖子"
       recent_reply_topics: "最近回帖"

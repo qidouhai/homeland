@@ -43,6 +43,18 @@
             <% if !@user.email.blank? && @user.email_public %>
               <a href="mailto: <%= @user.email %>"><i class="fa fa-envelope-o"></i></a>
             <% end %>
+
+            <% if !@user.qq.blank? && @user.qq_public %>
+              <a href="QQ: <%= @user.qq %>"><i class="fa fa-qq"></i></a>
+            <% end %>
+
+            <% if !@user.webchat.blank? && @user.webchat_public %>
+              <a href="weixin: <%= @user.webchat %>"><i class="fa fa-weixin"></i></a>
+            <% end %>
+
+            <% if !@user.weibo.blank? && @user.weibo_public %>
+              <a href="weibo: <%= @user.weibo %>"><i class="fa fa-weibo"></i></a>
+            <% end %>
           </div>
         </div>
       </div>

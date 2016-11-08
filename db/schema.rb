@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912124102) do
+ActiveRecord::Schema.define(version: 20161107160415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ads", force: :cascade do |t|
+    t.string   "topic_id",     null: false
+    t.string   "topic_title",  null: false
+    t.string   "topic_author", null: false
+    t.string   "cover",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["topic_id"], name: "index_ads_on_topic_id", using: :btree
+  end
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider",                null: false
@@ -200,6 +210,7 @@ ActiveRecord::Schema.define(version: 20160912124102) do
     t.string   "action"
     t.string   "target_type"
     t.string   "target_id"
+    t.integer  "anonymous",          default: 0,  null: false
     t.index ["deleted_at"], name: "index_replies_on_deleted_at", using: :btree
     t.index ["topic_id", "deleted_at"], name: "index_replies_on_topic_id_and_deleted_at", using: :btree
     t.index ["topic_id"], name: "index_replies_on_topic_id", using: :btree
@@ -272,6 +283,7 @@ ActiveRecord::Schema.define(version: 20160912124102) do
     t.string   "who_deleted"
     t.integer  "last_active_mark"
     t.boolean  "lock_node",             default: false
+    t.boolean  "cannot_be_shared",      default: false
     t.datetime "suggested_at"
     t.integer  "excellent",             default: 0
     t.datetime "replied_at"
@@ -305,6 +317,8 @@ ActiveRecord::Schema.define(version: 20160912124102) do
     t.string   "location"
     t.integer  "location_id"
     t.string   "bio"
+    t.string   "qrcode"
+    t.integer  "score",                             default: 1000
     t.string   "website"
     t.string   "company"
     t.string   "github"
@@ -338,11 +352,17 @@ ActiveRecord::Schema.define(version: 20160912124102) do
     t.integer  "blocked_user_ids",                  default: [],                 array: true
     t.integer  "following_ids",                     default: [],                 array: true
     t.integer  "follower_ids",                      default: [],                 array: true
+    t.string   "skills",                            default: [],                 array: true
     t.string   "type",                   limit: 20
     t.integer  "failed_attempts",                   default: 0,     null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.integer  "team_users_count"
+    t.string   "webchat"
+    t.boolean  "webchat_public"
+    t.boolean  "qq_public"
+    t.string   "weibo"
+    t.boolean  "weibo_public"
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["location"], name: "index_users_on_location", using: :btree
     t.index ["login"], name: "index_users_on_login", using: :btree

@@ -43,7 +43,7 @@ class User < ApplicationRecord
 
   ACCESSABLE_ATTRS = [:name, :email_public, :location, :company, :bio, :website, :github, :twitter,
                       :tagline, :avatar, :qrcode, :by, :current_password, :password, :password_confirmation,
-                      :_rucaptcha]
+                      :_rucaptcha, :webchat, :webchat_public, :qq , :qq_public, :weibo, :weibo_public]
 
   enum state: { deleted: -1, normal: 1, blocked: 2 }
 
@@ -53,12 +53,13 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :name, length: { maximum: 20 }
+  validates :qq, numericality: { only_integer: true }
 
   scope :hot, -> { order(replies_count: :desc).order(topics_count: :desc) }
   scope :without_team, -> { where(type: nil) }
   scope :fields_for_list, -> {
     select(:type, :id, :name, :login, :email, :email_md5, :email_public, :avatar, :verified, :state,
-           :tagline, :github, :website, :location, :location_id, :twitter, :co, :team_users_count)
+           :tagline, :github, :website, :location, :location_id, :twitter, :co, :team_users_count, :webchat, :webchat_public)
   }
 
   def self.find_by_email(email)
