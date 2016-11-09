@@ -37,4 +37,4 @@ spec/examples.txt
 .vagrant
 .byebug_history
 db/testerhome
-db/puma.rb
+config/puma.rb
