@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107160415) do
+ActiveRecord::Schema.define(version: 20161109030114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -358,8 +358,8 @@ ActiveRecord::Schema.define(version: 20161107160415) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.integer  "team_users_count"
-    t.string   "webchat"
-    t.boolean  "webchat_public"
+    t.string   "wechat"
+    t.boolean  "wechat_public"
     t.boolean  "qq_public"
     t.string   "weibo"
     t.boolean  "weibo_public"
