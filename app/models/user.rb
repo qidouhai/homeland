@@ -53,7 +53,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :name, length: { maximum: 20 }
-  validates :qq, numericality: { only_integer: true }
+  # validates :qq, numericality: { only_integer: true }
 
   scope :hot, -> { order(replies_count: :desc).order(topics_count: :desc) }
   scope :without_team, -> { where(type: nil) }
