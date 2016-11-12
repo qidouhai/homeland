@@ -28,6 +28,12 @@ module Admin
     end
 
     def update
+
+      if current_user.id != @topic.user_id
+        # 非本帖作者
+        @topic.update_attributes(modified_admin: current_user)
+      end
+
       if @topic.update_attributes(params[:topic].permit!)
         redirect_to(admin_topics_path, notice: 'Topic was successfully updated.')
       else
@@ -37,22 +43,25 @@ module Admin
 
     def destroy
       @topic.destroy_by(current_user)
-
+      @topic.update_attributes(modified_admin: current_user)
       redirect_to(admin_topics_path)
     end
 
     def undestroy
       @topic.update_attribute(:deleted_at, nil)
+      @topic.update_attributes(modified_admin: current_user)
       redirect_to(admin_topics_path)
     end
 
     def suggest
       @topic.update_attribute(:suggested_at, Time.now)
+      @topic.update_attributes(modified_admin: current_user)
       redirect_to(@topic, notice: "Topic:#{params[:id]} suggested.")
     end
 
     def unsuggest
       @topic.update_attribute(:suggested_at, nil)
+      @topic.update_attributes(modified_admin: current_user)
       redirect_to(@topic, notice: "Topic:#{params[:id]} unsuggested.")
     end
 

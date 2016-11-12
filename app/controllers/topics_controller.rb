@@ -140,6 +140,11 @@ class TopicsController < ApplicationController
   def update
     @topic.admin_editing = true if current_user.admin?
 
+    if current_user.admin? && current_user.id != @topic.user_id
+      # 管理员且非本帖作者
+      @topic.modified_admin = current_user
+    end
+
     if can?(:change_node, @topic)
       # 锁定接点的时候，只有管理员可以修改节点
       @topic.node_id = topic_params[:node_id]
@@ -193,12 +198,21 @@ class TopicsController < ApplicationController
       redirect_to @topic, notice: '加精已经取消。'
     when 'ban'
       @topic.ban!
+      if current_user.admin?
+        @topic.update_attributes(modified_admin: current_user)
+      end
       redirect_to @topic, notice: '已转移到违规处理区节点。'
     when 'close'
       @topic.close!
+      if current_user.admin?
+        @topic.update_attributes(modified_admin: current_user)
+      end
       redirect_to @topic, notice: '话题已关闭，将不再接受任何新的回复。'
     when 'open'
       @topic.open!
+      if current_user.admin?
+        @topic.update_attributes(modified_admin: current_user)
+      end
       redirect_to @topic, notice: '话题已重启开启。'
     end
   end
