@@ -119,6 +119,7 @@
     navbar_html: "導航欄自定 HTML"
     site_index_html: "酷站列表首頁頭的 HTML"
     topic_index_sidebar_html: "話題列表首頁邊欄 HTML"
+    topic_list_top_html: "話題列表首頁头上 HTML"
     before_topic_html: "話題正文前面的 HTML"
     after_topic_html: "話題後面的 HTML"
     footer_html: "頁腳 HTML"

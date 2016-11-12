@@ -16,6 +16,7 @@ class Setting < RailsSettings::Base
     wiki_sidebar_html
     site_index_html
     topic_index_sidebar_html
+    topic_list_top_html
     after_topic_html
     before_topic_html
     node_ids_hide_in_topics_index

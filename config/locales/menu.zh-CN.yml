@@ -119,6 +119,7 @@
     navbar_brand_html: "导航栏 Logo"
     navbar_html: "导航栏自定义 HTML"
     topic_index_sidebar_html: "话题列表首页边栏 HTML"
+    topic_list_top_html: "话题列表首页头上 HTML"
     before_topic_html: "话题正文前面的 HTML"
     after_topic_html: "话题后面的 HTML"
     footer_html: "页脚 HTML"
