@@ -27,6 +27,7 @@
     last_by: "最后由"
     floor: "楼"
     reply_at: "回复于 %{time}"
+    modified_by_admin: "最后更新自管理员"
     create_item: "中发起"
     read_times: "次阅读"
     confirm_delete: "确定要删除么？"

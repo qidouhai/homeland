@@ -21,6 +21,9 @@ class Topic < ApplicationRecord
   # 临时存储检测用户是否读过的结果
   attr_accessor :read_state, :admin_editing
 
+  # 修改了帖子的管理员
+  belongs_to :modified_admin, class_name: 'User'
+
   belongs_to :user, inverse_of: :topics, counter_cache: true
   belongs_to :team, counter_cache: true
   belongs_to :node, counter_cache: true
