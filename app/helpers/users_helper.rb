@@ -36,7 +36,10 @@ module UsersHelper
 
   def user_qrcode_tag(user, version = :lg, opts = {})
     width = user_qrcode_width_for_size(version)
-    img_class = "center-block qrcode-img qrcode-#{width}"
+    img_class = "media-object qrcode-img qrcode-#{width}"
+    if opts[:class]
+      img_class = "media-object qrcode-img qrcode-#{width} #{opts[:class]}"
+    end
 
     if user.blank?
       return image_tag("qrcode/#{version}.png", class: img_class)

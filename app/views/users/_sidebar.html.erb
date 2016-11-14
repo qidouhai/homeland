@@ -97,7 +97,7 @@
         <div class="panel panel-default" id="user_qrcode">
           <div class="panel-heading">我的打赏二维码</div>
           <div class="panel-body">
-            <%= user_qrcode_tag(@user, :lg, link: false) %>
+            <%= user_qrcode_tag(@user, :lg, link: false, class: "center-block qrcode-img-width") %>
           </div>
         </div>
     <% end %>
@@ -114,5 +114,5 @@
     <% end %>
 
     <%= render '/users/repos', user: @user %>
-   
+
   </div>
