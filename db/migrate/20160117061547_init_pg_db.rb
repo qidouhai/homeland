@@ -271,6 +271,7 @@ class InitPgDb < ActiveRecord::Migration[4.2]
       t.boolean  'email_public', default: false, null: false
       t.string   'location'
       t.integer  'location_id'
+      t.integer  'score',   default: 1000,     null: false
       t.string   'bio'
       t.string   'qrcode'
       t.string   'website'
