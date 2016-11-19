@@ -58,9 +58,9 @@ _这里用到 RubyGem [oauth2](https://github.com/intridea/oauth2)_
 
 ```rb
 require "oauth2"
-client = OAuth2::Client.new('client id', 'secret', site: 'https://ruby-china.org')
+client = OAuth2::Client.new('client id', 'secret', site: 'https://testerhome.com')
 access_token = client.password.get_token('username', 'password')
-res = Faraday.get("https://ruby-china.org/api/v3/hello.json?access_token=#{access_token.token}")
+res = Faraday.get("https://testerhome.com/api/v3/hello.json?access_token=#{access_token.token}")
 puts res.status
 puts res.body
 ```
