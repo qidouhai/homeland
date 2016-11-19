@@ -96,11 +96,11 @@ module ApplicationHelper
   end
 
   def birthday_tag
-    return '' if Setting.app_name != 'Ruby China'
+    return '' if Setting.app_name != 'TesterHome'
     t = Time.now
-    return '' unless t.month == 10 && t.day == 28
-    age = t.year - 2011
-    title = markdown(":tada: :birthday: :cake:  Ruby China 创立 #{age} 周年纪念日 :cake: :birthday: :tada:")
+    return '' unless t.month == 10 && t.day == 21
+    age = t.year - 2012
+    title = markdown(":tada: :birthday: :cake:  TesterHome 创立 #{age} 周年纪念日 :cake: :birthday: :tada:")
     raw %(<div class="markdown" style="text-align:center; margin-bottom:15px; line-height:100%;">#{title}</div>)
   end
 
