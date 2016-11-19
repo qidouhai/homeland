@@ -83,7 +83,7 @@ AppView = Backbone.View.extend
       content: "Loading..."
       theme: 'tooltipster-shadow'
       side: 'bottom'
-      maxWidth: 230
+      maxWidth: 280
       interactive: true
       contentAsHTML: true
       triggerClose:
