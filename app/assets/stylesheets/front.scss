@@ -67,6 +67,14 @@
         i.fa { color: #999; margin-left: 3px; }
         i.fa-diamond { color: $red; }
         i.fa-check { color: $green; }
+        i.fa-thumb-tack {
+          transform: rotate(20deg);
+          -ms-transform: rotate(20deg); /* IE 9 */
+          -moz-transform: rotate(20deg); /* Firefox */
+          -webkit-transform: rotate(20deg); /* Safari 和 Chrome */
+          -o-transform: rotate(20deg);
+          color: $red
+        }
       }
       .node { line-height: 50px; margin-left: 18px; color: $blue; }
       h1 {
