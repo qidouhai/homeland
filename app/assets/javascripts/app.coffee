@@ -23,6 +23,7 @@
 #= require topics
 #= require pages
 #= require notes
+#= require editor
 #= require turbolinks
 #= require google_analytics
 #= require jquery.infinitescroll.min
