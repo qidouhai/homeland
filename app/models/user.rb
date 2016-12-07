@@ -158,7 +158,7 @@ class User < ApplicationRecord
   # 是否能发帖
   def newbie?
     return false if verified? || hr?
-    created_at > 1.week.ago
+    created_at > 1.day.ago
   end
 
   def roles?(role)
