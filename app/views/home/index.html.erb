@@ -8,6 +8,35 @@
 
 <%= raw Setting.index_html %>
 
+<% if !@suggest_topics.blank? %>
+
+<div class="home_suggest_topics panel panel-default">
+
+  <div class="panel-heading">置顶帖子</div>
+  <div class="panel-body topics row">
+    <%
+      odd_topics, even_topics = @suggest_topics.partition.each_with_index { |t, i| i.odd?  }
+    %>
+
+    <div class="col-md-6">
+      <% cache([even_topics, "even"]) do %>
+          <%= render partial: "topics/topic", collection: even_topics, locals: { suggest: true } %>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <% cache([odd_topics, "odd"]) do %>
+          <%= render partial: "topics/topic", collection: odd_topics, locals: { suggest: true } %>
+      <% end %>
+    </div>
+
+
+
+  </div>
+</div>
+
+<% end %>
+
 <div class="home_suggest_topics panel panel-default">
 
   <div class="panel-heading">最新帖子</div>
