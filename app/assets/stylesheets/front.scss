@@ -659,7 +659,7 @@
     }
   }
   pre {
-    font-family: Menlo, Monaco, "Courier New", monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     font-size: 12px;
     background-color: #f9f9f9;
     border: 0px;
@@ -716,7 +716,6 @@
     border-radius: 3px;
     word-break: break-all;
     line-height: 20px;
-    font-family:Monaco,Menlo, "Courier New", monospace;
   }
   a:link,
   a:visited {
