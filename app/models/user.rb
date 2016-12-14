@@ -11,6 +11,7 @@ class User < ApplicationRecord
   include TopicFavorate
   include GithubRepository
   include UserCallbacks
+  include ProfileFields
 
   acts_as_cached version: 4, expires_in: 1.week
 
@@ -158,7 +159,9 @@ class User < ApplicationRecord
   # 是否能发帖
   def newbie?
     return false if verified? || hr?
-    created_at > 1.day.ago
+    t = Setting.newbie_limit_time.to_i
+    return false if t == 0
+    created_at > t.seconds.ago
   end
 
   def roles?(role)

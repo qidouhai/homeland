@@ -59,45 +59,7 @@
             <label for="user_email_public" class="checkbox"><%= f.check_box :email_public %> <%= t("users.email_permission")%></label>
           </div>
         </div>
-        <%= f.input :wechat, label: '微信' %>
-        <div class="form-group">
-          <div class="checkbox">
-            <label for="user_wechat_public" class="checkbox"><%= f.check_box :wechat_public %> <%= t("users.wechat_permission")%></label>
-          </div>
-        </div>
-        <%= f.input :qq ,label: 'QQ' %>
-        <div class="form-group">
-          <div class="checkbox">
-            <label for="user_qq_public" class="checkbox"><%= f.check_box :qq_public %> <%= t("users.qq_permission")%></label>
-          </div>
-        </div>
-        <%= f.input :weibo, label: '微博' %>
-        <div class="form-group">
-          <div class="checkbox">
-            <label for="user_weibo_public" class="checkbox"><%= f.check_box :weibo_public %> <%= t("users.weibo_permission")%></label>
-          </div>
-        </div>
-        <br>
-        <%= f.input :location  %>
-        <%= f.input :company %>
-        <% if Setting.has_module? :github %>
-        <div class="form-group">
-          <%= f.label :github, class: 'control-label' %>
-          <div class="input-group">
-            <span class="input-group-addon">https://github.com/</span>
-            <%= f.text_field :github, class: "form-control", placeholder: I18n.t('simple_form.placeholders.user.yourname') %>
-          </div>
-        </div>
-        <% end %>
-        <div class="form-group">
-          <%= f.label :twitter, class: 'control-label' %>
-          <div class="input-group">
-            <span class="input-group-addon">https://twitter.com/</span>
-            <%= f.text_field :twitter, class: "form-control", placeholder: I18n.t('simple_form.placeholders.user.yourname') %>
-          </div>
-        </div>
-        <%= f.input :website, type: :url, input_html: { placeholder: "http://" } %>
-        <%= f.input :tagline %>
+        <%= render partial: 'profile_fields', locals: { f: f } %>
         <%= f.input :bio, as: :text, input_html: { class: "xxlarge", rows: "6" } %>
         <div class="form-group hide-ios">
           <button type="submit" class="btn btn-primary" data-disable-with="<%= t("common.saving") %>"><%= t("users.update_profile")%></button>
