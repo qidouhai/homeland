@@ -2,6 +2,8 @@ class SearchController < ApplicationController
   before_action :authenticate_user!, only: [:users]
 
   def index
+    search_modules = [Topic, User]
+    search_modules << Page if Setting.has_module?(:wiki)
     search_params = {
         sort: [
             {type_order: {order: "desc", ignore_unmapped: true}},
@@ -23,7 +25,7 @@ class SearchController < ApplicationController
             fields: {title: {}, body: {}, name: {}, login: {}}
         }
     }
-    @result = Elasticsearch::Model.search(search_params, [User, Page, Topic]).paginate(page: params[:page], per_page: 30)
+    @result = Elasticsearch::Model.search(search_params, search_modules).paginate(page: params[:page], per_page: 30)
   end
 
   def users
