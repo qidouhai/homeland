@@ -12,6 +12,7 @@ class Setting < RailsSettings::Base
     navbar_brand_html
     footer_html
     index_html
+    index_roll_card_html
     wiki_index_html
     wiki_sidebar_html
     site_index_html
