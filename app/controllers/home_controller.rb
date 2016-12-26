@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     @excellent_topics = Topic.excellent.recent.fields_for_list.limit(20).to_a
     @suggest_topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(4).to_a
     @latest_topics = Topic.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(10).to_a
-    fresh_when([@excellent_topics, @suggest_topics, @latest_topics, Setting.index_html, Setting.index_roll_card_html])
+    fresh_when([@excellent_topics, @suggest_topics, @latest_topics, Setting.index_html, Setting.index_roll_card_html, Setting.index_footer_card_html])
   end
 
   def uploads
