@@ -275,10 +275,6 @@ class User < ApplicationRecord
   end
 
   # for Searchable
-  def index_score
-    0
-  end
-
   def type_order
     10
   end
@@ -287,7 +283,15 @@ class User < ApplicationRecord
     {
         login: self.login,
         name: self.name,
+        tagline: self.tagline,
+        bio: self.bio,
+        email: self.email,
+        location: self.location,
         type_order: self.type_order
     }
+  end
+
+  def indexed_changed?
+    login_changed? || name_changed? || tagline_changed? || email_changed? || location_changed?
   end
 end

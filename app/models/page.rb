@@ -43,6 +43,10 @@ class Page < ApplicationRecord
     end
   end
 
+  def indexed_changed?
+    slug_changed? || title_changed? || body_changed?
+  end
+
   def to_param
     slug
   end
@@ -63,6 +67,7 @@ class Page < ApplicationRecord
   def self.find_by_slug(slug)
     fetch_by_uniq_keys(slug: slug)
   end
+
 
   def as_indexed_json(options={})
     {

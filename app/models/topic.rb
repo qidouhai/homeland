@@ -69,7 +69,6 @@ class Topic < ApplicationRecord
   mapping do
     indexes :title, term_vector: :yes
     indexes :body, term_vector: :yes
-    indexes :node_name
   end
 
   def as_indexed_json(_options = {})
@@ -85,6 +84,10 @@ class Topic < ApplicationRecord
 
   def type_order
     1
+  end
+
+  def indexed_changed?
+    title_changed? || body_changed?
   end
 
   def related_topics(size = 5)
