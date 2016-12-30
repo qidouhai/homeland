@@ -148,7 +148,7 @@ Rails.application.routes.draw do
     namespace :v3 do
       get 'hello', to: 'root#hello'
 
-      resource :ads
+      resources :ads
       resource :devices
       resource :likes
       resources :nodes
