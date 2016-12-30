@@ -1,7 +1,6 @@
 require 'digest/md5'
 
 class User < ApplicationRecord
-  include Redis::Search
   include Searchable
   include OmniauthCallbacks
   include Blockable
@@ -20,11 +19,6 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :recoverable, :lockable,
          :rememberable, :trackable, :validatable, :omniauthable
-
-  redis_search title_field: :login,
-               alias_field: :name,
-               score_field: :index_score,
-               ext_fields: [:large_avatar_url, :name]
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :qrcode, QrcodeUploader
@@ -61,7 +55,7 @@ class User < ApplicationRecord
   scope :without_team, -> { where(type: nil) }
   scope :fields_for_list, -> {
     select(:type, :id, :name, :login, :email, :email_md5, :email_public, :avatar, :verified, :state,
-           :tagline, :github, :website, :location, :location_id, :twitter, :co, :team_users_count)
+           :tagline, :github, :website, :location, :location_id, :twitter, :co, :team_users_count, :created_at, :updated_at)
   }
 
   def self.find_by_email(email)
