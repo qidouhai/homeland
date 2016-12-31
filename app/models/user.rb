@@ -57,6 +57,7 @@ class User < ApplicationRecord
     select(:type, :id, :name, :login, :email, :email_md5, :email_public, :avatar, :verified, :state,
            :tagline, :github, :website, :location, :location_id, :twitter, :co, :team_users_count, :created_at, :updated_at)
   }
+  scope :normal, ->{ where(state: 1) }
 
   def self.find_by_email(email)
     fetch_by_uniq_keys(email: email)

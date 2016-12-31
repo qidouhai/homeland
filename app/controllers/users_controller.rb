@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   include Users::UserActions
 
   def index
-    @total_user_count = User.count
-    @active_users = User.without_team.fields_for_list.hot.limit(100)
+    @total_user_count = User.normal.count
+    @active_users = User.without_team.fields_for_list.normal.hot.limit(100)
     fresh_when([@total_user_count, @active_users])
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     location = Location.location_find_by_name(params[:id])
     render_404 and return if location.nil?
 
-    @users = User.where(location_id: location.id).without_team.fields_for_list
+    @users = User.where(location_id: location.id).without_team.fields_for_list.normal
     @users = @users.order(replies_count: :desc).paginate(page: params[:page], per_page: 60)
 
     render_404 if @users.count == 0

@@ -15,7 +15,7 @@ module Api
 
         limit = params[:limit].to_i
         limit = 100 if limit > 100
-        @users = User.fields_for_list.hot.limit(limit)
+        @users = User.fields_for_list.hot.normal.limit(limit)
       end
 
       # 获取当前用户的完整信息，用于个人设置修改资料

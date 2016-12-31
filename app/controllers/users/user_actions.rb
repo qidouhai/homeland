@@ -71,12 +71,12 @@ module Users
     end
 
     def followers
-      @users = @user.followers.fields_for_list.paginate(page: params[:page], per_page: 60)
+      @users = @user.followers.normal.fields_for_list.paginate(page: params[:page], per_page: 60)
       fresh_when([@users])
     end
 
     def following
-      @users = @user.following.fields_for_list.paginate(page: params[:page], per_page: 60)
+      @users = @user.following.normal.fields_for_list.paginate(page: params[:page], per_page: 60)
       render template: '/users/followers' if stale?(etag: [@users], template: 'users/followers')
     end
 
