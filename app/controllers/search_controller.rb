@@ -29,13 +29,7 @@ class SearchController < ApplicationController
   end
 
   def users
-    @result = []
-    if params[:q].present?
-      q = params[:q].downcase + '%'
-      @result = User.where('login ilike ? or name ilike ?', q, q).order('replies_count desc').limit(8)
-    else
-      @result = current_user.following.limit(8)
-    end
+    @result = User.search(params[:q], user: current_user, limit: params[:limit] || 10)
     render json: @result.collect { |u| { login: u.login, name: u.name, avatar_url: u.large_avatar_url } }
   end
 end
