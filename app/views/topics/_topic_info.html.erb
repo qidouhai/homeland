@@ -34,7 +34,10 @@
       <%= topic.hits %> <%= t("common.read_times")%>
     </div>
   </div>
+
+  <% if mobile? %>
   <div class="avatar media-right">
     <%= user_avatar_tag(@topic.user, :md) %>
   </div>
+  <%end%>
 </div>
