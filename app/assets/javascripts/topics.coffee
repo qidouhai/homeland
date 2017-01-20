@@ -30,6 +30,12 @@ window.TopicView = Backbone.View.extend
     @initCloseWarning()
     @checkRepliesLikeStatus()
     @resetClearReplyHightTimer()
+    $('#topic-sidebar').affix({
+      offset: {
+        top: $('#topic-author-info').height(),
+        bottom: 65
+      }
+    });
 
   resetClearReplyHightTimer: ->
     clearTimeout(@clearHightTimer)
