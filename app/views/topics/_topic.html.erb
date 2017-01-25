@@ -17,6 +17,9 @@
     </div>
     <div class="info">
       <%= user_name_tag(topic.user) %>
+      <% if topic.team %>
+          for <%= user_name_tag(topic.team) %>
+      <% end %>
       <span class="hidden-mobile">
       •
       <% if topic.last_reply_user_login.blank? %>

@@ -239,6 +239,10 @@
     .info {
       color: #ABA8A6; font-size: 12px; margin-top: 0;
       a { color: #ABA8A6; }
+      .team-name {
+        font-size: 13px;
+        color: $green;
+      }
     }
 
     .count {
