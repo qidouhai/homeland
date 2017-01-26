@@ -48,6 +48,16 @@
           battle_tag: BattleTag
           psn_id: PSN ID
           steam_id: Stream ID
+      team:
+        name: '公司／組織名稱'
+        login: 'Slug'
+        bio: '公司／組織介紹'
+        website: '公司 / 項目網址'
+        private: "私有組織，非成員無法閱讀該組織下的文章。"
+      team_user:
+        login: '用戶名'
+        role: '權限'
+        user_id: '用戶'
       topic:
         title: "標題"
         user_id: "用戶"

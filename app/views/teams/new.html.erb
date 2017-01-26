@@ -11,6 +11,7 @@
           <%= f.input :name %>
           <%= f.input :email %>
           <%= f.input :bio, as: :text %>
+          <%= f.input :private, as: :boolean %>
 
           <div class="form-group">
             <%= f.submit t("teams.new_team"), class: "btn btn-primary btn-block", 'data-disable-with' => t("common.saving") %>

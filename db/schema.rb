@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230094832) do
+ActiveRecord::Schema.define(version: 20170126012640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -366,6 +366,7 @@ ActiveRecord::Schema.define(version: 20161230094832) do
     t.boolean  "qq_public"
     t.string   "weibo"
     t.boolean  "weibo_public"
+    t.boolean  "private",                            default: false, null: false
     t.index "lower((login)::text) varchar_pattern_ops", name: "index_users_on_lower_login_varchar_pattern_ops", using: :btree
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_users_on_lower_name_varchar_pattern_ops", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree

@@ -87,6 +87,15 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.unscoped.includes(:user).find(params[:id])
     render_404 if @topic.deleted?
+    if !@topic.team.blank?
+      if @topic.team.private?
+        if !current_user
+          redirect_to(new_user_session_url, alert: t('common.access_denied'))
+        elsif !@topic.team.member?(current_user) and !current_user.admin?
+          redirect_to(team_path(@topic.team), alert: t('teams.access_denied'))
+        end
+      end
+    end
 
     @topic.hits.incr(1)
     @node = @topic.node

@@ -46,6 +46,7 @@
           </div>
           <%= f.input :website, type: :url, input_html: { placeholder: "http://" } %>
           <%= f.input :bio, as: :text %>
+          <%= f.input :private, as: :boolean %>
 
           <div class="form-group">
             <%= f.submit t("common.save"), class: "btn btn-primary btn-block", 'data-disable-with' => t("common.saving") %>

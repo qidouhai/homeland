@@ -39,7 +39,7 @@ class User < ApplicationRecord
 
   ACCESSABLE_ATTRS = [:name, :email_public, :location, :company, :bio, :website, :github, :twitter,
                       :tagline, :avatar, :qrcode, :by, :current_password, :password, :password_confirmation,
-                      :_rucaptcha, :wechat, :wechat_public, :qq , :qq_public, :weibo, :weibo_public]
+                      :_rucaptcha, :wechat, :wechat_public, :qq , :qq_public, :weibo, :weibo_public, :private]
 
   enum state: { deleted: -1, normal: 1, blocked: 2 }
 

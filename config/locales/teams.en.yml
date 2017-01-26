@@ -22,3 +22,5 @@
     team_user_pendding: 'Awaiting response'
     settings: 'Settings'
     team_users_count: "%{count} team members"
+    access_denied: "Access denied. This is a private team. Please contact the admin of the team."
+    private: "Private Team."
