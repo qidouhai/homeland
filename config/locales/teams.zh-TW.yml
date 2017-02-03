@@ -22,5 +22,5 @@
     team_user_pendding: '等待接受'
     settings: '設置'
     team_users_count: "%{count} 個團體成員"
-    access_denied: "訪問被拒絕，該組織未私人組織，想要閱讀該組織文章，請聯系組織管理員。"
+    access_denied: "訪問被拒絕，該組織属于私人組織，想要閱讀該組織文章，請聯系組織管理員。"
 
