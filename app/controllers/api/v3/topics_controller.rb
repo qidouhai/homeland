@@ -180,7 +180,15 @@ module Api
         doorkeeper_authorize!
 
         requires! :body
-
+        if !@topic.team.blank?
+          if @topic.team.private?
+            if !current_user
+              raise AccessDenied.new('请登录之后回复文章！')
+            elsif !@topic.team.member?(current_user) and !current_user.admin?
+              raise AccessDenied.new('非组织成员无法回复组织下面的文章！')
+            end
+          end
+        end
         raise AccessDenied.new('当前用户没有回帖权限，具体请参考官网的说明。') unless can?(:create, Reply)
 
         @reply = @topic.replies.build(body: params[:body])
