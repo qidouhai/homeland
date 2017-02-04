@@ -15,4 +15,8 @@ class NodesController < ApplicationController
     current_user.unblock_node(params[:id])
     render json: { code: 0 }
   end
+
+  def list
+    render "nodes/list"
+  end
 end

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   mount Notifications::Engine, at: '/notifications'
   mount StatusPage::Engine, at: '/'
 
+  get 'nodes/list', to: 'nodes#list', as: 'list_nodes'
   resources :nodes do
     member do
       post :block
