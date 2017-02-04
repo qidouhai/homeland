@@ -75,13 +75,26 @@ h2 {
         a { color: #666; margin: 6px; display: inline-block; }
     }
 }
+@media (min-width: 768px) {
+  .home_suggest_topics {
+    .topics {
+      .topic {
+        .title {
+          height: 30px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
 
-.home_suggest_topics {
-  .topics {
-    .topic {
-      .title {
-        height: 30px;
-        overflow: hidden;
+@media (max-width: 480px) {
+  .home_suggest_topics {
+    .topics {
+      .topic {
+        .title {
+          overflow: hidden;
+        }
       }
     }
   }
