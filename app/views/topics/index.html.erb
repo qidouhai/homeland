@@ -29,6 +29,10 @@
       </div>
     </div>
 
+    <% if !mobile? %>
+        <%= render "/shared/index_sections" %>
+    <% end %>
+
 
     <% if current_user %>
     <script type="text/javascript">

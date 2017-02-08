@@ -22,7 +22,7 @@ class TopicsController < ApplicationController
         @topics.without_hide_nodes
       end
     @topics = @topics.fields_for_list
-    @topics = @topics.paginate(page: params[:page], per_page: 22, total_entries: 1500).to_a
+    @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500).to_a
     @page_title = t('menu.topics')
     @read_topic_ids = []
     if current_user
