@@ -111,7 +111,7 @@ module UsersHelper
   def block_node_tag(node)
     return '' if current_user.blank?
     return '' if node.blank?
-    blocked = current_user.blocked_node_ids.include?(node.id)
+    blocked = current_user.block_node?(node)
     class_names = 'btn btn-default btn-sm button-block-node'
     icon = '<i class="fa fa-eye-slash"></i>'
     if blocked
@@ -125,7 +125,7 @@ module UsersHelper
     return '' if current_user.blank?
     return '' if user.blank?
     return '' if current_user.id == user.id
-    blocked = current_user.blocked_user_ids.include?(user.id)
+    blocked = current_user.block_user?(user)
     class_names = 'button-block-user btn btn-default btn-block'
     icon = '<i class="fa fa-eye-slash"></i>'
     if blocked
@@ -139,7 +139,7 @@ module UsersHelper
     return '' if current_user.blank?
     return '' if user.blank?
     return '' if current_user.id == user.id
-    followed = current_user.followed?(user)
+    followed = current_user.follow_user_ids.include?(user.id)
     opts[:class] ||= 'btn btn-primary btn-block'
     class_names = "button-follow-user #{opts[:class]}"
     icon = '<i class="fa fa-user"></i>'
