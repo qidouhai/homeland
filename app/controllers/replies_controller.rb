@@ -43,7 +43,7 @@ class RepliesController < ApplicationController
   end
 
   def update
-    @reply.update_attributes(reply_params)
+    @reply.update(reply_params)
   end
 
   def destroy
