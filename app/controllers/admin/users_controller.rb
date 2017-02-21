@@ -9,7 +9,7 @@ module Admin
       if params[:type].present?
         @users = @users.where(type: params[:type])
       end
-      @users = @users.order(id: :desc).paginate page: params[:page], per_page: 30
+      @users = @users.order(id: :desc).page(params[:page])
     end
 
     def show
@@ -72,9 +72,7 @@ module Admin
         replies = Reply.unscoped.where(id: ids)
         topics = Topic.where(id: replies.collect(&:topic_id))
         replies.delete_all
-        topics.each do |topic|
-          topic.touch
-        end
+        topics.each(&:touch)
 
         count = Reply.unscoped.where(user_id: @user.id).count
         redirect_to edit_admin_user_path(@user.id), notice: "最近 10 条删除，成功 #{@user.login} 还有 #{count} 条回帖。"

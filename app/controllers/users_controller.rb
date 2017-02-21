@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     render_404 and return if location.nil?
 
     @users = User.where(location_id: location.id).without_team.fields_for_list.normal
-    @users = @users.order(replies_count: :desc).paginate(page: params[:page], per_page: 60)
+    @users = @users.order(replies_count: :desc).page(params[:page]).per_page(60)
 
     render_404 if @users.count == 0
   end

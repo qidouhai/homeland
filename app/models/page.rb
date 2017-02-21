@@ -56,8 +56,8 @@ class Page < ApplicationRecord
     page_version = PageVersion.where(page_id: id, version: version).first
     return false if page_version.blank?
     update(body: page_version.body,
-                      title: page_version.title,
-                      slug: page_version.slug)
+           title: page_version.title,
+           slug: page_version.slug)
   end
 
   def editors

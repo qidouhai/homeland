@@ -48,21 +48,15 @@ class Topic < ApplicationRecord
   scope :popular,            -> { where('likes_count > 5') }
   scope :excellent,          -> { where('excellent >= 1') }
   scope :without_hide_nodes, -> { exclude_column_ids('node_id', Topic.topic_index_hide_node_ids) }
-  scope :without_node_ids,   -> (ids) { exclude_column_ids('node_id', ids) }
-  scope :exclude_column_ids, lambda { |column, ids|
-    if ids.empty?
-      all
-    else
-      where.not(column => ids)
-    end
-  }
+
+  scope :without_node_ids,   ->(ids) { exclude_column_ids('node_id', ids) }
+  scope :without_users,      ->(ids) { exclude_column_ids('user_id', ids) }
+  scope :exclude_column_ids, ->(column, ids) { ids.empty? ? all : where.not(column => ids) }
+
   scope :without_nodes, lambda { |node_ids|
     ids = node_ids + Topic.topic_index_hide_node_ids
     ids.uniq!
     exclude_column_ids('node_id', ids)
-  }
-  scope :without_users, lambda { |user_ids|
-    exclude_column_ids('user_id', user_ids)
   }
 
   mapping do
@@ -261,5 +255,17 @@ class Topic < ApplicationRecord
                         target: topic,
                         second_target: node
     true
+  end
+
+  def self.total_entries
+    return @total_entries if defined? @total_entries
+
+    total_count = Rails.cache.fetch('topics/total_entries') do
+      self.unscoped.count
+    end
+    if total_count >= 1500
+      @total_entries = 1500
+    end
+    @total_entries
   end
 end

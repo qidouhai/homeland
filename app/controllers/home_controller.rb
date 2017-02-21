@@ -12,8 +12,8 @@ class HomeController < ApplicationController
     # This is a temporary solution for help generate image thumb
     # that when you use :file upload_provider and you have no Nginx image_filter configurations.
     # DO NOT use this in production environment.
-    format, version = params[:format].split("!")
-    filename = [params[:path], format].join(".")
+    format, version = params[:format].split('!')
+    filename = [params[:path], format].join('.')
     pragma = request.headers['Pragma'] == 'no-cache'
     thumb = Homeland::ImageThumb.new(filename, version, pragma: pragma)
     if thumb.exists?
@@ -24,7 +24,7 @@ class HomeController < ApplicationController
   end
 
   def api
-    redirect_to "/api-doc/"
+    redirect_to '/api-doc/'
   end
 
   def error_404

@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy,
-                                     :favorite, :unfavorite, :follow, :unfollow,
-                                     :action, :favorites]
+                                            :favorite, :unfavorite, :follow, :unfollow,
+                                            :action, :favorites]
   load_and_authorize_resource only: [:new, :edit, :create, :update, :destroy,
                                      :favorite, :unfavorite, :follow, :unfollow]
 
@@ -17,12 +17,12 @@ class TopicsController < ApplicationController
     @topics =
       if current_user
         @topics.without_nodes(current_user.block_node_ids)
-          .without_users(current_user.block_user_ids)
+               .without_users(current_user.block_user_ids)
       else
         @topics.without_hide_nodes
       end
     @topics = @topics.fields_for_list
-    @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500).to_a
+    @topics = @topics.paginate(page: params[:page], total_entries: Topic.total_entries).to_a
     @page_title = t('menu.topics')
     @read_topic_ids = []
     if current_user
@@ -39,8 +39,8 @@ class TopicsController < ApplicationController
   def node
     @node = Node.find(params[:id])
     @topics = @node.topics.last_actived.fields_for_list
-    @topics = @topics.includes(:user).paginate(page: params[:page], per_page: 25)
-    title = @node.id == Node.job.id ? @node.name : "#{@node.name} &raquo; #{t('menu.topics')}"
+    @topics = @topics.includes(:user).page(params[:page])
+    @page_title = @node.id == Node.job.id ? @node.name : "#{@node.name} &raquo; #{t('menu.topics')}"
     @page_title = [@node.name, t('menu.topics')].join(' · ')
     if stale?(etag: [@node, @topics], template: 'topics/index')
       render action: 'index'
@@ -56,29 +56,30 @@ class TopicsController < ApplicationController
   %w(no_reply popular).each do |name|
     define_method(name) do
       @topics = Topic.without_hide_nodes.send(name.to_sym).last_actived.fields_for_list.includes(:user)
-      @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
+      @topics = @topics.page(params[:page])
 
       @page_title = [t("topics.topic_list.#{name}"), t('menu.topics')].join(' · ')
       render action: 'index' if stale?(etag: @topics, template: 'topics/index')
     end
   end
 
+  # GET /topics/favorites
   def favorites
-    # @topic_ids = current_user.favorite_topic_ids.reverse.paginate(page: params[:page], per_page: 40)
-    @topics = Topic.where(id: current_user.favorite_topic_ids).fields_for_list.recent.paginate(page: params[:page], per_page: 40)
+    @topics = Topic.where(id: current_user.favorite_topic_ids).fields_for_list
+    @topics = @topics.recent.page(params[:page])
     render action: 'index' if stale?(etag: @topics, template: 'topics/index')
   end
 
   def recent
     @topics = Topic.without_hide_nodes.recent.fields_for_list.includes(:user)
-    @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
+    @topics = @topics.paginate(page: params[:page], total_entries: Topic.total_entries)
     @page_title = [t('topics.topic_list.recent'), t('menu.topics')].join(' · ')
     render action: 'index' if stale?(etag: @topics, template: 'topics/index')
   end
 
   def excellent
     @topics = Topic.excellent.recent.fields_for_list.includes(:user)
-    @topics = @topics.paginate(page: params[:page], per_page: 25, total_entries: 1500)
+    @topics = @topics.page(params[:page])
 
     @page_title = [t('topics.topic_list.excellent'), t('menu.topics')].join(' · ')
     render action: 'index' if stale?(etag: @topics, template: 'topics/index')
