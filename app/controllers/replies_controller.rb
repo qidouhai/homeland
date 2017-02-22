@@ -2,7 +2,7 @@ class RepliesController < ApplicationController
   load_and_authorize_resource :reply
 
   before_action :set_topic
-  before_action :set_reply, only: [:edit, :update, :destroy]
+  before_action :set_reply, only: [:edit, :reply_to, :update, :destroy]
 
   def create
     @reply = Reply.new(reply_params)
@@ -37,6 +37,13 @@ class RepliesController < ApplicationController
   def show
   end
 
+  def reply_to
+    respond_to do |format|
+      format.html { render_404 }
+      format.js
+    end
+  end
+
   def edit
   end
 
@@ -63,6 +70,6 @@ class RepliesController < ApplicationController
   end
 
   def reply_params
-    params.require(:reply).permit(:body, :anonymous)
+    params.require(:reply).permit(:body, :reply_to_id, :anonymous)
   end
 end

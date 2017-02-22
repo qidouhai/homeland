@@ -86,7 +86,11 @@ Rails.application.routes.draw do
       get :feed, defaults: { format: 'xml' }
       post :preview
     end
-    resources :replies
+    resources :replies do
+      member do
+        get :reply_to
+      end
+    end
   end
 
   resources :photos
