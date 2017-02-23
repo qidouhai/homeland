@@ -65,7 +65,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/favorites
   def favorites
-    @topics = Topic.where(id: current_user.favorite_topic_ids).fields_for_list
+    @topics = current_user.favorite_topics.includes(:user).order('actions.id desc')
     @topics = @topics.recent.page(params[:page])
     render action: 'index' if stale?(etag: @topics, template: 'topics/index')
   end
