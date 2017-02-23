@@ -38,8 +38,16 @@ Rails.application.routes.draw do
     registrations: :account,
     sessions: :sessions,
     passwords: :passwords,
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'auth/omniauth_callbacks'
   }
+
+  resource :setting do
+    member do
+      get :account
+      get :password
+      get :profile
+    end
+  end
 
   # SSO
   namespace :auth do
@@ -51,11 +59,7 @@ Rails.application.routes.draw do
     end
   end
 
-  delete 'account/auth/:provider/unbind', to: 'users#auth_unbind', as: 'unbind_account'
-
-  mount RuCaptcha::Engine, at: '/rucaptcha'
-  mount Notifications::Engine, at: '/notifications'
-  mount StatusPage::Engine, at: '/'
+  delete 'setting/auth/:provider', to: 'settings#auth_unbind'
 
   get 'nodes/list', to: 'nodes#list', as: 'list_nodes'
   resources :nodes do
@@ -201,12 +205,14 @@ Rails.application.routes.draw do
   end
 
   authenticate :user, ->(u) { u.admin? } do
-    mount Sidekiq::Web, at: '/sidekiq'
+    mount Sidekiq::Web, at: 'sidekiq'
     mount PgHero::Engine, at: "pghero"
-    mount ExceptionTrack::Engine, at: "/exception-track"
+    mount ExceptionTrack::Engine, at: "exception-track"
   end
 
-  mount JasmineRails::Engine, at: '/specs' if defined?(JasmineRails)
+  mount RuCaptcha::Engine, at: 'rucaptcha'
+  mount Notifications::Engine, at: 'notifications'
+  mount StatusPage::Engine, at: '/'
 
   # WARRING! 请保持 User 的 routes 在所有路由的最后，以便于可以让用户名在根目录下面使用，而又不影响到其他的 routes
   # 比如 http://localhost:3000/huacnlee
