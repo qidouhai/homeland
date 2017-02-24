@@ -22,7 +22,6 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable, :omniauthable
 
   mount_uploader :avatar, AvatarUploader
-  mount_uploader :qrcode, QrcodeUploader
 
   has_many :topics, dependent: :destroy
   has_many :notes
@@ -242,14 +241,7 @@ class User < ApplicationRecord
       self.letter_avatar_url(192)
     end
   end
-
-  def qrcode_url
-    if self[:qrcode].present?
-      self.qrcode.url(:lg)
-    else
-      nil
-    end
-  end
+  
 
   def avatar?
     self[:avatar].present?

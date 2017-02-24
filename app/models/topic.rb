@@ -210,9 +210,6 @@ class Topic < ApplicationRecord
     end
   end
 
-  def topic_pay_url
-    self.user.qrcode_url
-  end
 
   def floor_of_reply(reply)
     reply_index = reply_ids.index(reply.id)

@@ -45,6 +45,19 @@
             <% if !@user.email.blank? && @user.email_public %>
                 <a href="mailto: <%= @user.email %>"><i class="fa fa-envelope-o"></i></a>
             <% end %>
+
+            <% if !@user.wechat.blank? && @user.wechat_public %>
+                <a href="weixin: <%= @user.wechat %>" target="_blank" rel="twipsy" style="display:inline-block;margin-right:5px;"data-original-title="<%= @user.wechat%>"><i class="fa fa-weixin" ></i></a>
+            <% end %>
+
+            <% if !@user.qq.blank? && @user.qq_public %>
+                <a href="QQ: <%= @user.qq %>" target="_blank" rel="twipsy" style="display:inline-block;margin-right:5px;"data-original-title="<%= @user.qq %>"><i class="fa fa-qq"></i></a>
+            <% end %>
+
+            <% if !@user.weibo.blank? && @user.weibo_public %>
+                <a href="weibo: <%= @user.weibo %>" target="_blank" rel="twipsy" style="display:inline-block;margin-right:5px;"data-original-title="<%= @user.weibo%>"><i class="fa fa-weibo"></i></a>
+            <% end %>
+
           </div>
         </div>
       </div>
