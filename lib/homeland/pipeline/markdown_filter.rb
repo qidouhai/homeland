@@ -33,7 +33,7 @@ module Homeland
         def initialize(extensions = {})
           super(extensions.merge(xhtml: true,
                                  no_styles: true,
-                                 escape_html: true,
+                                 # escape_html: true,
                                  hard_wrap: true,
                                  link_attributes: { target: '_blank' }))
         end
