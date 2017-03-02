@@ -137,6 +137,7 @@ group :development, :test do
   gem 'capybara'
   gem 'letter_opener'
   gem 'yard'
+  gem 'binding_of_caller'
 
   gem 'codecov', require: false
 end

@@ -257,8 +257,12 @@ class TopicsController < ApplicationController
   def set_special_node_active_menu
     if Setting.has_module?(:jobs)
       # FIXME: Monkey Patch for homeland-jobs
-      if @node&.id == 25
+      if @node&.id == 19
         @current = ['/jobs']
+      elsif @node&.id == 47
+        @current = ['/bugs']
+      elsif @node&.id == 67
+        @current = ['/opencourses']
       end
     end
   end
