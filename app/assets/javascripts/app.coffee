@@ -360,10 +360,10 @@ window.App =
     logins = []
     for e in query
       $e = $(e)
-      login = $e.find(".user-name").text()
+      login = $e.find("a.user-name").text()
       item =
         login: login
-        name: $e.find(".user-name").attr('data-name')
+        name: $e.find("a.user-name").attr('data-name')
         avatar_url: $e.find(".avatar img").attr("src")
       if logins.indexOf(login) != -1
         continue
