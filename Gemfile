@@ -114,6 +114,9 @@ gem 'status-page'
 
 gem 'bundler-audit', require: false
 
+# Homeland Plugins
+gem 'homeland-press'
+
 group :development do
   gem 'derailed'
   # Better Errors
