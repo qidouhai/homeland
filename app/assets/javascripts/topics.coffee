@@ -28,6 +28,10 @@ window.TopicView = Backbone.View.extend
     @initContentImageZoom()
     @initCloseWarning()
     @checkRepliesLikeStatus()
+    @itemsUpdated()
+
+  # called by new Reply insterted.
+  itemsUpdated: ->
     @resetClearReplyHightTimer()
     $('#topic-sidebar').affix({
       offset: {
@@ -35,6 +39,7 @@ window.TopicView = Backbone.View.extend
         bottom: 65
       }
     });
+    @loadReplyToFloor()
 
   resetClearReplyHightTimer: ->
     clearTimeout(@clearHightTimer)
@@ -319,3 +324,9 @@ window.TopicView = Backbone.View.extend
     $(e.currentTarget).addClass('topic-visited')
     Turbolinks.visit(target.attr('href'))
     return false
+
+  loadReplyToFloor: ->
+    _.each $(".reply-to-block"), (el) =>
+      replyToId = $(el).data('reply-to-id')
+      floor = $("#reply-#{replyToId}").data('floor');
+      $(el).find('.reply-floor').text("\##{floor}")
