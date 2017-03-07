@@ -39,5 +39,9 @@ chromedriver.log
 spec/examples.txt
 .vagrant
 .byebug_history
+<<<<<<< HEAD
 db/testerhome
 config/puma.rb
+=======
+.ruby-version
+>>>>>>> rubychina/master
