@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   def index
     @total_user_count = User.normal.count
     @active_users = User.without_team.fields_for_list.normal.hot.limit(100)
-    fresh_when([@total_user_count, @active_users])
   end
 
   def city
