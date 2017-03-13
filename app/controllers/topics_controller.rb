@@ -15,12 +15,12 @@ class TopicsController < ApplicationController
     end
     @topics = Topic.last_actived.without_suggest
     @topics =
-      if current_user
-        @topics.without_nodes(current_user.block_node_ids)
-               .without_users(current_user.block_user_ids)
-      else
-        @topics.without_hide_nodes
-      end
+        if current_user
+          @topics.without_nodes(current_user.block_node_ids)
+              .without_users(current_user.block_user_ids)
+        else
+          @topics.without_hide_nodes
+        end
     @topics = @topics.fields_for_list
     @topics = @topics.page(params[:page])
     @page_title = t('menu.topics')
@@ -62,7 +62,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/favorites
   def favorites
-    @topics = current_user.favorite_topics.includes(:user).order('actions.id desc')
+    @topics = current_user.favorite_topic_actions.includes(target: :user).order('actions.id desc')
     @topics = @topics.page(params[:page])
     render action: 'index'
   end
