@@ -62,7 +62,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/favorites
   def favorites
-    @topics = current_user.favorite_topic_actions.includes(target: :user).order('actions.id desc')
+    @topics = current_user.favorite_topics.includes(:user).order('actions.id desc')
     @topics = @topics.page(params[:page])
     render action: 'index'
   end
