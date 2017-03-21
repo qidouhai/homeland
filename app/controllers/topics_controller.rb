@@ -257,6 +257,8 @@ class TopicsController < ApplicationController
         @current = ['/jobs']
       elsif @node&.id == 47
         @current = ['/bugs']
+      elsif @node&.id == Node.questions_id
+        @current = ['/questions']
       elsif @node&.id == 67
         @current = ['/opencourses']
       end
