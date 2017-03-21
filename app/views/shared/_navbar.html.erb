@@ -3,6 +3,7 @@
     <%= render_list_items do |li|
       li << link_to(t("menu.topics"), Setting.has_module?(:home) ? main_app.topics_path : main_app.root_path)
       li << link_to(t("menu.bugs"), main_app.bugs_path) if Setting.has_module?(:bug)
+      li << link_to(t("menu.questions"), main_app.questions_path) if Setting.has_module?(:question)
 
       Homeland.navbar_plugins.each do |plugin|
         li << link_to(plugin.display_name, plugin.root_path) if Setting.has_module?(plugin.name)
