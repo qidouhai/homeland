@@ -12,8 +12,6 @@ describe Ability, type: :model do
     it { is_expected.to be_able_to(:manage, Reply) }
     it { is_expected.to be_able_to(:manage, Section) }
     it { is_expected.to be_able_to(:manage, Node) }
-    it { is_expected.to be_able_to(:manage, Site) }
-    it { is_expected.to be_able_to(:manage, Note) }
     it { is_expected.to be_able_to(:manage, Photo) }
     it { is_expected.to be_able_to(:manage, Comment) }
     it { is_expected.to be_able_to(:manage, Team) }
@@ -27,16 +25,6 @@ describe Ability, type: :model do
     it { is_expected.not_to be_able_to(:suggest, Topic) }
     it { is_expected.not_to be_able_to(:unsuggest, Topic) }
     it { is_expected.to be_able_to(:create, Team) }
-  end
-
-  context 'Site editor users' do
-    let(:site_editor) { create :user, replies_count: 100 }
-    let(:ability) { Ability.new(site_editor) }
-
-    context 'Site' do
-      it { is_expected.to be_able_to(:read, Site) }
-      it { is_expected.to be_able_to(:create, Site) }
-    end
   end
 
   context 'Normal users' do
@@ -91,28 +79,6 @@ describe Ability, type: :model do
 
     context 'Section' do
       it { is_expected.to be_able_to(:read, Section) }
-    end
-
-    context 'Node' do
-      it { is_expected.to be_able_to(:read, Node) }
-    end
-
-    context 'Note' do
-      it { is_expected.to be_able_to(:read, Note.new(publish: true)) }
-      it { is_expected.not_to be_able_to(:read, Note.new(publish: false)) }
-    end
-
-    context 'Site' do
-      it { is_expected.to be_able_to(:read, Site) }
-      it { is_expected.not_to be_able_to(:create, Site) }
-    end
-
-    context 'Note' do
-      it { is_expected.to be_able_to(:create, Note) }
-      it { is_expected.to be_able_to(:read, note) }
-      it { is_expected.to be_able_to(:update, note) }
-      it { is_expected.to be_able_to(:destroy, note) }
-      it { is_expected.to be_able_to(:read, note_publish) }
     end
 
     context 'Photo' do
