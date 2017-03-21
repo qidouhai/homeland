@@ -809,7 +809,9 @@
 
 
 footer {
-  margin-top: 10px; margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 30px;
+  background-color: white;
   color: $blackLight;
   a { color: #666; }
   .links { color: #ddd; }
