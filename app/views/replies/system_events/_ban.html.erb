@@ -1,1 +1,5 @@
-屏蔽了该贴
+<% if reply.body.present? %>
+屏蔽了此话题：<span class="ban-reason"><%= reply.body %></span>
+<% else %>
+内容不符合版规屏蔽此话题
+<% end %>

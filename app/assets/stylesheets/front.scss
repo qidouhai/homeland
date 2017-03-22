@@ -456,6 +456,7 @@
       }
 
       .time { margin-left: 4px; color: #aaa; }
+      .ban-reason { color: #444; border-bottom: 1px dashed #eee; }
     }
     .infos { min-height: 48px; }
     .avatar { position: absolute; top: 15px; left: 15px; }
@@ -926,5 +927,20 @@ textarea.div-dropzone-focus { border-color: #BBE1C9; background: #fafafa; }
     .user-info { margin-bottom: 15px; }
     .media-object { display: inline-block; }
     i.fa { color: #aaa; }
+  }
+}
+div#reply_notice {
+  background-color: #fafafa;
+  color: gray;
+  padding: 15px;
+
+  a{
+    color: #0069D6 !important;
+    text-decoration: none !important;
+  }
+
+  .helpblock.list li {
+    line-height: 30px;
+    margin-bottom: 0px;
   }
 }

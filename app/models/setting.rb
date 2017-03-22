@@ -30,6 +30,7 @@ class Setting < RailsSettings::Base
     apns_pem
     blacklist_ips
     admin_emails
+    ban_reasons
   )
 
   class << self
@@ -53,6 +54,10 @@ class Setting < RailsSettings::Base
 
     def module_list
       self.modules.split(SEPARATOR_REGEXP)
+    end
+
+    def ban_reason_list
+      (self.ban_reasons || "").split("\n")
     end
 
     def has_profile_field?(name)
