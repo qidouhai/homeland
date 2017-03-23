@@ -9,7 +9,6 @@ class SearchController < ApplicationController
     search_params = {
         sort: [
             {type_order: {order: "desc", ignore_unmapped: true}},
-            {excellent: {order: "desc", ignore_unmapped: true}}
         ],
         query: {
             multi_match: {
