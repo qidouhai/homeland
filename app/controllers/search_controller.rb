@@ -7,22 +7,18 @@ class SearchController < ApplicationController
     search_modules = [Topic, User]
     search_modules << Page if Setting.has_module?(:wiki)
     search_params = {
-        sort: [
-            {type_order: {order: "desc", ignore_unmapped: true}},
-        ],
         query: {
-            multi_match: {
+            simple_query_string: {
                 query: params[:q],
-                fields: ['title', 'body', 'name', 'login'],
-                fuzziness: 2,
-                prefix_length: 5,
-                operator: :and
+                default_operator: 'AND',
+                minimum_should_match: '70%',
+                fields: %w(title body name login)
             }
         },
         highlight: {
-            pre_tags: ["[h]"],
-            post_tags: ["[/h]"],
-            fields: {title: {}, body: {}, name: {}, login: {}}
+            pre_tags: ['[h]'],
+            post_tags: ['[/h]'],
+            fields: { title: {}, body: {}, name: {}, login: {} }
         }
     }
     @result = Elasticsearch::Model.search(search_params, search_modules).page(params[:page])
