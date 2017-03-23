@@ -48,7 +48,7 @@ class Page < ApplicationRecord
     {
         slug: self.slug,
         title: self.title,
-        body: self.full_body,
+        body: self.body,
         type_order: self.type_order
     }
   end
