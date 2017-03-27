@@ -91,6 +91,8 @@ Rails.application.routes.draw do
   resources :opencourses
   resources :questions
 
+
+  get 'jump', to: 'jump#index'
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'
 
