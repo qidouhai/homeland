@@ -80,6 +80,7 @@ module ApplicationHelper
     'Python'                       => 'python',
     'PHP'                          => 'php',
     'Java'                         => 'java',
+    'Objective-c'                  => 'objc',
     'Erlang'                       => 'erlang',
     'Shell / Bash'                 => 'shell'
   }

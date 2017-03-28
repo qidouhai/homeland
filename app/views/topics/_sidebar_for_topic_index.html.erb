@@ -1,8 +1,12 @@
 <% if current_user && current_user.newbie? %>
 <div class="panel panel-default">
+
   <div class="panel-heading">新手必读</div>
   <div class="panel-body">
     <%= raw Setting.newbie_notices %>
+  </div>
+  <div class="panel-body">
+    <%= link_to t('topics.new_topic'), main_app.new_topic_path, class: 'btn btn-primary btn-block disabled' %>
   </div>
 </div>
 <% else %>
