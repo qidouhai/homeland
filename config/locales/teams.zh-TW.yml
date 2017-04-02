@@ -1,6 +1,7 @@
 'zh-TW':
   team_user_status:
     pendding: '等待接受'
+    pendding_owner_approved: '等待批准'
     acceped: '已加入'
   team_user_role:
     owner: '團體管理員'
@@ -14,7 +15,9 @@
     edit_team_user: '修改成員权限'
     delete_team_user: '移除成員'
     show_team_user: '查看邀請'
+    show_user_join: '查看申请'
     accept_team_user: '接受邀請'
+    accept_user_join: '批准'
     reject_team_user: '拒絕'
     delete_team_user_confirm: '確定要將他從團體中移除嗎？'
     topics: '成員話題列表'

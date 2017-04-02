@@ -21,7 +21,26 @@ class Team < User
     self.team_users.accepted.exists?(role: :owner, user_id: user.id)
   end
 
+  def team_admin
+    if self.team_users.owner.exists?
+      (User.find_by! id:self.team_users.owner.first.user_id)
+    end
+  end
+
   def member?(user)
     self.team_users.accepted.exists?(user_id: user.id)
   end
+
+  def ready_to_be_member?(user)
+    self.team_users.pendding.exists?(user_id: user.id) or self.team_users.pendding_owner_approved.exists?(user_id: user.id)
+  end
+
+  def pendding_status?(user)
+    self.team_users.pendding.exists?(user_id: user.id)
+  end
+
+  def pendding_owner_approved_status?(user)
+    self.team_users.pendding_owner_approved.exists?(user_id: user.id)
+  end
+
 end

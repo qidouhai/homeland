@@ -5,6 +5,11 @@
       <div class="media-left">
         <%= user_avatar_tag(@team, :md, link: false) %>
       </div>
+      <% if current_user and not @team.member?(current_user) and not admin?%>
+        <div class="media-left">
+          <%= link_to '申请加入', main_app.join_path(@team), class: 'btn btn-link', method: :get %>
+        </div>
+      <% end %>
       <div class="media-body">
         <h1 class="media-heading">
           <%= @team.name %>

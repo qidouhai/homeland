@@ -193,7 +193,7 @@ Rails.application.routes.draw do
   # 比如 http://localhost:3000/huacnlee
   get 'users/city/:id', to: 'users#city', as: 'location_users'
   get 'users', to: 'users#index', as: 'users'
-
+  get '/people/join/:user_id', to: 'team_users#join', as: 'join'
   constraints(id: /[#{User::LOGIN_FORMAT}]*/) do
     resources :users, path: '', as: 'users' do
       member do

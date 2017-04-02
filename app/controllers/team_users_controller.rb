@@ -3,7 +3,7 @@ class TeamUsersController < ApplicationController
 
   before_action :set_team
   before_action :set_team_user, only: [:edit, :update, :destroy]
-  before_action :authorize_team_owner!, except: [:index, :accept, :reject, :show]
+  before_action :authorize_team_owner!, except: [:index, :accept, :reject, :show, :join]
   load_and_authorize_resource only: [:accept, :reject, :show]
 
   def index
@@ -50,6 +50,24 @@ class TeamUsersController < ApplicationController
   def show
     if @team_user.accepted?
       redirect_to user_team_users_path(@team)
+    end
+  end
+
+  def join
+    if @team.ready_to_be_member? current_user
+      redirect_to(user_team_users_path(@team), notice: '请耐心等待，勿重复申请！')
+    else
+      @team_user = TeamUser.new
+      @team_user.role = :member
+      @team_user.team_id = @team.id
+      @team_user.login = current_user.login
+      @team_user.actor_id = @team.team_admin.id
+      @team_user.status = :pendding_owner_approved
+      if @team_user.save(context: :invite)
+        redirect_to(user_team_users_path(@team), notice: '申请成功，等待审批。')
+      else
+        redirect_to(user_team_users_path(@team), notice: '申请失败，请重新申请。')
+      end
     end
   end
 

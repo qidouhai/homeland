@@ -1,6 +1,6 @@
 class TeamUser < ApplicationRecord
   enum role: %i(owner member)
-  enum status: %i(pendding accepted)
+  enum status: %i(pendding accepted pendding_owner_approved)
 
   belongs_to :team, touch: true, counter_cache: true
   belongs_to :user
@@ -28,11 +28,20 @@ class TeamUser < ApplicationRecord
   end
 
   def notify_user_to_accept
-    return unless self.pendding?
-    Notification.create notify_type: 'team_invite',
-                        actor_id: self.actor_id,
-                        user_id: self.user_id,
-                        target: self,
-                        second_target: team
+    return unless self.pendding? or self.pendding_owner_approved?
+    if self.pendding?
+      Notification.create notify_type: 'team_invite',
+                          actor_id: self.actor_id,
+                          user_id: self.user_id,
+                          target: self,
+                          second_target: team
+    end
+    if self.pendding_owner_approved?
+      Notification.create notify_type: 'team_join',
+                          actor_id: self.actor_id,
+                          user_id: self.actor_id,
+                          target: self,
+                          second_target: team
+    end
   end
 end
