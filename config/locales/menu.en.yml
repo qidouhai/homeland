@@ -90,6 +90,7 @@
     bugs: "BugBroadCast"
     open_course: "Open Course"
     questions: "Q&A"
+    teams: "teams"
   comments:
     create_comment: "Comment"
     no_comment: "No Comment at the moment"
