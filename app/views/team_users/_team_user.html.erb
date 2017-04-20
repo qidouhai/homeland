@@ -5,7 +5,7 @@
     <%= team_user&.user&.name %>
   </td>
   <td class="role">
-    <%= team_user.pendding? ? team_user.status_name : team_user.role_name %>
+    <%= (team_user.pendding? or team_user.pendding_owner_approved?) ? team_user.status_name : team_user.role_name %>
   </div>
   <td class="buttons">
     <% if can? :update, @team && team_user.user_id != current_user&.id %>
