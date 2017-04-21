@@ -7,7 +7,7 @@
       </div>
       <% if current_user and not @team.member?(current_user) and not admin?%>
         <div class="media-left">
-          <%= link_to '申请加入', main_app.join_path(@team), class: 'btn btn-link', method: :get %>
+          <%= link_to '申请加入', main_app.requestjoin_team_path(@team), class: 'btn btn-link request-join',remote: true %>
         </div>
       <% end %>
       <div class="media-body">

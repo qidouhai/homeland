@@ -2,9 +2,9 @@ class TeamUsersController < ApplicationController
   require_module_enabled! :team
 
   before_action :set_team
-  before_action :set_team_user, only: [:edit, :update, :destroy]
-  before_action :authorize_team_owner!, except: [:index, :accept, :reject, :show, :join]
-  load_and_authorize_resource only: [:accept, :reject, :show]
+  before_action :set_team_user, only: [:edit, :update, :destroy, :show_approve]
+  before_action :authorize_team_owner!, except: [:index, :accept, :accept_join, :reject, :reject_join, :show, :show_approve, :join]
+  load_and_authorize_resource only: [:accept, :reject, :accept_join, :reject_join, :show, :show_approve]
 
   def index
     @team_users = @team.team_users
@@ -53,6 +53,12 @@ class TeamUsersController < ApplicationController
     end
   end
 
+  def show_approve
+    if @team_user.accepted?
+      redirect_to user_team_users_path(@team)
+    end
+  end
+
   def join
     if @team.ready_to_be_member? current_user
       redirect_to(user_team_users_path(@team), notice: '请耐心等待，勿重复申请！')
@@ -63,6 +69,7 @@ class TeamUsersController < ApplicationController
       @team_user.login = current_user.login
       @team_user.actor_id = @team.team_admin.id
       @team_user.status = :pendding_owner_approved
+      @team_user.comment = params[:comment]
       if @team_user.save(context: :invite)
         redirect_to(user_team_users_path(@team), notice: '申请成功，等待审批。')
       else
@@ -76,9 +83,19 @@ class TeamUsersController < ApplicationController
     redirect_to(user_team_users_path(@team), notice: '接受成功，已加入组织')
   end
 
+  def accept_join
+    @team_user.accepted!
+    redirect_to(user_team_users_path(@team), notice: '批准申请，已加入组织')
+  end
+
   def reject
     @team_user.destroy
     redirect_to(user_team_users_path(@team), notice: '已拒绝成功')
+  end
+
+  def reject_join
+    @team_user.destroy
+    redirect_to(user_team_users_path(@team), notice: '已拒绝申请成功')
   end
 
   private
@@ -96,6 +113,6 @@ class TeamUsersController < ApplicationController
   end
 
   def team_user_params
-    params.require(:team_user).permit(:login, :user_id, :role)
+    params.require(:team_user).permit(:login, :user_id, :role, :message)
   end
 end

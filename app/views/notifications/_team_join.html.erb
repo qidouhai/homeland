@@ -7,8 +7,10 @@ team_user = notification.target
 <% else %>
   <div class="media-heading">
     <%= user_name_tag(team_user.user)%>请求加入 <%= user_name_tag(team) %>
+
   </div>
   <div class="media-content summary markdown">
-    <%= link_to '批准加入', main_app.user_team_user_path(team, team_user), class: 'btn btn-default btn-sm' %>
+    <p><%=team_user.comment%></p>
+    <%= link_to '批准加入', main_app.show_approve_user_team_user_path(team, team_user), class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>

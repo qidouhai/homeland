@@ -86,6 +86,9 @@ class Ability
     can :read, TeamUser, user_id: user.id
     can :accept, TeamUser, user_id: user.id
     can :reject, TeamUser, user_id: user.id
+    can [:accept_join, :reject_join, :show_approve], TeamUser do |team_user|
+      team_user.team.owner?(user)
+    end
   end
 
   def basic_read_only
@@ -95,5 +98,6 @@ class Ability
     can :read, Section
     can :read, Comment
     can :read, Team
+    can :requestjoin, Team
   end
 end

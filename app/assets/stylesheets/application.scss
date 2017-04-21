@@ -694,3 +694,21 @@ img.emoji { width:20px; height:20px; }
 #main {
   min-height: 900px;
 }
+#request-modal {
+  padding-top: 50px;
+  text-align: center;
+  .modal-dialog {
+    max-width: 750px;
+    min-height: 300px;
+  }
+  .reward-image { display: inline-block; padding: 0px 20px 10px 20px; }
+  .message {
+    margin: 10px auto 0 auto;
+    max-width: 580px;
+    font-size: 16px;
+    text-align: center;
+    .user-info { margin-bottom: 15px; }
+    .media-object { display: inline-block; }
+    i.fa { color: #aaa; }
+  }
+}
