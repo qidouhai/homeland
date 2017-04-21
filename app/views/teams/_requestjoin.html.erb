@@ -6,10 +6,10 @@
         <div class="message">
           <div class="user-info"><%= user_avatar_tag(@team, :lg, link: false) %></div>
           <p><i class="fa fa-quote-left pull-left"></i><%= @team.bio %><i class="fa fa-quote-right pull-right"></i></p>
-          <h4 class="modal-title">这是一个私密圈子，请打赏加入~</h4>
         </div>
       </div>
       <% if @team.private? %>
+      <h4 class="modal-title">这是一个私密圈子，请打赏加入~</h4>
       <div class="modal-body clearfix">
         <% @team.team_admin.reward_fields.each_with_index do |(field, val), idx| %>
         <div class="reward-image"><img src="<%= @team.team_admin.reward_field(field) %>"></div>
