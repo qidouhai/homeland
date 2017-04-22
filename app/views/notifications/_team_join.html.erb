@@ -10,7 +10,7 @@ team_user = notification.target
 
   </div>
   <div class="media-content summary markdown">
-    <p><%=team_user.comment%></p>
+    <p><%=markdown team_user.comment%></p>
     <%= link_to '批准加入', main_app.show_approve_user_team_user_path(team, team_user), class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>

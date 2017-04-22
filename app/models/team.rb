@@ -43,4 +43,9 @@ class Team < User
     self.team_users.pendding_owner_approved.exists?(user_id: user.id)
   end
 
+  def get_team_user(user)
+    if pendding_status?(user)
+      self.team_users.pendding.find_by_user_id user
+    end
+  end
 end

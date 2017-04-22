@@ -9,7 +9,11 @@
   </div>
   <td class="buttons">
     <% if (can? :update, @team) && (team_user.user_id != current_user&.id)  %>
-      <%= link_to icon_tag('pencil'), edit_user_team_user_path(@team, team_user), class: 'btn btn-default' %>
+      <% if (team_user.pendding_owner_approved?) %>
+            <%= link_to '批准加入', main_app.show_approve_user_team_user_path(@team, team_user), class: 'btn btn-default btn-sm' %>
+      <% else %>
+            <%= link_to icon_tag('pencil'), edit_user_team_user_path(@team, team_user), class: 'btn btn-default' %>
+      <% end %>
     <% end %>
   </td>
 </tr>

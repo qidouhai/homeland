@@ -697,6 +697,10 @@ img.emoji { width:20px; height:20px; }
 #request-modal {
   padding-top: 50px;
   text-align: center;
+  color: gray;
+  strong{
+    color: #f57e42;
+  }
   .modal-dialog {
     max-width: 750px;
     min-height: 300px;
