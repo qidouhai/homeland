@@ -107,6 +107,14 @@ class TopicsController < ApplicationController
     set_special_node_active_menu
   end
 
+  def show_wechat
+    @topic = Topic.unscoped.includes(:user).find(params[:id])
+    render_404 if @topic.deleted?
+
+    @node = @topic.node
+    render template: "topics/show_wechat", handler: [:erb], layout: 'wechat'
+  end
+
   def new
     @topic = Topic.new(user_id: current_user.id)
     unless params[:node].blank?
