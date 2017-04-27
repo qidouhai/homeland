@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       delete :unfollow
       get :ban
       post :action
+      get :show_wechat
     end
     collection do
       get :no_reply
