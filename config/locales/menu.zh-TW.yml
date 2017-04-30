@@ -123,6 +123,8 @@
     topic_list_top_html: "話題列表首頁头上 HTML"
     before_topic_html: "話題正文前面的 HTML"
     after_topic_html: "話題後面的 HTML"
+    before_wechat_html: "微信排版正文前面的 HTML ，也可用来做 css 微调"
+    after_wechat_html: "微信排版正文後面的 HTML"
     footer_html: "頁腳 HTML"
     wiki_index_html: "WIKI 首頁 HTMl"
     index_html: "網站首頁 HTML"
