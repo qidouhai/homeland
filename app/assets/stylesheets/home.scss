@@ -100,31 +100,126 @@ h2 {
   }
 }
 
-.job_topic {
-  padding: 10px;
-  border-bottom: 1px solid #F0F0F0;
-  vertical-align: top;
-  .info {
-    color: #ABA8A6;
-    font-size: 12px;
-    a {
-      color: #ABA8A6;
-    }
+
+
+
+
+.home-main {
+  .nav-tabs-home {
+    background-color: white;
+    border-bottom: none;
+    margin: 0px;
+    li a:hover,
+    li.active a,
+    li.active a:focus,
+    li.active a:hover { border: none; border-bottom:3px solid $blue; color: $blue; background: transparent; padding-bottom: 12px;}
   }
-}
-.job_topic:last-child {
-  border-bottom: 0px;
+  .fa-map-marker, .fa-anchor{
+    color: red;
+  }
+
 }
 
-.nav-tabs-home {
-  background-color: white;
-  border-bottom: none;
-  margin: 0px;
-  li a:hover,
-  li.active a,
-  li.active a:focus,
-  li.active a:hover { border: none; border-bottom:3px solid $blue; color: $blue; background: transparent; padding-bottom: 12px;}
-}
 .home-side-bar {
   padding-left: 0px;
+  .job_topic {
+    padding: 10px;
+    border-bottom: 1px solid #F0F0F0;
+    vertical-align: top;
+    .info {
+      color: #ABA8A6;
+      font-size: 12px;
+      a {
+        color: #ABA8A6;
+      }
+    }
+  }
+  .job_topic:last-child {
+    border-bottom: 0px;
+  }
+
+  .ticker-headline {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .carousel.vertical .carousel-inner {
+    height: 100%;
+    width: auto;
+    > .item {
+      width: auto;
+      padding-right: 50px;
+      transition: 0.6s ease-in-out top;
+      @media all and (transform-3d), (-webkit-transform-3d) {
+        transition: 0.6s ease-in-out;
+        &.next,
+        &.active.right {
+          transform: translate3d(0, 100%, 0);
+          top: 0;
+        }
+        &.prev,
+        &.active.left {
+          transform: translate3d(0, -100%, 0);
+          top: 0;
+        }
+        &.next.left,
+        &.prev.right,
+        &.active {
+          transform: translate3d(0, 0, 0);
+          top: 0;
+        }
+      }
+    }
+    > .active,
+    > .next,
+    > .prev {
+      display: block;
+    }
+    > .active {
+      top: 0;
+    }
+    > .next,
+    > .prev {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    > .next {
+      top: 100%;
+    }
+    > .prev {
+      top: -100%;
+    }
+    > .next.left,
+    > .prev.right {
+      top: 0;
+    }
+    > .active.left {
+      top: -100%;
+    }
+    > .active.right {
+      top: 100%;
+    }
+  }
+
+  .carousel.vertical {
+    .carousel-control {
+      left: auto;
+      width: 50px;
+      &.up {
+        top: 0;
+        right: 0;
+        bottom: 50%;
+      }
+      &.down {
+        top: 50%;
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
 }

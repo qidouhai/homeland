@@ -3,6 +3,7 @@
     <li class="active"><a href="#latest" data-toggle="tab">最新帖子</a></li>
     <li><a href="#excellent" data-toggle="tab">精华帖子</a></li>
     <li><a href="#qanda" data-toggle="tab">最新问答</a></li>
+    <li><a href="#hall_of_fames" data-toggle="tab">名人堂</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="latest">
@@ -66,6 +67,13 @@
         </div>
         <div class="panel-footer">
           <%= link_to "查看更多...", questions_path %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="hall_of_fames">
+      <div class="home_suggest_topics panel panel-default">
+        <div class="panel-body topics row">
+          <%= render "home/user_list"%>
         </div>
       </div>
     </div>

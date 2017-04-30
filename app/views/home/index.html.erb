@@ -9,10 +9,12 @@
 <%= raw Setting.index_html %>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 home-main">
     <%= render "/shared/hot_locations" %>
+    <%= raw Setting.index_roll_card_html %>
     <%= render "home/hot_nodes" %>
     <%= render "home/tabbable" %>
+    <%= raw Setting.index_footer_card_html %>
   </div>
   <div class="col-md-3 home-side-bar">
     <%= render "home/sidebar_for_home_index" %>

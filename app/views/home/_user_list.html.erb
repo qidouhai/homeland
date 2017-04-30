@@ -1,0 +1,19 @@
+<% cache :hall_of_fames, :expires_in => 1.day do %>
+    <div class="row">
+      <% @users.each do |user| %>
+          <% cache user do %>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="media user-card">
+                  <div class="media-left"><%= user_avatar_tag(user, :md) %></div>
+                  <div class="media-body">
+                    <div class="media-heading"><%= user_name_tag(user) %></div>
+                    <div class="infos">
+                      <div class="item opts"><%= follow_user_tag(user, class: "") %></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>
