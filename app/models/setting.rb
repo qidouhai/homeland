@@ -21,6 +21,8 @@ class Setting < RailsSettings::Base
     topic_list_top_html
     after_topic_html
     before_topic_html
+    before_wechat_html
+    after_wechat_html
     node_ids_hide_in_topics_index
     reject_newbie_reply_in_the_evening
     newbie_limit_time

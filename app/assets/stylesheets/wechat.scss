@@ -217,6 +217,11 @@ table tr th {
   background-color: #F0F0F0;
 }
 
+// 超链接粘贴后都会失效，干脆去掉蓝色底和下划线，让它长得不像超链接
+a {
+  color: black;
+  text-decoration: none;
+}
 
 /*Syntax Highlighting CSS*/
 
