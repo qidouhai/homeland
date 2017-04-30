@@ -38,6 +38,10 @@ class Node < ApplicationRecord
     20
   end
 
+  def self.job_id
+    19
+  end
+
   # 是否 Summary 过多需要折叠
   def collapse_summary?
     @collapse_summary ||= self.summary_html.scan(/\<p\>|\<ul\>/).size > 2

@@ -1,0 +1,73 @@
+<div class="tabbable">
+  <ul class="nav nav-tabs nav-tabs-home">
+    <li class="active"><a href="#latest" data-toggle="tab">最新帖子</a></li>
+    <li><a href="#excellent" data-toggle="tab">精华帖子</a></li>
+    <li><a href="#qanda" data-toggle="tab">最新问答</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="latest">
+      <div class="home_suggest_topics panel panel-default">
+        <div class="panel-body topics row">
+          <%
+            odd_topics, even_topics = @latest_topics.partition.each_with_index { |t, i| i.odd? }
+          %>
+          <div class="col-md-6">
+            <% cache([odd_topics, "odd"]) do %>
+                <%= render partial: "home/topic", collection: odd_topics, locals: {suggest: false} %>
+            <% end %>
+          </div>
+          <div class="col-md-6">
+            <% cache([even_topics, "even"]) do %>
+                <%= render partial: "home/topic", collection: even_topics, locals: {suggest: false} %>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "查看更多...", recent_topics_path %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="excellent">
+      <div class="home_suggest_topics panel panel-default">
+        <div class="panel-body topics row">
+          <% cache(["home_suggest_topics", @excellent_topics]) do %>
+              <%
+                odd_topics, even_topics = @excellent_topics.partition.each_with_index { |t, i| i.odd?  }
+              %>
+              <div class="col-md-6 topics-group">
+                <%= render partial: "home/topic", collection: odd_topics, locals: { suggest: false } %>
+              </div>
+              <div class="col-md-6 topics-group">
+                <%= render partial: "home/topic", collection: even_topics, locals: { suggest: false } %>
+              </div>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "查看更多精华帖...", excellent_topics_path %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="qanda">
+      <div class="home_suggest_topics panel panel-default">
+        <div class="panel-body topics row">
+          <%
+            odd_topics, even_topics = @question_topics.partition.each_with_index { |t, i| i.odd? }
+          %>
+          <div class="col-md-6">
+            <% cache([odd_topics, "odd"]) do %>
+                <%= render partial: "home/topic", collection: odd_topics, locals: {suggest: false} %>
+            <% end %>
+          </div>
+          <div class="col-md-6">
+            <% cache([even_topics, "even"]) do %>
+                <%= render partial: "home/topic", collection: even_topics, locals: {suggest: false} %>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "查看更多...", questions_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

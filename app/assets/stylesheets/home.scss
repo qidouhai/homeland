@@ -99,3 +99,32 @@ h2 {
     }
   }
 }
+
+.job_topic {
+  padding: 10px;
+  border-bottom: 1px solid #F0F0F0;
+  vertical-align: top;
+  .info {
+    color: #ABA8A6;
+    font-size: 12px;
+    a {
+      color: #ABA8A6;
+    }
+  }
+}
+.job_topic:last-child {
+  border-bottom: 0px;
+}
+
+.nav-tabs-home {
+  background-color: white;
+  border-bottom: none;
+  margin: 0px;
+  li a:hover,
+  li.active a,
+  li.active a:focus,
+  li.active a:hover { border: none; border-bottom:3px solid $blue; color: $blue; background: transparent; padding-bottom: 12px;}
+}
+.home-side-bar {
+  padding-left: 0px;
+}

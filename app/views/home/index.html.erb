@@ -1,92 +1,20 @@
 <% if mobile? %>
-  <div class="container">
-    <form id="mobile-search-form" class="form-horizontal" action="/search" method="GET">
-      <input class="form-control" name="q" type="text" value="<%= params[:q] %>" placeholder="搜索本站内容"/>
-    </form>
-  </div>
-<%end%>
+    <div class="container">
+      <form id="mobile-search-form" class="form-horizontal" action="/search" method="GET">
+        <input class="form-control" name="q" type="text" value="<%= params[:q] %>" placeholder="搜索本站内容"/>
+      </form>
+    </div>
+<% end %>
 
 <%= raw Setting.index_html %>
 
-<% if !@suggest_topics.blank? %>
-
-<div class="home_suggest_topics panel panel-default">
-
-  <div class="panel-heading">置顶帖子</div>
-  <div class="panel-body topics row">
-    <%
-      odd_topics, even_topics = @suggest_topics.partition.each_with_index { |t, i| i.odd?  }
-    %>
-
-    <div class="col-md-6">
-      <% cache([even_topics, "even"]) do %>
-          <%= render partial: "topics/topic", collection: even_topics, locals: { suggest: true } %>
-      <% end %>
-    </div>
-
-    <div class="col-md-6">
-      <% cache([odd_topics, "odd"]) do %>
-          <%= render partial: "topics/topic", collection: odd_topics, locals: { suggest: true } %>
-      <% end %>
-    </div>
-
-
-
+<div class="row">
+  <div class="col-md-9">
+    <%= render "/shared/hot_locations" %>
+    <%= render "home/hot_nodes" %>
+    <%= render "home/tabbable" %>
+  </div>
+  <div class="col-md-3 home-side-bar">
+    <%= render "home/sidebar_for_home_index" %>
   </div>
 </div>
-
-<% end %>
-
-<div class="home_suggest_topics panel panel-default">
-
-  <div class="panel-heading">最新帖子</div>
-  <div class="panel-body topics row">
-    <%
-      odd_topics, even_topics = @latest_topics.partition.each_with_index { |t, i| i.odd?  }
-    %>
-    <div class="col-md-6">
-      <% cache([odd_topics, "odd"]) do %>
-          <%= render partial: "topics/topic", collection: odd_topics, locals: { suggest: false } %>
-      <% end %>
-    </div>
-
-    <div class="col-md-6">
-      <% cache([even_topics, "even"]) do %>
-          <%= render partial: "topics/topic", collection: even_topics, locals: { suggest: false } %>
-      <% end %>
-    </div>
-  </div>
-  <div class="panel-footer">
-    <%= link_to "查看更多...", recent_topics_path %>
-  </div>
-</div>
-
-<%= raw Setting.index_roll_card_html %>
-
-<div class="home_suggest_topics panel panel-default">
-  <div class="panel-heading">社区精华帖</div>
-  <div class="panel-body topics row">
-    <% cache(["home_suggest_topics", @excellent_topics]) do %>
-    <%
-      odd_topics, even_topics = @excellent_topics.partition.each_with_index { |t, i| i.odd?  }
-    %>
-    <div class="col-md-6 topics-group">
-      <%= render partial: "topics/topic", collection: odd_topics, locals: { suggest: false } %>
-    </div>
-
-    <div class="col-md-6 topics-group">
-      <%= render partial: "topics/topic", collection: even_topics, locals: { suggest: false } %>
-    </div>
-    <% end %>
-  </div>
-  <div class="panel-footer">
-    <%= link_to "查看更多精华帖...", excellent_topics_path %>
-  </div>
-</div>
-
-<%= raw Setting.index_footer_card_html %>
-
-<% if !mobile? %>
-  <%= render "/shared/index_sections" %>
-  <%= render "/shared/hot_locations" %>
-<% end %>

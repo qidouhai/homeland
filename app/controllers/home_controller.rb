@@ -2,7 +2,11 @@ class HomeController < ApplicationController
   def index
     @excellent_topics = Topic.excellent.recent.fields_for_list.limit(20).to_a
     @suggest_topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(4).to_a
-    @latest_topics = Topic.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(10).to_a
+    @latest_topics = Topic.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(20).to_a
+    @job_node = Node.find(Node.job_id)
+    @job_topics = @job_node.topics.last_actived.without_hide_nodes.fields_for_list.limit(4).to_a
+    @question_node = Node.find(Node.questions_id)
+    @question_topics = @question_node.topics.last_actived.without_hide_nodes.fields_for_list.limit(20).to_a
   end
 
   def uploads

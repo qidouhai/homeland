@@ -51,6 +51,12 @@ body {
   padding-top: 65px;
 }
 
+@media (min-width: 1200px) {
+  .container{
+    width: 1200px;
+  }
+}
+
 .header {
   .navbar {
     background-color: #FFF;

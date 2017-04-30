@@ -1,0 +1,25 @@
+<% if !@suggest_topics.blank? %>
+
+    <div class="home_suggest_topics panel panel-default">
+      <div class="panel-heading">头条</div>
+      <div class="panel-body topics row">
+          <% cache([@suggest_topics, "suggest"]) do %>
+              <%= render partial: "home/job_topic", collection: @suggest_topics, locals: {suggest: true} %>
+          <% end %>
+      </div>
+    </div>
+
+<% end %>
+<% if Setting.has_module?(:jobs) %>
+    <div class="home_suggest_topics panel panel-default">
+      <div class="panel-heading">最新招聘</div>
+      <div class="panel-body topics row">
+        <% cache([@job_topics, "jobs"]) do %>
+            <%= render partial: "home/job_topic", collection: @job_topics, locals: {suggest: false} %>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "更多招聘...", Homeland.plugins.select { |plugin| plugin.name == 'jobs' }[0].root_path %>
+      </div>
+    </div>
+<% end %>
