@@ -1,8 +1,8 @@
-<% cache :hall_of_fames, :expires_in => 1.day do %>
+<% cache :hall_of_fames, :expires_in => 1.hour do %>
     <div class="row">
       <% @users.each do |user| %>
           <% cache user do %>
-              <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="col-xs-6 col-sm-3 col-md-3">
                 <div class="media user-card">
                   <div class="media-left"><%= user_avatar_tag(user, :md) %></div>
                   <div class="media-body">

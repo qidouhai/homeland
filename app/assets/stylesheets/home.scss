@@ -105,14 +105,30 @@ h2 {
 
 
 .home-main {
-  .nav-tabs-home {
-    background-color: white;
-    border-bottom: none;
+  .collapse {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .nav-tabs-menu {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #fafafa;
+    border: none;
     margin: 0px;
+    li a {
+      border: none;
+    }
     li a:hover,
     li.active a,
     li.active a:focus,
-    li.active a:hover { border: none; border-bottom:3px solid $blue; color: $blue; background: transparent; padding-bottom: 12px;}
+    li.active a:hover { border: none; border-bottom:3px solid $blue; color: $blue; background: transparent; border-radius: 0px;}
+    li:first-child { margin-left: 0px; }
+  }
+  .tabbable{
+    .panel {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
   }
   .fa-map-marker, .fa-anchor{
     color: red;
