@@ -1,18 +1,11 @@
 <% cache :hall_of_fames, :expires_in => 1.hour do %>
-    <div class="row">
+    <div class="users-label">
       <% @users.each do |user| %>
           <% cache user do %>
-              <div class="col-xs-6 col-sm-3 col-md-3">
-                <div class="media user-card">
-                  <div class="media-left"><%= user_avatar_tag(user, :md) %></div>
-                  <div class="media-body">
-                    <div class="media-heading"><%= user_name_tag(user) %></div>
-                    <div class="infos">
-                      <div class="item opts"><%= follow_user_tag(user, class: "") %></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <a class="users-label-item" href="<%= user_path(user) %>" title="<%= user.name %>">
+                <img class="avatar-small inline-block" src="<%= user.avatar.url(:sm) %>">
+                <%= user.login %>
+              </a>
           <% end %>
       <% end %>
     </div>

@@ -1,3 +1,10 @@
+<div id="hall-of-fames" class="panel panel-default">
+  <div class="panel-heading">活跃用户 <i class='fa fa-fire'></i>（名人堂）</div>
+  <div class="panel-body">
+    <%= render "home/user_list"%>
+  </div>
+</div>
+
 <% if !@suggest_topics.blank? %>
 
     <div class="home_suggest_topics panel panel-default">
@@ -23,3 +30,5 @@
       </div>
     </div>
 <% end %>
+
+<%= render "/shared/hot_locations" %>

@@ -101,7 +101,9 @@ h2 {
 }
 
 
-
+.fa-map-marker, .fa-anchor, .fa-fire{
+  color: red;
+}
 
 
 .home-main {
@@ -130,10 +132,6 @@ h2 {
       border-top-right-radius: 0px;
     }
   }
-  .fa-map-marker, .fa-anchor{
-    color: red;
-  }
-
 }
 
 .home-side-bar {
@@ -153,6 +151,28 @@ h2 {
   .job_topic:last-child {
     border-bottom: 0px;
   }
+
+  #hall-of-fames {
+    .users-label {
+      text-align: center;
+    }
+    a.users-label-item {
+      border: 1px solid rgba(52, 52, 53, 0.23);
+      display: inline-block;
+      border-radius: 23px;
+      padding: 0px 9px 0px 0px;
+      margin: 3px;
+      color: rgba(0, 0, 0, 0.87);
+      text-decoration: none;
+    }
+    a.users-label-item img {
+      border-radius: 50%;
+      margin-right: 4px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
 
   .ticker-headline {
     overflow: hidden;
