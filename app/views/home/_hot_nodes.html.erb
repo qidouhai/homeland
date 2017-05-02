@@ -1,6 +1,6 @@
 <% cache(["hot-nodes",Time.now.strftime("%Y-%m-%d")]) do %>
     <div class="index-locations panel panel-default">
-      <div class="panel-heading"><%=t("common.hot_nodes")%> <i class="fa fa-anchor"></i> </div>
+      <div class="panel-heading"><%=t("common.hot_nodes")%></div>
       <div class="panel-body location-list" style="text-align:center;">
         <% Node.hots.limit(20).each do |node| %>
             <span class="name"><%= link_to(node.name, main_app.node_topics_path(node), title: node.name, data: { id: node.id })%></span>
