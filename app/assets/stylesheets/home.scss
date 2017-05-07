@@ -135,9 +135,12 @@ h2 {
 }
 
 .home-side-bar {
+  a:hover {
+    text-decoration: none;
+  }
   padding-left: 0px;
-  .job_topic {
-    padding: 10px;
+  .sidebar_topic {
+    padding: 2px;
     border-bottom: 1px solid #F0F0F0;
     vertical-align: top;
     .info {
@@ -147,8 +150,22 @@ h2 {
         color: #ABA8A6;
       }
     }
+    .title {
+      margin-bottom: 4px;
+      line-height: 18px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .avatar-small {
+      width: 28px;
+      height: 28px;
+    }
   }
-  .job_topic:last-child {
+  .sidebar_topic:last-child {
     border-bottom: 0px;
   }
 
