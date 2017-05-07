@@ -1,7 +1,7 @@
 <div id="hall-of-fames" class="panel panel-default">
   <div class="panel-heading">活跃用户 <i class='fa fa-fire'></i>（名人堂）</div>
   <div class="panel-body">
-    <%= render "home/user_list"%>
+    <%= render "home/user_list" %>
   </div>
 </div>
 
@@ -9,21 +9,22 @@
     <div class="home_suggest_topics panel panel-default">
       <div class="panel-heading">头条</div>
       <div class="panel-body">
-          <% cache([@suggest_topics, "suggest"]) do %>
-              <%= render partial: "home/sidebar_topic", collection: @suggest_topics, locals: {suggest: true, show_nu: false, show_avatar: true} %>
-          <% end %>
+        <% cache([@suggest_topics, "suggest"]) do %>
+            <%= render partial: "home/sidebar_topic", collection: @suggest_topics, locals: {suggest: true, show_nu: false, show_avatar: true} %>
+        <% end %>
       </div>
     </div>
 <% end %>
 
-<div class="home_suggest_topics panel panel-default">
-  <div class="panel-heading">七日最热 Top10</div>
-  <div class="panel-body">
-    <% cache([@hot_topics, "hot_topics"]) do %>
-        <%= render partial: "home/sidebar_topic", collection: @hot_topics, locals: {suggest: false, show_nu: true, show_avatar: false} %>
-    <% end %>
-  </div>
-</div>
-
+<% if !@hot_topics.blank? %>
+    <div class="home_suggest_topics panel panel-default">
+      <div class="panel-heading">七日最热 Top10</div>
+      <div class="panel-body">
+        <% cache([@hot_topics, "hot_topics"]) do %>
+            <%= render partial: "home/sidebar_topic", collection: @hot_topics, locals: {suggest: false, show_nu: true, show_avatar: false} %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
 
 <%= render "/shared/hot_locations" %>
