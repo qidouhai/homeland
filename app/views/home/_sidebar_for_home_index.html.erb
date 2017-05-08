@@ -7,7 +7,7 @@
 
 <% if !@suggest_topics.blank? %>
     <div class="home_suggest_topics panel panel-default">
-      <div class="panel-heading">头条</div>
+      <div class="panel-heading">置顶帖子 <i class="fa fa-thumb-tack" title="置顶"></i></div>
       <div class="panel-body">
         <% cache([@suggest_topics, "suggest"]) do %>
             <%= render partial: "home/sidebar_topic", collection: @suggest_topics, locals: {suggest: true, show_nu: false, show_avatar: true} %>

@@ -101,7 +101,7 @@ h2 {
 }
 
 
-.fa-map-marker, .fa-anchor, .fa-fire{
+.fa-map-marker, .fa-anchor, .fa-fire, .fa-thumb-tack{
   color: red;
 }
 
@@ -163,6 +163,11 @@ h2 {
     .avatar-small {
       width: 28px;
       height: 28px;
+    }
+
+    .top3 {
+      color: white;
+      background-color: red;
     }
   }
   .sidebar_topic:last-child {
