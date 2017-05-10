@@ -722,3 +722,6 @@ img.emoji { width:20px; height:20px; }
     i.fa { color: #aaa; }
   }
 }
+.wxshare {
+  overflow:hidden; width:0px; height:0; margin:0 auto; position:absolute; top:-800px;
+}
