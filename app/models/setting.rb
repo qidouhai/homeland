@@ -15,6 +15,7 @@ class Setting < RailsSettings::Base
     index_roll_card_html
     index_footer_card_html
     index_sidebar_top_html
+    index_sidebar_bottom_html
     wiki_index_html
     wiki_sidebar_html
     site_index_html
