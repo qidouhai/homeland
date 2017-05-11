@@ -12,9 +12,7 @@
     <div class="home_suggest_topics panel panel-default">
       <div class="panel-heading">七日最热 Top10</div>
       <div class="panel-body">
-        <% cache([@hot_topics, "hot_topics"]) do %>
-            <%= render partial: "home/sidebar_topic", collection: @hot_topics, locals: {suggest: false, show_nu: true, show_avatar: false} %>
-        <% end %>
+          <%= render partial: "home/sidebar_topic", collection: @hot_topics, locals: {suggest: false, show_nu: true, show_avatar: false} %>
       </div>
     </div>
 <% end %>

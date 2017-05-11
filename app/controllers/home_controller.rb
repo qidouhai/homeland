@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     @hot_topics = Topic.without_hide_nodes.in_seven_days.high_replies.no_suggest.fields_for_list.limit(10).to_a
     @question_node = Node.find(Node.questions_id)
     @question_topics = @question_node.topics.last_actived.without_hide_nodes.no_suggest.fields_for_list.limit(10).to_a
-    @users = User.normal.without_team.hot.limit(100).select { |user| user.topics.excellent.size >= 8 and user.id != 110 }[0..9]
+    @users = User.normal.without_team.hot.limit(100).select { |user| user.topics.excellent.size >= 8 and (not user.admin?) }[0..9]
   end
 
   def uploads

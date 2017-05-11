@@ -1,20 +1,18 @@
-<% cache([sidebar_topic, sidebar_topic.user_avatar_raw, suggest]) do %>
-    <div class="sidebar_topic topic-<%= sidebar_topic.id %>">
-      <div class="title">
-        <% if show_nu %>
-            <% if sidebar_topic_counter < 3 %>
-                <span class="label label-default top3"><%= sidebar_topic_counter + 1 %></span></a>
-            <% else %>
-                <span class="label label-default"><%= sidebar_topic_counter + 1 %></span></a>
-            <% end %>
+<div class="sidebar_topic topic-<%= sidebar_topic.id %>">
+  <div class="title">
+    <% if show_nu %>
+        <% if sidebar_topic_counter < 3 %>
+            <span class="label label-default top3"><%= sidebar_topic_counter + 1 %></span></a>
+        <% else %>
+            <span class="label label-default"><%= sidebar_topic_counter + 1 %></span></a>
         <% end %>
+    <% end %>
 
-        <% if show_avatar %>
-            <img class="avatar-small" src="<%= sidebar_topic.user.avatar.url(:sm) %>">
-        <% end %>
-        <%= link_to(main_app.topic_path(sidebar_topic), title: sidebar_topic.title) do %>
-            <%= sidebar_topic.title %>
-        <% end %>
-      </div>
-    </div>
-<% end %>
+    <% if show_avatar %>
+        <img class="avatar-small" src="<%= sidebar_topic.user.avatar.url(:sm) %>">
+    <% end %>
+    <%= link_to(main_app.topic_path(sidebar_topic), title: sidebar_topic.title) do %>
+        <%= sidebar_topic.title %>
+    <% end %>
+  </div>
+</div>
