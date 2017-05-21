@@ -56,7 +56,7 @@ class Topic < ApplicationRecord
   scope :exclude_column_ids, ->(column, ids) { ids.empty? ? all : where.not(column => ids) }
 
   scope :in_seven_days,         ->{ where('created_at >= ?', 1.week.ago) }
-
+  scope :open, -> { where('closed_at IS NULL').order(created_at: :desc) }
   scope :without_nodes, lambda { |node_ids|
     ids = node_ids + Topic.topic_index_hide_node_ids
     ids.uniq!

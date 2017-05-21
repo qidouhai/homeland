@@ -17,6 +17,15 @@
     </div>
 <% end %>
 
+<% if !@open_bugs.blank? %>
+    <div class="home_suggest_topics panel panel-default">
+      <div class="panel-heading">最新 bug <i class="fa fa-bug" aria-hidden="true"></i></div>
+      <div class="panel-body">
+        <%= render partial: "home/sidebar_topic", collection: @open_bugs, locals: {suggest: false, show_nu: true, show_avatar: false} %>
+      </div>
+    </div>
+<% end %>
+
 <%= raw Setting.index_sidebar_bottom_html %>
 
 <%= render "home/hot_nodes" %>
