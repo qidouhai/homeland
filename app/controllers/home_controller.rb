@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @excellent_topics = Topic.no_suggest.excellent.recent.fields_for_list.limit(18).to_a
+    @excellent_topics = Topic.no_suggest.excellent.recent.fields_for_list.limit(20).to_a
     @suggest_topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(4).to_a
-    @latest_topics = Topic.no_suggest.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(8).to_a
+    @latest_topics = Topic.no_suggest.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(6).to_a
     @hot_topics = Topic.without_hide_nodes.in_seven_days.high_replies.no_suggest.fields_for_list.limit(10).to_a
     @users = User.normal.without_team.hot.limit(100).select { |user| user.topics.excellent.size >= 8 and (not user.admin?) }[0..9]
     bugs_node = Node.find_by_id Node.bugs_id

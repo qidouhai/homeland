@@ -28,11 +28,6 @@
 
 <%= raw Setting.index_sidebar_bottom_html %>
 
-<%= render "home/hot_nodes" %>
-
-<%= render "/shared/hot_locations" %>
-
-
 <% cache(["sidebar_statistics",Time.now.strftime("%Y-%m-%d %H")]) do %>
     <div class="panel panel-default">
       <div class="panel-heading"><%= t("common.statics")%></div>
