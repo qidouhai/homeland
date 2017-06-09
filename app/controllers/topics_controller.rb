@@ -23,7 +23,7 @@ class TopicsController < ApplicationController
         end
     @topics = @topics.fields_for_list
     @topics = @topics.page(params[:page])
-    @page_title = t('menu.topics')
+    @page_title = t("menu.topics")
     @read_topic_ids = []
     if current_user
       @read_topic_ids = current_user.filter_readed_topics(@topics + @suggest_topics)
@@ -40,8 +40,8 @@ class TopicsController < ApplicationController
     @topics = @node.topics.last_actived.fields_for_list
     @topics = @topics.includes(:user).page(params[:page])
     @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
-    @page_title = [@node.name, t('menu.topics')].join(' · ')
-    render action: 'index'
+    @page_title = [@node.name, t("menu.topics")].join(" · ")
+    render action: "index"
   end
 
   def node_feed
@@ -55,8 +55,8 @@ class TopicsController < ApplicationController
       @topics = Topic.without_hide_nodes.send(name.to_sym).last_actived.fields_for_list.includes(:user)
       @topics = @topics.page(params[:page])
 
-      @page_title = [t("topics.topic_list.#{name}"), t('menu.topics')].join(' · ')
-      render action: 'index'
+      @page_title = [t("topics.topic_list.#{name}"), t("menu.topics")].join(" · ")
+      render action: "index"
     end
   end
 
@@ -64,22 +64,22 @@ class TopicsController < ApplicationController
   def favorites
     @topics = current_user.favorite_topics.includes(:user).order('actions.id desc')
     @topics = @topics.page(params[:page])
-    render action: 'index'
+    render action: "index"
   end
 
   def recent
     @topics = Topic.without_hide_nodes.recent.fields_for_list.includes(:user)
     @topics = @topics.page(params[:page])
-    @page_title = [t('topics.topic_list.recent'), t('menu.topics')].join(' · ')
-    render action: 'index'
+    @page_title = [t("topics.topic_list.recent"), t("menu.topics")].join(" · ")
+    render action: "index"
   end
 
   def excellent
     @topics = Topic.excellent.recent.fields_for_list.includes(:user)
     @topics = @topics.page(params[:page])
 
-    @page_title = [t('topics.topic_list.excellent'), t('menu.topics')].join(' · ')
-    render action: 'index'
+    @page_title = [t("topics.topic_list.excellent"), t("menu.topics")].join(" · ")
+    render action: "index"
   end
 
   def show
@@ -97,7 +97,7 @@ class TopicsController < ApplicationController
 
     @topic.hits.incr(1)
     @node = @topic.node
-    @show_raw = params[:raw] == '1'
+    @show_raw = params[:raw] == "1"
     @can_reply = can?(:create, Reply)
 
     @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
@@ -177,103 +177,103 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic.destroy_by(current_user)
-    redirect_to(topics_path, notice: t('topics.delete_topic_success'))
+    redirect_to(topics_path, notice: t("topics.delete_topic_success"))
   end
 
   def favorite
     current_user.favorite_topic(params[:id])
-    render plain: '1'
+    render plain: "1"
   end
 
   def unfavorite
     current_user.unfavorite_topic(params[:id])
-    render plain: '1'
+    render plain: "1"
   end
 
   def follow
     current_user.follow_topic(@topic)
-    render plain: '1'
+    render plain: "1"
   end
 
   def unfollow
     current_user.unfollow_topic(@topic)
-    render plain: '1'
+    render plain: "1"
   end
 
   def action
     authorize! params[:type].to_sym, @topic
 
     case params[:type]
-    when 'excellent'
+    when "excellent"
       @topic.excellent!
-      redirect_to @topic, notice: '加精成功。'
-    when 'unexcellent'
-      @topic.unexcellent!
-      redirect_to @topic, notice: '加精已经取消。'
-    when 'ban'
-      params[:reason_text] ||= params[:reason] || ''
-      @topic.ban!(reason: params[:reason_text].strip)
-      if current_user.admin?
-        @topic.update_attributes(modified_admin: current_user)
+      redirect_to @topic, notice: "加精成功。"
+    when "unexcellent"
+        @topic.unexcellent!
+        redirect_to @topic, notice: "加精已经取消。"
+      when "ban"
+        params[:reason_text] ||= params[:reason] || ""
+        @topic.ban!(reason: params[:reason_text].strip)
+        if current_user.admin?
+          @topic.update_attributes(modified_admin: current_user)
+        end
+        redirect_to @topic, notice: '已转移到违规处理区节点。'
+      when 'close'
+        @topic.close!
+        if current_user.admin?
+          @topic.update_attributes(modified_admin: current_user)
+        end
+        redirect_to @topic, notice: '话题已关闭，将不再接受任何新的回复。'
+      when 'open'
+        @topic.open!
+        if current_user.admin?
+          @topic.update_attributes(modified_admin: current_user)
+        end
+        redirect_to @topic, notice: '话题已重启开启。'
       end
-      redirect_to @topic, notice: '已转移到违规处理区节点。'
-    when 'close'
-      @topic.close!
-      if current_user.admin?
-        @topic.update_attributes(modified_admin: current_user)
-      end
-      redirect_to @topic, notice: '话题已关闭，将不再接受任何新的回复。'
-    when 'open'
-      @topic.open!
-      if current_user.admin?
-        @topic.update_attributes(modified_admin: current_user)
-      end
-      redirect_to @topic, notice: '话题已重启开启。'
     end
-  end
 
-  def ban
-    authorize! :ban, @topic
-  end
+    def ban
+      authorize! :ban, @topic
+    end
 
-  private
+    private
 
-  def set_topic
-    @topic ||= Topic.find(params[:id])
-  end
+    def set_topic
+      @topic ||= Topic.find(params[:id])
+    end
 
-  def topic_params
-    params.require(:topic).permit(:title, :body, :node_id, :team_id, :cannot_be_shared)
-  end
+    def topic_params
+      params.require(:topic).permit(:title, :body, :node_id, :team_id, :cannot_be_shared)
+    end
 
-  def ability_team_id
-    team = Team.find_by_id(topic_params[:team_id])
-    return nil if team.blank?
-    return nil if cannot?(:show, team)
-    team.id
-  end
+    def ability_team_id
+      team = Team.find_by_id(topic_params[:team_id])
+      return nil if team.blank?
+      return nil if cannot?(:show, team)
+      team.id
+    end
 
-  def check_current_user_status_for_topic
-    return false unless current_user
-    # 通知处理
-    current_user.read_topic(@topic, replies_ids: @replies.collect(&:id))
-    # 是否关注过
-    @has_followed = current_user.follow_topic?(@topic)
-    # 是否收藏
-    @has_favorited = current_user.favorite_topic?(@topic)
-  end
+    def check_current_user_status_for_topic
+      return false unless current_user
+      # 通知处理
+      current_user.read_topic(@topic, replies_ids: @replies.collect(&:id))
+      # 是否关注过
+      @has_followed = current_user.follow_topic?(@topic)
+      # 是否收藏
+      @has_favorited = current_user.favorite_topic?(@topic)
+    end
 
-  def set_special_node_active_menu
-    if Setting.has_module?(:jobs)
-      # FIXME: Monkey Patch for homeland-jobs
-      if @node&.id == 19
-        @current = ['/jobs']
-      elsif @node&.id == 47
-        @current = ['/bugs']
-      elsif @node&.id == Node.questions_id
-        @current = ['/questions']
-      elsif @node&.id == 67
-        @current = ['/opencourses']
+    def set_special_node_active_menu
+      if Setting.has_module?(:jobs)
+        # FIXME: Monkey Patch for homeland-jobs
+        if @node&.id == 19
+          @current = ['/jobs']
+        elsif @node&.id == 47
+          @current = ['/bugs']
+        elsif @node&.id == Node.questions_id
+          @current = ['/questions']
+        elsif @node&.id == 67
+          @current = ['/opencourses']
       end
     end
   end

@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_action :authenticate_user!, only: [:users]
 
   def index
-    params[:q] ||= ''
+    params[:q] ||= ""
 
     search_modules = [Topic, User]
     search_modules << Page if Setting.has_module?(:wiki)

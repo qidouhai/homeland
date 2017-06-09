@@ -13,9 +13,9 @@ module Api
       # @param offset [Integer] default: 0
       # @param limit [Integer] default: 20, range: 1..150
       #
-      # @return [Array<TopicTopicSerializer>]
+      # @return [Array<TopicSerializer>]
       def index
-        optional! :type, default: 'last_actived'
+        optional! :type, default: "last_actived"
         optional! :node_id
         optional! :offset, default: 0
         optional! :limit, default: 20, values: 1..150
@@ -38,7 +38,7 @@ module Api
         @topics = @topics.fields_for_list.includes(:user).send(scope_method_by_type)
         if %w(no_reply popular).index(params[:type])
           @topics = @topics.last_actived
-        elsif params[:type] == 'excellent'
+        elsif params[:type] == "excellent"
           @topics = @topics.recent
         end
         @topics = @topics.without_suggest.offset(params[:offset]).limit(params[:limit])
@@ -90,13 +90,13 @@ module Api
         requires! :body
         requires! :node_id
 
-        raise AccessDenied.new('当前登录的用户没有发帖权限，具体请参考官网的相关说明。') unless can?(:create, Topic)
+        raise AccessDenied.new("当前登录的用户没有发帖权限，具体请参考官网的相关说明。") unless can?(:create, Topic)
 
         @topic = current_user.topics.new(title: params[:title], body: params[:body])
         @topic.node_id = params[:node_id]
         @topic.save!
 
-        render 'show'
+        render "show"
       end
 
       # 更新话题
@@ -127,7 +127,7 @@ module Api
         @topic.body = params[:body]
         @topic.save!
 
-        render 'show'
+        render "show"
       end
 
       # 删除话题
@@ -180,11 +180,10 @@ module Api
           end
         end
         raise AccessDenied.new('当前用户没有回帖权限，具体请参考官网的说明。') unless can?(:create, Reply)
-
         @reply = @topic.replies.build(body: params[:body])
         @reply.user_id = current_user.id
         @reply.save!
-        render 'api/v3/replies/show'
+        render "api/v3/replies/show"
       end
 
       # 关注话题
@@ -224,7 +223,7 @@ module Api
       #
       # POST /api/v3/topics/:id/ban
       def ban
-        raise AccessDenied.new('当前用户没有屏蔽别人话题的权限，具体请参考官网的说明。') unless can?(:ban, @topic)
+        raise AccessDenied.new("当前用户没有屏蔽别人话题的权限，具体请参考官网的说明。") unless can?(:ban, @topic)
         @topic.ban!
         render json: { ok: 1 }
       end
@@ -238,15 +237,15 @@ module Api
         raise AccessDenied unless can?(params[:type].to_sym, @topic)
 
         case params[:type]
-        when 'excellent'
+        when "excellent"
           @topic.excellent!
-        when 'unexcellent'
+        when "unexcellent"
           @topic.unexcellent!
-        when 'ban'
+        when "ban"
           @topic.ban!
-        when 'close'
+        when "close"
           @topic.close!
-        when 'open'
+        when "open"
           @topic.open!
         end
         render json: { ok: 1 }
@@ -260,11 +259,11 @@ module Api
 
       def scope_method_by_type
         case params[:type]
-        when 'last_actived' then :last_actived
-        when 'recent' then :recent
-        when 'no_reply' then :no_reply
-        when 'popular' then :popular
-        when 'excellent' then :excellent
+        when "last_actived" then :last_actived
+        when "recent" then :recent
+        when "no_reply" then :no_reply
+        when "popular" then :popular
+        when "excellent" then :excellent
         else
           :last_actived
         end
