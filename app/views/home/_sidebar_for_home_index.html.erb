@@ -1,13 +1,5 @@
 <%= raw Setting.index_sidebar_top_html %>
 
-<div id="hall-of-fames" class="panel panel-default">
-  <div class="panel-heading">活跃用户 <i class='fa fa-fire'></i>（名人堂）</div>
-  <div class="panel-body">
-    <%= render "home/user_list" %>
-  </div>
-</div>
-
-
 <% if !@hot_topics.blank? %>
     <div class="home_suggest_topics panel panel-default">
       <div class="panel-heading">七日最热 Top10</div>
@@ -25,6 +17,13 @@
       </div>
     </div>
 <% end %>
+
+<div id="hall-of-fames" class="panel panel-default">
+  <div class="panel-heading">活跃用户 <i class='fa fa-fire'></i>（名人堂）</div>
+  <div class="panel-body">
+    <%= render "home/user_list" %>
+  </div>
+</div>
 
 <%= raw Setting.index_sidebar_bottom_html %>
 
