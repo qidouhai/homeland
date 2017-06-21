@@ -1,12 +1,12 @@
-require 'auto-space'
+require "auto-space"
 
 CORRECT_CHARS = [
-  ['［', '['],
-  ['］', ']'],
-  ['【', '['],
-  ['】', ']'],
-  ['（', '('],
-  ['）', ')']
+  ["［", "["],
+  ["］", "]"],
+  ["【", "["],
+  ["】", "]"],
+  ["（", "("],
+  ["）", ")"]
 ]
 
 class Topic < ApplicationRecord
@@ -27,9 +27,9 @@ class Topic < ApplicationRecord
   belongs_to :user, inverse_of: :topics, counter_cache: true
   belongs_to :team, counter_cache: true
   belongs_to :node, counter_cache: true
-  belongs_to :last_reply_user, class_name: 'User'
-  belongs_to :last_reply, class_name: 'Reply'
-  has_many :replies, dependent: :destroy
+  belongs_to :last_reply_user, class_name: "User"
+  belongs_to :last_reply, class_name: "Reply"
+  has_many :replies
 
   validates :user_id, :title, :body, :node_id, presence: true
 
@@ -47,25 +47,25 @@ class Topic < ApplicationRecord
   scope :with_replies_or_likes,       -> { where('replies_count >= 1 or likes_count >= 1') }
   scope :high_replies,       -> { order(replies_count: :desc).order(id: :desc) }
   scope :no_reply,           -> { where(replies_count: 0) }
-  scope :popular,            -> { where('likes_count > 5') }
-  scope :excellent,          -> { where('excellent >= 1') }
-  scope :without_hide_nodes, -> { exclude_column_ids('node_id', Topic.topic_index_hide_node_ids) }
+  scope :popular,            -> { where("likes_count > 5") }
+  scope :excellent,          -> { where("excellent >= 1") }
+  scope :without_hide_nodes, -> { exclude_column_ids("node_id", Topic.topic_index_hide_node_ids) }
 
-  scope :without_node_ids,   ->(ids) { exclude_column_ids('node_id', ids) }
-  scope :without_users,      ->(ids) { exclude_column_ids('user_id', ids) }
+  scope :without_node_ids,   ->(ids) { exclude_column_ids("node_id", ids) }
+  scope :without_users,      ->(ids) { exclude_column_ids("user_id", ids) }
   scope :exclude_column_ids, ->(column, ids) { ids.empty? ? all : where.not(column => ids) }
 
   scope :in_seven_days,         ->{ where('created_at >= ?', 1.week.ago) }
-
+  scope :open, -> { where('closed_at IS NULL').order(created_at: :desc) }
   scope :without_nodes, lambda { |node_ids|
     ids = node_ids + Topic.topic_index_hide_node_ids
     ids.uniq!
-    exclude_column_ids('node_id', ids)
+    exclude_column_ids("node_id", ids)
   }
 
   mapping do
-    indexes :title, term_vector: :yes
-    indexes :body, term_vector: :yes
+    indexes :title, type: :string, term_vector: :yes
+    indexes :body,  type: :string, term_vector: :yes
   end
 
   def as_indexed_json(_options = {})
@@ -84,7 +84,7 @@ class Topic < ApplicationRecord
   end
 
   def indexed_changed?
-    title_changed? || body_changed?
+    saved_change_to_title? || saved_change_to_body?
   end
 
   def related_topics(size = 5)
@@ -118,12 +118,12 @@ class Topic < ApplicationRecord
   end
 
   def self.topic_index_hide_node_ids
-    Setting.node_ids_hide_in_topics_index.to_s.split(',').collect(&:to_i)
+    Setting.node_ids_hide_in_topics_index.to_s.split(",").collect(&:to_i)
   end
 
   before_save :store_cache_fields
   def store_cache_fields
-    self.node_name = node.try(:name) || ''
+    self.node_name = node.try(:name) || ""
   end
 
   before_save :auto_correct_title
@@ -160,7 +160,7 @@ class Topic < ApplicationRecord
     self.last_reply_user_id = reply.try(:user_id)
     self.last_reply_user_login = reply.try(:user_login)
     # Reindex Search document
-    SearchIndexer.perform_later('update', 'topic', self.id)
+    SearchIndexer.perform_later("update", "topic", self.id)
     save
   end
 
@@ -187,8 +187,8 @@ class Topic < ApplicationRecord
 
   # 所有的回复编号
   def reply_ids
-    Rails.cache.fetch([self, 'reply_ids']) do
-      self.replies.order('id asc').pluck(:id)
+    Rails.cache.fetch([self, "reply_ids"]) do
+      self.replies.order("id asc").pluck(:id)
     end
   end
 
@@ -200,21 +200,21 @@ class Topic < ApplicationRecord
     transaction do
       update(lock_node: true, node_id: Node.no_point.id, admin_editing: true)
       if opts[:reason]
-        Reply.create_system_event(action: 'ban', topic_id: self.id, body: opts[:reason])
+        Reply.create_system_event(action: "ban", topic_id: self.id, body: opts[:reason])
       end
     end
   end
 
   def excellent!
     transaction do
-      Reply.create_system_event(action: 'excellent', topic_id: self.id)
+      Reply.create_system_event(action: "excellent", topic_id: self.id)
       update!(excellent: 1)
     end
   end
 
   def unexcellent!
     transaction do
-      Reply.create_system_event(action: 'unexcellent', topic_id: self.id)
+      Reply.create_system_event(action: "unexcellent", topic_id: self.id)
       update!(excellent: 0)
     end
   end
@@ -235,7 +235,7 @@ class Topic < ApplicationRecord
     notified_user_ids = topic.mentioned_user_ids
 
     # 给关注者发通知
-    default_note = { notify_type: 'topic', target_type: 'Topic', target_id: topic.id, actor_id: topic.user_id }
+    default_note = { notify_type: "topic", target_type: "Topic", target_id: topic.id, actor_id: topic.user_id }
     Notification.bulk_insert(set_size: 100) do |worker|
       follower_ids.each do |uid|
         # 排除同一个回复过程中已经提醒过的人
@@ -256,7 +256,7 @@ class Topic < ApplicationRecord
     node = Node.find_by_id(node_id)
     return if node.blank?
 
-    Notification.create notify_type: 'node_changed',
+    Notification.create notify_type: "node_changed",
                         user_id: topic.user_id,
                         target: topic,
                         second_target: node
@@ -266,7 +266,7 @@ class Topic < ApplicationRecord
   def self.total_pages
     return @total_pages if defined? @total_pages
 
-    total_count = Rails.cache.fetch('topics/total_count', expires_in: 1.week) do
+    total_count = Rails.cache.fetch("topics/total_count", expires_in: 1.week) do
       self.unscoped.count
     end
     if total_count >= 1500

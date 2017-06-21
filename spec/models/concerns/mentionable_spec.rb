@@ -69,6 +69,18 @@ describe Mentionable, type: :model do
     end.not_to change(user.notifications.unread, :count)
   end
 
+  it 'should not mention Team' do
+    team = create :team
+    user1 = create :user
+    doc = TestDocument.create body: "@#{team.login} @#{user1.login}", user: create(:user)
+    doc.extract_mentioned_users
+    assert_equal doc.mentioned_user_ids, [user1.id]
+
+    expect do
+      TestDocument.create body: "@#{team.login}", user: create(:user)
+    end.to change(Notification, :count).by(0)
+  end
+
   it 'should send mention to reply_to user' do
     user = create :user
     last_doc = TestDocument.create body: "@#{user.login}", user: user

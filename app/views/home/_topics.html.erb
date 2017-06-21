@@ -18,7 +18,12 @@
 </div>
 
 <div class="home_suggest_topics panel panel-default">
-  <div class="panel-heading">最新帖子</div>
+  <div class="panel-heading">
+    最新帖子
+    <div class="pull-right">
+      <%= link_to "查看更多...", recent_topics_path %>
+    </div>
+  </div>
   <div class="panel-body topics row">
     <%
       odd_topics, even_topics = @latest_topics.partition.each_with_index { |t, i| i.odd? }
@@ -34,35 +39,15 @@
       <% end %>
     </div>
   </div>
-  <div class="panel-footer">
-    <%= link_to "查看更多...", recent_topics_path %>
-  </div>
 </div>
 
 <div class="home_suggest_topics panel panel-default">
-  <div class="panel-heading">最新问答</div>
-  <div class="panel-body topics row">
-    <%
-      odd_topics, even_topics = @question_topics.partition.each_with_index { |t, i| i.odd? }
-    %>
-    <div class="col-md-6">
-      <% cache([odd_topics, "odd"]) do %>
-          <%= render partial: "home/topic", collection: odd_topics, locals: {suggest: false} %>
-      <% end %>
-    </div>
-    <div class="col-md-6">
-      <% cache([even_topics, "even"]) do %>
-          <%= render partial: "home/topic", collection: even_topics, locals: {suggest: false} %>
-      <% end %>
+  <div class="panel-heading">
+    社区精华帖
+    <div class="pull-right">
+      <%= link_to "查看更多精华帖...", excellent_topics_path %>
     </div>
   </div>
-  <div class="panel-footer">
-    <%= link_to "查看更多...", questions_path %>
-  </div>
-</div>
-
-<div class="home_suggest_topics panel panel-default">
-  <div class="panel-heading">社区精华帖</div>
   <div class="panel-body topics row">
     <% cache(["home_suggest_topics", @excellent_topics]) do %>
         <%
@@ -76,7 +61,5 @@
         </div>
     <% end %>
   </div>
-  <div class="panel-footer">
-    <%= link_to "查看更多精华帖...", excellent_topics_path %>
-  </div>
 </div>
+

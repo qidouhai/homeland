@@ -18,12 +18,12 @@
 # - *topic_title* [String] 话题标题
 # - *body* [String] 回帖正文，原始 Markdown
 if reply
-  json.cache! ['v1.2', reply, defined?(detail)] do
-    json.(reply, :id, :body_html, :topic_id, :created_at, :updated_at,
+  json.cache! ["v1.2", reply, defined?(detail)] do
+    json.(reply, :id, :body_html, :body, :topic_id, :created_at, :updated_at,
           :likes_count, :action, :target_type)
     json.deleted reply.deleted_at.present?
     json.user do
-      json.partial! 'user', user: reply.user
+      json.partial! "user", user: reply.user
     end
 
     if defined?(detail)
@@ -33,15 +33,15 @@ if reply
   end
 
   # Mention Target
-  if reply.action == 'mention'
+  if reply.action == "mention"
     json.mention_topic do
-      if reply.target_type == 'Topic'
-        json.partial! 'topic', topic: reply.target
+      if reply.target_type == "Topic"
+        json.partial! "topic", topic: reply.target
       else
-        json.partial! 'topic', topic: reply&.target&.topic
+        json.partial! "topic", topic: reply&.target&.topic
       end
     end
   end
 
-  json.partial! 'abilities', object: reply
+  json.partial! "abilities", object: reply
 end

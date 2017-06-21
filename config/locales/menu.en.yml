@@ -60,18 +60,18 @@
     editor_toolbar_edit: "Edit"
     editor_toolbar_preview: "Preview"
     editor_add_image: "Upload image"
-    editor_insert_codes: "Insert Codes"
+    editor_insert_codes: "Insert code"
     by: "by"
     at: "on"
     hot_topics: "Hot topics"
-    hot_locations: "Hot cities"
-    has_deleted: "has deleted"
+    hot_locations: "Popular locations"
+    has_deleted: "has been deleted"
     auth_with_other_services: "Sign in with other services"
     captcha: 'Captcha'
     search_result: 'Search results'
   reply:
     edit_reply: "Edit Reply"
-    delete_reply_success: 'Delete successfully.'
+    delete_reply_success: 'Deleted successfully.'
     topic_location: 'Replied to'
   photos:
     upload_and_insert_code: "Upload and insert code"
@@ -87,19 +87,19 @@
     edit_account_path: "Account Profile"
     likes: "Favorites"
     teams: "Teams"
-    bugs: "BugBroadCast"
+    bugs: "Bug Tracker"
     open_course: "Open Course"
-    questions: "Q&A"
-    teams: "teams"
+    questions: "QA"
+    teams: "Teams"
   comments:
     create_comment: "Comment"
-    no_comment: "No Comment at the moment"
+    no_comment: "No comment at the moment"
   mail:
     login_from: "Sign in from"
     this_is_a_notification_mail_please_do_not_reply: "This is an email notification. Please do not reply."
     welcome_subject: "Welcome to %{app_name} community"
     welcome_title: "Welcome to %{app_name}"
-    you_have_successfully: "You have successfully registered an account in"
+    you_have_successfully: "You have successfully registered an account at"
     registered_an_account: "."
   rss:
     recent_topics_description: "Recent Topics in %{name} Forum."
@@ -107,8 +107,8 @@
     recent_node_topics_description: "Recent Topic in %{node_name} of %{name} Forum."
     recent_node_topics_title: "%{node_name} node of %{name} Forum"
   setting:
-    before_wechat_html: "HTML codes before wechat content. Also can be used for modify css"
-    after_wechat_html: "HTML codes after wechat content."
+    before_wechat_html: "HTML code before wechat content. This can also be used for modifying CSS"
+    after_wechat_html: "HTML code after wechat content."
   pagination:
     next: "Next &#8594;"
     prev: "&#8592; Prev"
