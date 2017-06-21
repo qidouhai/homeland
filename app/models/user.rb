@@ -176,6 +176,14 @@ class User < ApplicationRecord
     created_at > t.seconds.ago or not avatar?
   end
 
+  # 是否能回帖
+  def newbie_reply?
+    return false if verified?
+    t = Setting.newbie_limit_time.to_i
+    return false if t == 0
+    created_at > t.seconds.ago or not avatar?
+  end
+
   def roles?(role)
     case role
     when :admin then admin?
