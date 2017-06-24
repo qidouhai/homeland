@@ -46,7 +46,7 @@ module Api
 
         if not params[:node_id].blank? and params[:source] == "huawei"
           if @node.id = Node.bugs_id
-            @topics = @topics.reject{ |t| t.title.index(/[ios|iphone|mac]/i) != nil }
+            @topics = @topics.reject{ |t| t.title.index(/ios|iphone|mac/i) != nil }
           end
         end
 

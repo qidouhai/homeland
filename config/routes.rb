@@ -132,6 +132,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v3 do
       get 'hello', to: 'root#hello'
+      get '/bug_search', to: 'bug_search#index', as: 'bug_search'
 
       resources :ads
       resource :devices
