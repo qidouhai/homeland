@@ -43,6 +43,13 @@ module Api
         end
         @topics = @topics.without_suggest.offset(params[:offset]).limit(params[:limit])
         @topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(3) + @topics
+
+        if not params[:node_id].blank? and params[:source] == "huawei"
+          if @node.id = Node.bugs_id
+            @topics = @topics.reject{ |t| t.title.index(/[ios|iphone|mac]/i) != nil }
+          end
+        end
+
       end
 
       # 获取话题详情（不含回帖）
