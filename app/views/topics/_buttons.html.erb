@@ -18,6 +18,11 @@
     <% if @topic.node_id != Node.no_point.id %>
       <%= link_to raw("<i class='fa fa-ban'></i> 屏蔽"), ban_topic_path(@topic), remote: true, title: "屏蔽此贴，移动到 NoPoint 节点" %>
     <% end %>
+
+    <% if @topic.node_id != Node.no_point.id %>
+        <%= link_to raw("<i class='fa fa-arrow-down'></i> 下沉"), down_topic_path(@topic), remote: false, title: "下层此贴" %>
+    <% end %>
+
   <% end %>
   <span class="pull-right opts">
     <% if owner?(@topic) or admin? %>

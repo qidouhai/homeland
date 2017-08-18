@@ -205,6 +205,13 @@ class Topic < ApplicationRecord
     end
   end
 
+  def down!
+    transaction do
+      update!(last_active_mark: self.last_active_mark - 2.day.to_i)
+      # Reply.create_system_event(action: "down", topic_id: self.id)
+    end
+  end
+
   def excellent!
     transaction do
       Reply.create_system_event(action: "excellent", topic_id: self.id)

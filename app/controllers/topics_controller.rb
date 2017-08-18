@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
                                      :favorite, :unfavorite, :follow, :unfollow]
 
   before_action :set_topic, only: [:ban, :edit, :update, :destroy, :follow,
-                                   :unfollow, :action, :ban]
+                                   :unfollow, :action, :down]
 
   def index
     @suggest_topics = []
@@ -204,10 +204,10 @@ class TopicsController < ApplicationController
     authorize! params[:type].to_sym, @topic
 
     case params[:type]
-    when "excellent"
-      @topic.excellent!
-      redirect_to @topic, notice: "加精成功。"
-    when "unexcellent"
+      when "excellent"
+        @topic.excellent!
+        redirect_to @topic, notice: "加精成功。"
+      when "unexcellent"
         @topic.unexcellent!
         redirect_to @topic, notice: "加精已经取消。"
       when "ban"
@@ -229,11 +229,20 @@ class TopicsController < ApplicationController
           @topic.update_attributes(modified_admin: current_user)
         end
         redirect_to @topic, notice: '话题已重启开启。'
-      end
     end
+
+  end
 
     def ban
       authorize! :ban, @topic
+    end
+
+    def down
+      @topic.down!
+      if current_user.admin?
+        @topic.update_attributes(modified_admin: current_user)
+      end
+      redirect_to @topic, notice: '话题已下沉！'
     end
 
     private
