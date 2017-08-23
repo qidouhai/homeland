@@ -30,6 +30,7 @@ class Topic < ApplicationRecord
   belongs_to :last_reply_user, class_name: "User"
   belongs_to :last_reply, class_name: "Reply"
   has_many :replies
+  has_many :appends
 
   validates :user_id, :title, :body, :node_id, presence: true
 

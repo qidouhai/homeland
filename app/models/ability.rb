@@ -40,7 +40,7 @@ class Ability
       can :create, Topic
     end
     can [:favorite, :unfavorite, :follow, :unfollow], Topic
-    can [:update, :open, :close], Topic, user_id: user.id
+    can [:update, :open, :close, :append], Topic, user_id: user.id
     can :change_node, Topic, user_id: user.id, lock_node: false
     can :destroy, Topic do |topic|
       topic.user_id == user.id && topic.replies_count == 0

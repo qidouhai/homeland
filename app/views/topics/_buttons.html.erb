@@ -38,6 +38,9 @@
       <%= link_to "", topic_path(@topic.id), method: :delete, remote: true, 'data-confirm': t("common.confirm_delete"), class: "fa fa-trash", title: "删除本帖" %>
       <% end %>
     <% end %>
+    <% if owner?(@topic) or admin? %>
+      <%= link_to raw("<i class='fa fa-plus'></i>"), append_topic_path(@topic), remote: true, title: "追加附言" %>
+    <% end %>
     <%= link_to raw("<i class='fa fa-weixin'></i>"), show_wechat_topic_path(@topic), target: "_blank", title: "微信排版" %>
     <% if admin? %>
       <%= link_to "", new_ad_path(topic_id: @topic.id), class: "fa fa-space-shuttle", title: "推送本帖到客户端头条" %>

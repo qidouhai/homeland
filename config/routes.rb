@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       post :follow
       delete :unfollow
       get :ban
+      get :append
       get :down
       post :action
       get :show_wechat

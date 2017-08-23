@@ -44,7 +44,11 @@
         <%= raw Setting.after_topic_html %>
       </div>
 
-      <% if @topic.cannot_be_shared? %>
+      <% if not @topic.appends.blank? %>
+        <%= render partial: '/topics/append_content', collection:  @topic.appends  %>
+      <% end %>
+
+            <% if @topic.cannot_be_shared? %>
           <div class="label-legal">
             <i class="fa fa-legal"></i>「<%= t("topics.cannot_be_shared")%>」
           </div>

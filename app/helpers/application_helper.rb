@@ -48,6 +48,7 @@ module ApplicationHelper
     return "" if time.blank?
     options[:class] = options[:class].blank? ? "timeago" : [options[:class], "timeago"].join(" ")
     options[:title] = time.iso8601
+    options[:rel] = "twipsy"
     text = l time.to_date, format: :long
     content_tag(:abbr, text, options)
   end

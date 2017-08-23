@@ -29,6 +29,7 @@ window.TopicView = Backbone.View.extend
     @initCloseWarning()
     @checkRepliesLikeStatus()
     @itemsUpdated()
+    $("abbr[rel=twipsy]").tooltip()
 
   # called by new Reply insterted.
   itemsUpdated: ->
