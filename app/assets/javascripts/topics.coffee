@@ -7,6 +7,8 @@ window.TopicView = Backbone.View.extend
   el: "body"
   currentPageImageURLs : []
   clearHightTimer: null
+  old_publish: null
+  old_save_as_draft: null
 
   events:
     "click .navbar .topic-title": "scrollPage"
@@ -19,6 +21,7 @@ window.TopicView = Backbone.View.extend
     "click #node-selector .nodes .name a": "nodeSelectorNodeSelected"
     "click .editor-toolbar .reply-to a.close": "unsetReplyTo"
     "tap .topics .topic": "topicRowClick"
+    "click #publish, #save_as_draft": "dealDisableWith"
 
   initialize: (opts) ->
     @parentView = opts.parentView
@@ -30,6 +33,8 @@ window.TopicView = Backbone.View.extend
     @checkRepliesLikeStatus()
     @itemsUpdated()
     $("abbr[rel=twipsy]").tooltip()
+    @old_publish = $("#publish").attr("data-disable-with")
+    @old_save_as_draft = $("#save_as_draft").attr("data-disable-with")
 
   # called by new Reply insterted.
   itemsUpdated: ->
@@ -336,3 +341,13 @@ window.TopicView = Backbone.View.extend
       replyToId = $(el).data('reply-to-id')
       floor = $("#reply-#{replyToId}").data('floor');
       $(el).find('.reply-floor').text("\##{floor}")
+
+  dealDisableWith: (e) ->
+    if e.currentTarget.id == 'publish'
+      if(!$("#publish").attr("data-disable-with"))
+        $("#publish").attr("data-disable-with", @old_publish)
+      $("#save_as_draft").removeAttr("data-disable-with")
+    if e.currentTarget.id == 'save_as_draft'
+      if(!$("#save_as_draft").attr("data-disable-with"))
+        $("#save_as_draft").attr("data-disable-with", @old_save_as_draft)
+      $("#publish").removeAttr("data-disable-with")

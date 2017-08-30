@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823142726) do
+ActiveRecord::Schema.define(version: 20170829142531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -354,6 +354,7 @@ ActiveRecord::Schema.define(version: 20170823142726) do
     t.datetime "updated_at"
     t.datetime "closed_at"
     t.integer "team_id"
+    t.boolean "draft", default: false, null: false
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"

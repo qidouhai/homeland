@@ -45,9 +45,9 @@
   <% end %>
 
   <div class="form-group hide-ios">
-    <%= f.submit t("common.save"), class: "btn btn-primary col-xs-2", 'data-disable-with' => t("common.saving"), 'data-tb' => "save-topic" %>
-
+    <%= f.submit t("common.save"), id: 'publish', class: "btn btn-primary col-xs-1", 'data-disable-with' => t("common.saving"), 'data-tb' => "save-topic" %>
+     &nbsp; or &nbsp;
+    <%=	 button_tag  t("common.save_as_draft"), id: 'save_as_draft', value: 'draft', type: 'submit', class: "btn btn-default", 'data-disable-with' => t("common.saving_as_draft"), 'data-tb' => "save-topic-draft"  %>
     <div class="pull-right hide-ios"><a href="/markdown" target="_blank"><i class="fa fa-tip"></i> 排版说明</a></div>
-
   </div>
 <% end %>

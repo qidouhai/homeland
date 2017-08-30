@@ -63,6 +63,7 @@ class Topic < ApplicationRecord
     ids.uniq!
     exclude_column_ids("node_id", ids)
   }
+  scope :withoutDraft, -> { where(draft: false) }
 
   mapping do
     indexes :title, type: :string, term_vector: :yes
