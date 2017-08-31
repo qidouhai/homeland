@@ -18,7 +18,6 @@ class Append < ApplicationRecord
     return if follower_ids.empty?
 
     notified_user_ids = topic.mentioned_user_ids
-    Rails.logger.error("append111 #{append_id}")
     # 给关注者发通知
     default_note = { notify_type: "append", target_type: "Topic", target_id: topic.id, actor_id: topic.user_id }
     Notification.bulk_insert(set_size: 100) do |worker|

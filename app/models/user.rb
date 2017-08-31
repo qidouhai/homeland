@@ -247,7 +247,18 @@ class User < ApplicationRecord
       self.letter_avatar_url(192)
     end
   end
-  
+
+  def has_draft?
+    !self.topics.where(draft: true).empty?
+  end
+
+  def draft_size
+    self.topics.where(draft: true).size
+  end
+
+  def my_drafts
+    self.topics.where(draft: true)
+  end
 
   def avatar?
     self[:avatar].present?

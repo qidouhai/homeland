@@ -11,9 +11,9 @@ class TopicsController < ApplicationController
   def index
     @suggest_topics = []
     if params[:page].to_i <= 1
-      @suggest_topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(3)
+      @suggest_topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(3)
     end
-    @topics = Topic.last_actived.without_suggest
+    @topics = Topic.withoutDraft.last_actived.without_suggest
     @topics =
         if current_user
           @topics.without_nodes(current_user.block_node_ids)
@@ -31,13 +31,13 @@ class TopicsController < ApplicationController
   end
 
   def feed
-    @topics = Topic.without_hide_nodes.recent.limit(20).includes(:node, :user, :last_reply_user)
+    @topics = Topic.withoutDraft.without_hide_nodes.recent.limit(20).includes(:node, :user, :last_reply_user)
     render layout: false if stale?(@topics)
   end
 
   def node
     @node = Node.find(params[:id])
-    @topics = @node.topics.last_actived.fields_for_list
+    @topics = @node.topics.withoutDraft.last_actived.fields_for_list
     @topics = @topics.includes(:user).page(params[:page])
     @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
     @page_title = [@node.name, t("menu.topics")].join(" · ")
@@ -46,13 +46,13 @@ class TopicsController < ApplicationController
 
   def node_feed
     @node = Node.find(params[:id])
-    @topics = @node.topics.recent.limit(20)
+    @topics = @node.topics.withoutDraft.recent.limit(20)
     render layout: false if stale?([@node, @topics])
   end
 
   %w(no_reply popular).each do |name|
     define_method(name) do
-      @topics = Topic.without_hide_nodes.send(name.to_sym).last_actived.fields_for_list.includes(:user)
+      @topics = Topic.withoutDraft.without_hide_nodes.send(name.to_sym).last_actived.fields_for_list.includes(:user)
       @topics = @topics.page(params[:page])
 
       @page_title = [t("topics.topic_list.#{name}"), t("menu.topics")].join(" · ")
@@ -62,20 +62,20 @@ class TopicsController < ApplicationController
 
   # GET /topics/favorites
   def favorites
-    @topics = current_user.favorite_topics.includes(:user).order('actions.id desc')
+    @topics = current_user.favorite_topics.withoutDraft.includes(:user).order('actions.id desc')
     @topics = @topics.page(params[:page])
     render action: "index"
   end
 
   def recent
-    @topics = Topic.without_hide_nodes.recent.fields_for_list.includes(:user)
+    @topics = Topic.withoutDraft.without_hide_nodes.recent.fields_for_list.includes(:user)
     @topics = @topics.page(params[:page])
     @page_title = [t("topics.topic_list.recent"), t("menu.topics")].join(" · ")
     render action: "index"
   end
 
   def excellent
-    @topics = Topic.excellent.recent.fields_for_list.includes(:user)
+    @topics = Topic.withoutDraft.excellent.recent.fields_for_list.includes(:user)
     @topics = @topics.page(params[:page])
 
     @page_title = [t("topics.topic_list.excellent"), t("menu.topics")].join(" · ")
@@ -140,6 +140,14 @@ class TopicsController < ApplicationController
         @topic.user_id = 12
       end
     end
+
+    if params[:commit] and params[:commit] == 'draft'
+      Rails.logger.error(" asdad ----------- #{params[:commit]}" )
+      @topic.draft = true
+    else
+      @topic.draft = false
+    end
+
     @topic.save
   end
 
@@ -172,6 +180,12 @@ class TopicsController < ApplicationController
     @topic.title = topic_params[:title]
     @topic.body = topic_params[:body]
     @topic.cannot_be_shared = topic_params[:cannot_be_shared]
+    if params[:commit] and params[:commit] == 'draft'
+      Rails.logger.error(" asdad ----------- #{params[:commit]}" )
+      @topic.draft = true
+    else
+      @topic.draft = false
+    end
     @topic.save
   end
 

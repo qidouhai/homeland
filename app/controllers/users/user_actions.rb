@@ -3,14 +3,14 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow]
+      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts]
       before_action :only_user!, only: [:topics, :replies, :favorites,
                                         :block, :unblock, :follow, :unfollow,
                                         :followers, :following, :calendar, :reward]
     end
 
     def topics
-      @topics = @user.topics.fields_for_list.recent
+      @topics = @user.topics.withoutDraft.fields_for_list.recent
       @topics = @topics.page(params[:page])
     end
 
@@ -20,7 +20,7 @@ module Users
     end
 
     def favorites
-      @topics = @user.favorite_topics.order("actions.id desc")
+      @topics = @user.favorite_topics.withoutDraft.order("actions.id desc")
       @topics = @topics.page(params[:page])
     end
 
@@ -40,6 +40,10 @@ module Users
       end
 
       @block_users = @user.block_users.order("actions.id asc").page(params[:page])
+    end
+
+    def drafts
+      @drafts = @user.my_drafts
     end
 
     def follow
@@ -80,7 +84,7 @@ module Users
     def user_show
       # 排除掉几个非技术的节点
       without_node_ids = [21, 22, 23, 31, 49, 51, 57, 25]
-      @topics = @user.topics.fields_for_list.without_node_ids(without_node_ids).high_likes.limit(20)
+      @topics = @user.topics.withoutDraft.fields_for_list.without_node_ids(without_node_ids).high_likes.limit(20)
       @replies = @user.replies.without_system.fields_for_list.recent.includes(:topic).limit(10)
     end
   end

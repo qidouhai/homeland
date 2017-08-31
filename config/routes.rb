@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         get :replies
         get :favorites
         get :blocked
+        get :drafts
         post :block
         post :unblock
         post :follow
