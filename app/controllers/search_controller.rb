@@ -1,25 +1,68 @@
 class SearchController < ApplicationController
   before_action :authenticate_user!, only: [:users]
 
+  # {
+  #     "query": {
+  #         "filtered": {
+  #             "query": {
+  #                 "simple_query_string": {
+  #                     "query": "appium",
+  #                     "default_operator": "AND",
+  #                     "minimum_should_match": "70%",
+  #                     "fields": [
+  #                         "title",
+  #                         "body",
+  #                         "name",
+  #                         "login"
+  #                     ]
+  #                 }
+  #             },
+  #             "filter": {
+  #                 "bool": {
+  #                     "must_not": {
+  #                         "term": {
+  #                             "draft": true
+  #                         }
+  #                     }
+  #                 }
+  #             }
+  #         }
+  #     }
+  # }
+
   def index
     params[:q] ||= ""
 
     search_modules = [Topic, User]
     search_modules << Page if Setting.has_module?(:wiki)
     search_params = {
-        query: {
+      query: {
+        filtered: {
+          query: {
             simple_query_string: {
-                query: params[:q],
-                default_operator: 'AND',
-                minimum_should_match: '70%',
-                fields: %w(title body name login)
+              query: params[:q],
+              default_operator: "AND",
+              minimum_should_match: "70%",
+              fields: %w(title body name login)
             }
-        },
-        highlight: {
-            pre_tags: ['[h]'],
-            post_tags: ['[/h]'],
-            fields: { title: {}, body: {}, name: {}, login: {} }
+          },
+          filter: {
+            bool: {
+              must_not: {
+                term: {
+                  draft: true
+                }
+              }
+            }
+          }
         }
+
+      },
+      highlight: {
+        pre_tags: ["[h]"],
+        post_tags: ["[/h]"],
+        fields: { title: {}, body: {}, name: {}, login: {} }
+      }
     }
     @result = Elasticsearch::Model.search(search_params, search_modules).page(params[:page])
   end

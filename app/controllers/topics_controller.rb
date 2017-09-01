@@ -142,7 +142,6 @@ class TopicsController < ApplicationController
     end
 
     if params[:commit] and params[:commit] == 'draft'
-      Rails.logger.error(" asdad ----------- #{params[:commit]}" )
       @topic.draft = true
     else
       @topic.draft = false
@@ -181,7 +180,6 @@ class TopicsController < ApplicationController
     @topic.body = topic_params[:body]
     @topic.cannot_be_shared = topic_params[:cannot_be_shared]
     if params[:commit] and params[:commit] == 'draft'
-      Rails.logger.error(" asdad ----------- #{params[:commit]}" )
       @topic.draft = true
     else
       @topic.draft = false

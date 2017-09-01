@@ -41,8 +41,8 @@ module Api
         elsif params[:type] == "excellent"
           @topics = @topics.recent
         end
-        @topics = @topics.without_suggest.offset(params[:offset]).limit(params[:limit])
-        @topics = Topic.without_hide_nodes.suggest.fields_for_list.limit(3) + @topics
+        @topics = @topics.withoutDraft.without_suggest.offset(params[:offset]).limit(params[:limit])
+        @topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(3) + @topics
 
         if not params[:node_id].blank? and params[:source] == "huawei"
           if @node.id = Node.bugs_id

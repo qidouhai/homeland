@@ -77,6 +77,7 @@ class Topic < ApplicationRecord
       node_name: self.node_name,
       updated_at: self.updated_at,
       excellent: self.excellent,
+      draft: self.draft,
       type_order: self.type_order
     }
   end
