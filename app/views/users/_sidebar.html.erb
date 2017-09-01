@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <% if current_user && current_user.has_draft? %>
+  <% if owner?(@user) && current_user && current_user.has_draft? %>
   <div class="text-center panel panel-default alert alert-warning draft-box hide-ios">
     <div class="panel-body">
       <%= link_to  drafts_user_path(@user) do %>

@@ -22,6 +22,11 @@ module Admin
       end
     end
 
+    def update
+      @reply.update(reply_params)
+      redirect_to admin_replies_path, alert: "修改完成"
+    end
+
     def destroy
       @reply.destroy
     end
@@ -31,5 +36,10 @@ module Admin
     def set_reply
       @reply = Reply.unscoped.find(params[:id])
     end
+
+    def reply_params
+      params.require(:reply).permit(:body, :reply_to_id, :anonymous)
+    end
+
   end
 end

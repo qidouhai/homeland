@@ -292,6 +292,10 @@ class User < ApplicationRecord
     @team_collection = teams.collect { |t| [t.name, t.id] }
   end
 
+  def self.anonymous_user_id
+    12
+  end
+
   # for Searchable
   def type_order
     10
