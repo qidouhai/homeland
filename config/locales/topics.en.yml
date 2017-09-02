@@ -20,6 +20,7 @@
     create_topic_success: "Topic created successfully."
     delete_topic_success: "Topic deleted successfully.."
     update_topic_success: "Topic modified successfully.."
+    cannot_read_others_drafts: "You cannot access other's drafts.."
     reply_success: "Replied Successfully"
     reply_this_floor: "Reply to this floor"
     topic_was_deleted: "[Topic was deleted]"

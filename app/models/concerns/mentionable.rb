@@ -43,6 +43,16 @@ module Mentionable
   end
 
   def send_mention_notification
+
+    if self.class.name == "Topic"
+      return if self.draft
+      return if self.private_org
+    end
+
+    if self.class.name == "Reply"
+      return if self&.topic.private_org
+    end
+
     users = mentioned_users - no_mention_users
     Notification.bulk_insert(set_size: 100) do |worker|
       users.each do |user|

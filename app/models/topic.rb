@@ -88,7 +88,7 @@ class Topic < ApplicationRecord
   end
 
   def private_org
-    self.team&.private?
+    self&.team.private? if self.team
   end
 
   def indexed_changed?
@@ -145,9 +145,6 @@ class Topic < ApplicationRecord
     if admin_editing == true && self.node_id_changed?
       Topic.notify_topic_node_changed(id, node_id)
     end
-    if self.draft_changed?
-      self.async_create_reply_notify
-    end
   end
 
   before_create :init_last_active_mark_on_create
@@ -158,6 +155,14 @@ class Topic < ApplicationRecord
   after_commit :async_create_reply_notify, on: :create
   def async_create_reply_notify
     NotifyTopicJob.perform_later(id)
+  end
+
+  after_commit :publish_draft_notify, on: :update
+  def publish_draft_notify
+    if self.previous_changes["draft"]
+      self.send_mention_notification
+      self.async_create_reply_notify
+    end
   end
 
   def update_last_reply(reply, opts = {})
