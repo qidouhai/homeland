@@ -52,6 +52,11 @@ class SearchController < ApplicationController
                 term: {
                   draft: true
                 }
+              },
+              must_not: {
+                term: {
+                  private_org: true
+                }
               }
             }
           }

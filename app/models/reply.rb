@@ -69,8 +69,13 @@ class Reply < ApplicationRecord
     topic = Topic.find_by_id(reply.topic_id)
     return if topic.blank?
 
+    notification_receiver_ids = reply.notification_receiver_ids
+    if topic.private_org
+      notification_receiver_ids = reply.private_org_notification_receiver_ids
+    end
+
     Notification.bulk_insert(set_size: 100) do |worker|
-      reply.notification_receiver_ids.each do |uid|
+      notification_receiver_ids.each do |uid|
         logger.debug "Post Notification to: #{uid}"
         note = reply.default_notification.merge(user_id: uid)
         worker.add(note)
@@ -78,7 +83,7 @@ class Reply < ApplicationRecord
     end
 
     # Touch realtime_push_to_client
-    reply.notification_receiver_ids.each do |uid|
+    notification_receiver_ids.each do |uid|
       n = Notification.where(user_id: uid).last
       n.realtime_push_to_client if n.present?
     end
@@ -115,6 +120,18 @@ class Reply < ApplicationRecord
     # 排除同一个回复过程中已经提醒过的人
     follower_ids -= self.mentioned_user_ids
     @notification_receiver_ids = follower_ids
+  end
+
+  def private_org_notification_receiver_ids
+    return @private_org_notification_receiver_ids if defined? @private_org_notification_receiver_ids
+    if topic.private_org
+      follower_ids = topic&.team.team_users.accepted.pluck(:user_id) || []
+      # 排除回帖人
+      follower_ids.delete(self.user_id)
+      @private_org_notification_receiver_ids = follower_ids
+    else
+      @private_org_notification_receiver_ids = []
+    end
   end
 
   # 是否热门

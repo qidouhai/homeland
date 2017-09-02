@@ -78,12 +78,17 @@ class Topic < ApplicationRecord
       updated_at: self.updated_at,
       excellent: self.excellent,
       draft: self.draft,
+      private_org: self.private_org,
       type_order: self.type_order
     }
   end
 
   def type_order
     1
+  end
+
+  def private_org
+    self.team&.private?
   end
 
   def indexed_changed?
@@ -139,6 +144,9 @@ class Topic < ApplicationRecord
   before_save do
     if admin_editing == true && self.node_id_changed?
       Topic.notify_topic_node_changed(id, node_id)
+    end
+    if self.draft_changed?
+      self.async_create_reply_notify
     end
   end
 
@@ -238,9 +246,14 @@ class Topic < ApplicationRecord
   def self.notify_topic_created(topic_id)
     topic = Topic.find_by_id(topic_id)
     return unless topic && topic.user
+    return if topic.draft
 
     follower_ids = topic.user.follow_by_user_ids
     return if follower_ids.empty?
+
+    if topic.private_org
+      follower_ids = topic&.team.team_users.accepted.pluck(:user_id) || []
+    end
 
     notified_user_ids = topic.mentioned_user_ids
 
