@@ -65,7 +65,7 @@
 
     <%= render partial: "ban_reason" %>
     <%= render partial: "cannot_be_shared" %>
-    <% if @topic.user.reward_enabled? %>
+    <% if @topic.user&.reward_enabled? %>
         <%= render partial: "reward" %>
     <%end%>
 
