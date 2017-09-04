@@ -12,6 +12,9 @@ module Admin
         u = User.find_by_login(params[:login])
         @topics = @topics.where("user_id = ?", u.try(:id))
       end
+      if params[:draft].present?
+        @topics = @topics.where("draft", true)
+      end
       @topics = @topics.order(id: :desc)
       @topics = @topics.includes(:user).page(params[:page])
     end

@@ -10,13 +10,18 @@
     <div class="form-group">
       <input type="text" name="login" class="form-control" value="<%= params[:login] %>" placeholder="用户名" />
     </div>
+    <div class="form-group">
+      是否草稿 <input type="checkbox" name="draft" <%= "checked" if params[:draft] %>/>
+    </div>
     <button class="btn btn-default">搜索</button>
   </form>
 </div>
 
+
 <table class="table table-bordered table-striped table-condensed">
   <tr class="head">
     <td class="first">#</td>
+    <td>是否草稿</td>
     <td style="width:300px">标题</td>
     <td>节点</td>
     <td>发帖人</td>
@@ -29,6 +34,7 @@
 <% @topics.each do |topic| %>
   <tr class="<%= 'deleted' if !topic.deleted_at.blank? %>">
     <td class="first"><%= topic.id %></td>
+    <td class="first"><%= topic.draft %></td>
     <td>
       <%= link_to truncate(topic.title, length: 30), topic, target: "_blank" %>
     </td>
