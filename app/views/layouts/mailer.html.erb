@@ -50,10 +50,21 @@
   <div style="background: #FFF; margin: 20px; padding: 20px; border-radius: 3px; border: 1px; border-color: #e5e6e9 #dfe0e4 #d0d1d5; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);">
     <%= yield %>
   </div>
-  <div style="color: #9CA4A9; margin: 10px 20px; margin-top: 10px; line-height: 150%;">
+  <div style="color: #9CA4A9; margin: 10px 20px; margin-top: 10px; line-height: 150%; float: left;">
     <div class="do-not-reply"><%= t("mail.this_is_a_notification_mail_please_do_not_reply") %></div>
     <div><%= link_to Setting.app_name, root_url, style: 'color: #888888' %></div>
   </div>
+  <div style="float:right; margin:10px 20px;  margin-top: 10px; line-height: 150%; ">
+    <font color="#9CA4A9">
+      邮件服务由
+    </font>
+    <a href="http://www.sendcloud.net">SendCloud</a>
+    <font color="#9CA4A9">
+      赞助
+    </font> <img src="https://testerhome.com/uploads/photo/2017/39701b85-e4e6-4f7f-9059-dd5b494233c5.png!large" width="100px"
+  />
+  </div>
+  <div style="clear:both"></div>
   <div style="height: 20px;"></div>
   </body>
 </html>
