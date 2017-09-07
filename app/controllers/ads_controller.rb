@@ -15,6 +15,7 @@ class AdsController < ApplicationController
   def new
     @topic = Topic.find_by_id(params[:topic_id])
     render_404 if @topic.blank?
+
     @ad = Ad.new
     @ad.topic_id = @topic.id
     @ad.topic_title = @topic.title

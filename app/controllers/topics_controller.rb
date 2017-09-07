@@ -84,7 +84,10 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.unscoped.includes(:user).find(params[:id])
-    render_404 if @topic.deleted?
+    if @topic.deleted?
+      render_404
+      return
+    end
     if !@topic.team.blank?
       if @topic.team.private?
         if !current_user
@@ -113,7 +116,10 @@ class TopicsController < ApplicationController
 
   def show_wechat
     @topic = Topic.unscoped.includes(:user).find(params[:id])
-    render_404 if @topic.deleted?
+    if @topic.deleted?
+      render_404
+      return
+    end
 
     @node = @topic.node
     render template: "topics/show_wechat", handler: [:erb], layout: 'wechat'
@@ -124,7 +130,10 @@ class TopicsController < ApplicationController
     unless params[:node].blank?
       @topic.node_id = params[:node]
       @node = Node.find_by_id(params[:node])
-      render_404 if @node.blank?
+      if @node.blank?
+        render_404
+        return
+      end
     end
   end
 
