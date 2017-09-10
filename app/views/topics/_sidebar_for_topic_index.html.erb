@@ -24,6 +24,17 @@
 </div>
 <% end %>
 
+<% cache(["hot-nodes",Time.now.strftime("%Y-%m-%d")]) do %>
+    <div class="index-locations panel panel-default">
+      <div class="panel-heading"><%=t("common.hot_nodes")%> <i class="fa fa-dot-circle-o" aria-hidden="true"></i></div>
+      <div class="panel-body location-list" style="text-align:center;">
+        <% Node.hots.limit(10).each do |node| %>
+            <span class="name"><%= link_to(node.name, main_app.node_topics_path(node), title: node.name, data: { id: node.id })%></span>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
 <%= render "topics/sidebar_box_tips" %>
 
 <%= raw Setting.topic_index_sidebar_html %>
