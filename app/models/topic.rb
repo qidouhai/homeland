@@ -48,7 +48,7 @@ class Topic < ApplicationRecord
   scope :with_replies_or_likes,       -> { where('replies_count >= 1 or likes_count >= 1') }
   scope :high_replies,       -> { order(replies_count: :desc).order(id: :desc) }
   scope :no_reply,           -> { where(replies_count: 0) }
-  scope :popular,            -> { where("likes_count > 5") }
+  scope :popular,            -> { where("likes_count > 15 or excellent >= 1") }
   scope :excellent,          -> { where("excellent >= 1") }
   scope :without_hide_nodes, -> { exclude_column_ids("node_id", Topic.topic_index_hide_node_ids) }
 
