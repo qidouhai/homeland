@@ -453,6 +453,7 @@
         &:hover { color: #333; }
       }
       a.edit { display: none; }
+      a.suggest { display: none; }
     }
     .reply_by_author {
       color: #fff;
@@ -491,6 +492,7 @@
     }
     &.light { background:#F7F2FC; }
     &.popular { background:#fffce9; }
+    &.suggested { background:#FCF8F7; }
 
     .info {
       .name {

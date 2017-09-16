@@ -2,7 +2,7 @@ class RepliesController < ApplicationController
   load_and_authorize_resource :reply
 
   before_action :set_topic
-  before_action :set_reply, only: [:edit, :reply_to, :update, :destroy]
+  before_action :set_reply, only: [:edit, :reply_to, :update, :destroy, :reply_suggest, :reply_unsuggest]
 
   def create
     @reply = Reply.new(reply_params)
@@ -57,6 +57,16 @@ class RepliesController < ApplicationController
     else
       redirect_to(topic_path(@reply.topic_id), alert: "程序异常，删除失败。")
     end
+  end
+
+  def reply_suggest
+    @reply.update_suggested_at(Time.now)
+    redirect_to(topic_path(@reply.topic_id), notice: "回帖置顶成功。")
+  end
+
+  def reply_unsuggest
+    @reply.update_suggested_at(nil)
+    redirect_to(topic_path(@reply.topic_id), notice: "回帖取消置顶成功。")
   end
 
   protected

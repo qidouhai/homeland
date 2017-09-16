@@ -31,6 +31,16 @@ module Admin
       @reply.destroy
     end
 
+    def suggest
+      @reply.update_suggested_at(Time.now)
+      redirect_to(@reply, notice: "Reply:#{params[:id]} suggested.")
+    end
+
+    def unsuggest
+      @reply.update_suggested_at(nil)
+      redirect_to(@reply, notice: "Reply:#{params[:id]} unsuggested.")
+    end
+
     private
 
     def set_reply

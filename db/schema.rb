@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829142531) do
+ActiveRecord::Schema.define(version: 20170916005317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "actions", id: :serial, force: :cascade do |t|
     t.string "action_type", null: false
@@ -27,16 +26,6 @@ ActiveRecord::Schema.define(version: 20170829142531) do
     t.datetime "updated_at", null: false
     t.index ["target_type", "target_id", "action_type"], name: "index_actions_on_target_type_and_target_id_and_action_type"
     t.index ["user_type", "user_id", "action_type"], name: "index_actions_on_user_type_and_user_id_and_action_type"
-  end
-
-  create_table "ads", id: :serial, force: :cascade do |t|
-    t.string "topic_id", null: false
-    t.string "topic_title", null: false
-    t.string "topic_author", null: false
-    t.string "cover", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["topic_id"], name: "index_ads_on_topic_id"
   end
 
   create_table "appends", force: :cascade do |t|
@@ -67,31 +56,6 @@ ActiveRecord::Schema.define(version: 20170829142531) do
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["commentable_type"], name: "index_comments_on_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "cvs", id: :serial, force: :cascade do |t|
-    t.string "username", null: false
-    t.string "gender", null: false
-    t.integer "age", null: false
-    t.string "education", null: false
-    t.string "university", null: false
-    t.string "email", null: false
-    t.string "cellphone", null: false
-    t.boolean "cellphone_public", default: false, null: false
-    t.integer "years_of_work", null: false
-    t.text "work_experience", null: false
-    t.text "education_experience", null: false
-    t.integer "user_id"
-    t.integer "likes_count", default: 0, null: false
-    t.integer "comments_count", default: 0, null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "published_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["published_at"], name: "index_cvs_on_published_at"
-    t.index ["status"], name: "index_cvs_on_status"
-    t.index ["user_id"], name: "index_cvs_on_user_id"
-    t.index ["username"], name: "index_cvs_on_username"
   end
 
   create_table "devices", id: :serial, force: :cascade do |t|
@@ -218,6 +182,7 @@ ActiveRecord::Schema.define(version: 20170829142531) do
     t.string "slug", null: false
     t.string "title", null: false
     t.text "body", null: false
+    t.text "body_html"
     t.boolean "locked", default: false
     t.integer "version", default: 0, null: false
     t.integer "editor_ids", default: [], null: false, array: true
@@ -272,6 +237,7 @@ ActiveRecord::Schema.define(version: 20170829142531) do
     t.string "target_type"
     t.string "target_id"
     t.integer "reply_to_id"
+    t.datetime "suggested_at"
     t.index ["deleted_at"], name: "index_replies_on_deleted_at"
     t.index ["topic_id"], name: "index_replies_on_topic_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
@@ -386,7 +352,6 @@ ActiveRecord::Schema.define(version: 20170829142531) do
     t.boolean "email_public", default: false, null: false
     t.string "location"
     t.integer "location_id"
-    t.integer "score", default: 1000, null: false
     t.string "bio"
     t.string "qrcode"
     t.string "website"

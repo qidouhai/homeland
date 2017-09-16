@@ -19,6 +19,11 @@ class Reply < ApplicationRecord
   scope :without_system, -> { where(action: nil) }
   scope :fields_for_list, -> { select(:topic_id, :id, :body, :updated_at, :created_at) }
 
+  # 置顶
+  scope :suggest,            -> { where('suggested_at IS NOT NULL').order(suggested_at: :desc) }
+  scope :no_suggest,         -> { where('suggested_at IS NULL') }
+  scope :without_suggest,    -> { where(suggested_at: nil) }
+
   validates :body, presence: true, unless: -> { system_event? }
   validates :body, uniqueness: { scope: [:topic_id, :user_id], message: "不能重复提交。" }, unless: -> { system_event? }
   validate do
@@ -161,4 +166,14 @@ class Reply < ApplicationRecord
     return false if opts[:user].blank?
     self.create(opts)
   end
+
+  def suggested?
+    self.suggested_at != nil
+  end
+
+  def update_suggested_at(time)
+    # self.suggested_at = time
+    self.update_attribute(:suggested_at, time)
+  end
+
 end

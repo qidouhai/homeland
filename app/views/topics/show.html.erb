@@ -9,8 +9,10 @@
     $(document).ready(function(){
       <% if admin? %>
         $("#replies .reply a.edit").css('display','inline-block');
+        $("#replies .reply a.suggest").css('display','inline-block');
       <% elsif current_user %>
         $("#replies .reply a.edit[data-uid='<%= current_user.id %>']").css('display','inline-block');
+        $("#replies .reply a.suggest[data-uid='<%= current_user.id %>']").css('display','inline-block');
       <% end %>
 
       <% if @topic.closed? %>
@@ -79,7 +81,10 @@
         共收到 <b><%= @topic.replies_count %></b> 条回复
       </div>
       <div class="items panel-body">
-        <%= render partial: "/replies/reply", collection: @replies %>
+        <!--Display suggested replies first-->
+        <%= render partial: "/replies/reply", collection: @suggest_replies %>
+
+        <%= render partial: "/replies/reply", collection: @without_suggest_replies %>
       </div>
     </div>
   <% end %>
