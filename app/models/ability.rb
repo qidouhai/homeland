@@ -52,6 +52,7 @@ class Ability
       can :create, Reply
     end
     can [:update, :destroy], Reply, user_id: user.id
+    can [:update_suggested_at], Reply,  topic: { user_id: user.id }
     cannot [:create, :update, :destroy], Reply, topic: { closed?: true }
   end
 

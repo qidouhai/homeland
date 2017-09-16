@@ -107,6 +107,9 @@ class TopicsController < ApplicationController
     @show_raw = params[:raw] == "1"
     @can_reply = can?(:create, Reply)
 
+    @suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:suggested_at).suggest
+    @without_suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).without_suggest
+
     @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
     @user_like_reply_ids = current_user&.like_reply_ids_by_replies(@replies) || []
 
