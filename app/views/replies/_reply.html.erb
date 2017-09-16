@@ -27,7 +27,7 @@
               <span class="label label-info reply_by_author"><%= t("common.author")%></span>
           <% end %>
           <% if reply.suggested? %>
-            <span class="label label-info reply_by_author"><%= "置顶"%></span>
+            <span class="label label-info reply_by_author"><%= t("common.suggested_reply")%></span>
           <% end %>
 
 
@@ -37,9 +37,9 @@
               <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
 
               <% if reply.suggested? %>
-                <%= link_to raw("<i class='fa fa-thumb-tack'></i> 取消"), reply_unsuggest_topic_reply_path(@topic, reply), 'data-uid' => reply.user_id, method: :post, remote: true, class: "suggest" %>
+                <%= link_to raw("<i class='fa fa-thumb-tack'></i> 取消"), reply_unsuggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest" %>
               <% else %>
-                <%= link_to raw("<i class='fa fa-thumb-tack'></i> 置顶"), reply_suggest_topic_reply_path(@topic, reply), 'data-uid' => reply.user_id, method: :post, remote: true, class: "suggest" %>
+                <%= link_to raw("<i class='fa fa-thumb-tack'></i> 置顶"), reply_suggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest" %>
               <% end %>
 
               <%= link_to('', "#", 'data-id' => reply.id, 'data-login' => reply.user_login,

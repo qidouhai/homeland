@@ -172,7 +172,6 @@ class Reply < ApplicationRecord
   end
 
   def update_suggested_at(time)
-    # self.suggested_at = time
     self.update_attribute(:suggested_at, time)
   end
 

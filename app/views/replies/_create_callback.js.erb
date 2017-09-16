@@ -8,6 +8,9 @@ if($("#replies").length == 0){
     $("#replies .total b").text('<%= reply.topic.replies_count %>');
     $('#topic-sidebar .total b').text('<%= reply.topic.replies_count %>');
     dom.addClass('light').find("a.edit").css("display", "inline-block");
+    <% if reply.topic.user_id == current_user.id %>
+      dom.find("a.suggest").css("display", "inline-block");
+    <% end %>
     _topicView.itemsUpdated();
   }
 }
