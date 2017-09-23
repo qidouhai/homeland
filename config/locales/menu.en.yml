@@ -71,7 +71,6 @@
     auth_with_other_services: "Sign in with other services"
     captcha: 'Captcha'
     search_result: 'Search results'
-    suggested_reply: 'Suggested reply'
   reply:
     edit_reply: "Edit Reply"
     delete_reply_success: 'Deleted successfully.'

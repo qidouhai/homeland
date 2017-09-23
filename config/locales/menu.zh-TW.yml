@@ -75,7 +75,6 @@
     captcha: '驗證碼'
     search_result: '搜索结果'
     author: '作者'
-    suggested_reply: '置頂'
   reply:
     edit_reply: "修改回帖"
     delete_reply_success: '回帖刪除成功.'

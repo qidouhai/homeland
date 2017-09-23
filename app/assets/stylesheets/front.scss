@@ -458,6 +458,14 @@
     .reply_by_author {
       color: #fff;
     }
+    label-info i.fa-thumb-tack {
+      transform: rotate(20deg);
+      -ms-transform: rotate(20deg); /* IE 9 */
+      -moz-transform: rotate(20deg); /* Firefox */
+      -webkit-transform: rotate(20deg); /* Safari 和 Chrome */
+      -o-transform: rotate(20deg);
+      color: white;
+    }
   }
   .reply {
     margin: 0 -15px;
