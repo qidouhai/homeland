@@ -3,7 +3,7 @@ module Homeland::Jobs
     before_action :set_node
 
     def index
-      @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest.limit(3)
+      @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
       suggest_topic_ids = @suggest_topics.map(&:id)
       @topics = Topic.where(node_id: @node.id).withoutDraft
       @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0

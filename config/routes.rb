@@ -111,6 +111,7 @@ Rails.application.routes.draw do
     resources :replies
     resources :topics do
       member do
+        get :pop_suggest
         post :suggest
         post :unsuggest
         post :undestroy

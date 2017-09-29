@@ -41,8 +41,9 @@ class Topic < ApplicationRecord
 
   # scopes
   scope :last_actived,       -> { order(last_active_mark: :desc) }
-  scope :suggest,            -> { where('suggested_at IS NOT NULL').order(suggested_at: :desc) }
-  scope :no_suggest,         -> { where('suggested_at IS NULL') }
+  scope :suggest,            -> { where('suggested_at IS NOT NULL and suggested_node is NULL').order(suggested_at: :desc) }
+  scope :suggest_all_parts,  -> { where('suggested_at IS NOT NULL').order(suggested_at: :desc) }
+  scope :no_suggest,         -> { where('suggested_at IS NULL and suggested_node is NULL') }
   scope :without_suggest,    -> { where(suggested_at: nil) }
   scope :high_likes,         -> { order(likes_count: :desc).order(id: :desc) }
   scope :with_replies_or_likes,       -> { where('replies_count >= 1 or likes_count >= 1') }

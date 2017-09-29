@@ -1,6 +1,6 @@
 module Admin
   class TopicsController < Admin::ApplicationController
-    before_action :set_topic, only: [:show, :edit, :update, :destroy, :undestroy, :suggest, :unsuggest]
+    before_action :set_topic, only: [:show, :edit, :update, :destroy, :undestroy, :suggest, :unsuggest, :pop_suggest]
 
     def index
       @topics = Topic.unscoped
@@ -59,14 +59,20 @@ module Admin
       redirect_to(admin_topics_path)
     end
 
+    def pop_suggest
+      @topic
+    end
+
     def suggest
       @topic.update_attribute(:suggested_at, Time.now)
+      @topic.update_attribute(:suggested_node, params[:suggested_node]) unless params[:suggested_node].blank?
       @topic.update_attributes(modified_admin: current_user)
       redirect_to(@topic, notice: "Topic:#{params[:id]} suggested.")
     end
 
     def unsuggest
       @topic.update_attribute(:suggested_at, nil)
+      @topic.update_attribute(:suggested_node, nil)
       @topic.update_attributes(modified_admin: current_user)
       redirect_to(@topic, notice: "Topic:#{params[:id]} unsuggested.")
     end

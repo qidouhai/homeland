@@ -41,6 +41,9 @@ class TopicsController < ApplicationController
     @topics = @topics.includes(:user).page(params[:page])
     @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
     @page_title = [@node.name, t("menu.topics")].join(" · ")
+    @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
+    suggest_topic_ids = @suggest_topics.map(&:id)
+    @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0
     render action: "index"
   end
 
