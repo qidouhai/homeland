@@ -1,0 +1,8 @@
+<% if Setting.has_module?(:opensource_project) %>
+<div class="home_suggest_topics panel panel-default">
+<div class="panel-heading">最新收录开源测试项目</div>
+<div class="panel-body">
+    <%= render partial: "shared/opensource_project", collection: @opensource_projects %>
+</div>
+</div>
+<% end %>

@@ -9,6 +9,9 @@ class HomeController < ApplicationController
     if bugs_node
       @open_bugs = bugs_node.topics.withoutDraft.open.limit(5).to_a
     end
+    if Setting.has_module?(:opensource_project)
+      @opensource_projects = OpensourceProject.latest.limit(5).to_a
+    end
   end
 
   def uploads

@@ -8,10 +8,10 @@
 <% else %>
   <%
   case notification.second_target_type
-  when "Post" %>
-    <% if Setting.has_module? :press %>
+  when "OpensourceProject" %>
+    <% if Setting.has_module? :opensource_project %>
     <div class="media-heading">
-      在你发布的 <a href="<%= homeland_press.post_path(second_target) %>"><%= second_target.title %></a> 评论了：
+      在你发布的 <a href="<%= homeland_opensource_project.opensource_project_path(second_target) %>"><%= second_target.title %></a> 评论了：
     </div>
     <div class="media-content summary markdown">
       <%= comment.body_html %>
