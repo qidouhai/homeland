@@ -114,7 +114,7 @@ gem 'status-page'
 gem 'bundler-audit', require: false
 
 # Homeland Plugins
-gem 'homeland-opensource_project', :git => 'git@github.com:testerhome/homeland-opensource_project.git'
+gem 'homeland-opensource_project', github: 'testerhome/homeland-opensource_project'
 gem 'homeland-jobs'
 gem 'homeland-wiki'
 gem 'homeland-note'
