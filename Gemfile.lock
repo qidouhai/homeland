@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/testerhome/homeland-opensource_project.git
-  revision: 31b76af9c95a38ef743fd210c832bb3719c9044d
+  revision: 8d17d7ce12af3ca9d66fde3d6423d2ab67c7fc4a
   specs:
     homeland-opensource_project (0.1.0)
       rails (~> 5.1.1)

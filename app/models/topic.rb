@@ -181,6 +181,12 @@ class Topic < ApplicationRecord
     save
   end
 
+  def update_when_append(append, opts = {})
+    return false if append.blank? && !opts[:force]
+    update!(last_active_mark: Time.now.to_i)
+    SearchIndexer.perform_later("update", "topic", self.id)
+  end
+
   # 更新最后更新人，当最后个回帖删除的时候
   def update_deleted_last_reply(deleted_reply)
     return false if deleted_reply.blank?

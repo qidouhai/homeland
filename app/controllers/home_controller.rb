@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @suggest_topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(4).to_a
     @latest_topics = Topic.withoutDraft.no_suggest.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(6).to_a
     @hot_topics = Topic.withoutDraft.without_hide_nodes.in_seven_days.high_replies.no_suggest.fields_for_list.limit(10).to_a
-    @users = User.normal.without_team.hot.limit(100).select { |user| user.topics.excellent.size >= 8 and (not user.admin?) }[0..9]
+    @users = User.normal.without_team.hot.limit(100).select { |user| user.topics.excellent.size >= 8 and (not user.admin?) and user.last_sign_in_at > 7.days.ago }[0..9]
     bugs_node = Node.find_by_id Node.bugs_id
     if bugs_node
       @open_bugs = bugs_node.topics.withoutDraft.open.limit(5).to_a

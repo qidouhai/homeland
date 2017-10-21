@@ -1,6 +1,12 @@
 class Append < ApplicationRecord
 
-  belongs_to :topic
+  belongs_to :topic, touch: true
+
+
+  after_commit :update_parent_topic, on: :create
+  def update_parent_topic
+    topic.update_when_append(self) if topic.present?
+  end
 
   after_commit :async_create_append_notify, on: :create
   def async_create_append_notify
@@ -8,7 +14,6 @@ class Append < ApplicationRecord
   end
 
   def self.notify_append_created(append_id)
-    Rails.logger.error("append #{append_id}")
     append = Append.find_by_id(append_id)
     topic = append.topic
     return unless topic && topic.user
