@@ -57,6 +57,7 @@ class User < ApplicationRecord
            :avatar, :verified, :state, :tagline, :github, :website, :location,
            :location_id, :twitter, :team_users_count, :created_at, :updated_at)
   }
+  scope :new_guy, -> { User.where(created_at: Time.current.all_week).where('avatar IS NOT NULL').order(created_at: :desc) }
   scope :normal, ->{ where(state: 1) }
 
   def self.find_by_email(email)
