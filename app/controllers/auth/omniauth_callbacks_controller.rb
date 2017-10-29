@@ -10,6 +10,10 @@ module Auth
             else
               @user = User.find_or_create_for_#{provider}(request.env["omniauth.auth"])
 
+              if @user == nil
+                redirect_to new_user_session_path, notice: "#{provider.capitalize} 信息和现有账号存在冲突，如果想绑定 #{provider.capitalize}，请用原账号登录，再到设置页面绑定。"
+                return
+              end
               if @user.persisted?
                 flash[:notice] = t('devise.sessions.signed_in')
                 sign_in_and_redirect @user, event: :authentication

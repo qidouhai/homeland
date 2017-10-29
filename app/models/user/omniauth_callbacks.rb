@@ -13,7 +13,7 @@ class User
           else
             user = User.new_from_provider_data(provider, uid, data)
 
-            if user.save(validate: false)
+            if user.save(validate: true)
               Authorization.find_or_create_by(provider: provider, uid: uid, user_id: user.id)
               return user
             else

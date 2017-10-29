@@ -43,11 +43,11 @@ class User < ApplicationRecord
   enum state: { deleted: -1, normal: 1, blocked: 2 }
 
   validates :login, format: { with: ALLOW_LOGIN_FORMAT_REGEXP, message: "只允许数字、大小写字母、中横线、下划线" },
-                    length: { in: 2..20 },
+                    length: { in: 2..30 },
                     presence: true,
                     uniqueness: { case_sensitive: false }
 
-  validates :name, length: { maximum: 20 }
+  validates :name, length: { maximum: 30 }
   # validates :qq, numericality: { only_integer: true }
 
   scope :hot, -> { order(replies_count: :desc).order(topics_count: :desc) }
