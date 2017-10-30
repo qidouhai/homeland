@@ -47,6 +47,31 @@ class TopicsController < ApplicationController
     render action: "index"
   end
 
+  def node_status
+    @node = Node.find(params[:id])
+    @status = params[:status]
+
+    if @status == 'popular'
+      @topics = @node.topics.popular.withoutDraft.last_actived.fields_for_list
+    elsif @status == 'no_reply'
+      @topics = @node.topics.no_reply.withoutDraft.last_actived.fields_for_list
+    elsif @status == 'recent'
+      @topics = @node.topics.recent.withoutDraft.last_actived.fields_for_list
+    else
+      @topics = @node.topics.withoutDraft.last_actived.fields_for_list
+      @status = 'index'
+    end
+
+    @topics = @topics.includes(:user).page(params[:page])
+    @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
+    @page_title = [@node.name, t("menu.topics")].join(" · ")
+    @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
+    suggest_topic_ids = @suggest_topics.map(&:id)
+    @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0
+    set_special_node_active_menu
+    render action: "index"
+  end
+
   def node_feed
     @node = Node.find(params[:id])
     @topics = @node.topics.withoutDraft.recent.limit(20)

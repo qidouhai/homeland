@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   end
 
   get 'topics/node:id', to: 'topics#node', as: 'node_topics'
+  get 'topics/node:id/:status', to: 'topics#node_status', as: 'node_topics_status'
   get 'topics/node:id/feed', to: 'topics#node_feed', as: 'feed_node_topics', defaults: { format: 'xml' }
   get 'topics/last', to: 'topics#recent', as: 'recent_topics'
 
