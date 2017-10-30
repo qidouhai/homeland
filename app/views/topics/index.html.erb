@@ -18,13 +18,13 @@
             <a href="<%= main_app.node_topics_path(@node) %>" data-turbolinks-action="replace">默认</a>
           </li>
           <li class="<%= ' active' if @status == 'popular' %>">
-            <a href="<%= main_app.node_topics_status_path(@node, 'popular') %>" data-turbolinks-action="replace"><i class="fa fa-diamond"></i> 优质帖子</a>
+            <a href="<%= main_app.node_topics_status_path(@node, 'popular') %>" data-turbolinks-action="replace"><i class="fa fa-diamond"></i> 精华帖</a>
           </li>
           <li class="<%= ' active' if @status == 'no_reply' %>">
-            <%= link_to('无人问津', main_app.node_topics_status_path(@node, 'no_reply'), data: { 'turbolinks-action': 'replace' }) %>
+            <%= link_to('零回复', main_app.node_topics_status_path(@node, 'no_reply'), data: { 'turbolinks-action': 'replace' }) %>
           </li>
           <li class="<%= ' active' if @status == 'recent' %>">
-            <%= link_to('最新发布', main_app.node_topics_status_path(@node, 'recent'), data: { 'turbolinks-action': 'replace' }) %>
+            <%= link_to('最近', main_app.node_topics_status_path(@node, 'recent'), data: { 'turbolinks-action': 'replace' }) %>
           </li>
         </ul>
       </div>
