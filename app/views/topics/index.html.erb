@@ -12,7 +12,7 @@
     <%end%>
     <div class="topics panel panel-default">
       <% if @node %>
-      <div class="panel-heading">
+      <div class="panel-heading node-header">
         <ul class="filter nav nav-pills">
           <li class="<%= ' active' if @status == 'index' %>">
             <a href="<%= main_app.node_topics_path(@node) %>" data-turbolinks-action="replace">默认</a>
