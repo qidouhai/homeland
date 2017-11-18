@@ -35,6 +35,7 @@ class Setting < RailsSettings::Base
     blacklist_ips
     admin_emails
     ban_reasons
+    new_tags
   )
 
   class << self
