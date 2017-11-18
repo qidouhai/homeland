@@ -987,7 +987,14 @@ div#reply_notice {
 }
 
 .badge-new {
-  background: red;
-  color: white;
-  vertical-align: top;
+  height:16px;
+  width:16px;
+  border-radius:16px;
+  display:inline-block;
+  text-align:center;
+  font-size:0.1em;
+  color:#fff;
+  background:red;
+  position: relative;
+  top: -8px;
 }

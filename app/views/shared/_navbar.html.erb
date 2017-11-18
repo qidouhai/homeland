@@ -8,8 +8,8 @@
       new_tags = (Setting.new_tags || "").split("\n").collect(&:strip)
       Homeland.navbar_plugins.each do |plugin|
         if Setting.has_module?(plugin.name)
-          if plugin.display_name.strip.in?(new_tags)
-            li << link_to(sanitize(plugin.display_name + content_tag(:span,"新",class:"badge badge-new")), plugin.root_path)
+          if plugin.name.strip.in?(new_tags)
+            li << link_to(sanitize(plugin.display_name + content_tag(:span,"新",class:"badge-new")), plugin.root_path)
           else
             li << link_to(plugin.display_name, plugin.root_path)
           end
