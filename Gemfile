@@ -118,8 +118,9 @@ gem 'homeland-opensource_project', github: 'testerhome/homeland-opensource_proje
 # gem 'homeland-opensource_project', path: '../homeland-opensource_project'
 gem 'homeland-jobs'
 gem 'homeland-wiki'
-gem 'homeland-note'
 gem 'homeland-site'
+
+gem 'homeland-note', github: 'testerhome/homeland-note'
 
 gem 'sdoc', '1.0.0.rc1'
 
