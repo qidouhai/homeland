@@ -52,7 +52,7 @@
   badge_class = ""
   badge_class = "new" if unread_notify_count > 0
   %>
-  <li class="notification-count">
+  <li class="notification-count hidden-sm">
     <a href="<%= main_app.notifications_path %>" class="<%= badge_class %>" title="通知"><i class="fa fa-bell"></i><span class="count"><%= unread_notify_count %></span></a>
   </li>
   <% if not current_user.newbie? %>
