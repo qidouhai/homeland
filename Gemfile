@@ -64,7 +64,7 @@ gem 'kaminari'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
-# 三方平台 OAuth 验证登陆
+# 三方平台 OAuth 验证登录
 gem 'omniauth'
 gem 'omniauth-github'
 

@@ -27,6 +27,12 @@ class Team < User
     end
   end
 
+  def team_admin_ids
+    if self.team_users.owner.exists?
+      self.team_users.owner.pluck(:user_id)
+    end
+  end
+
   def member?(user)
     self.team_users.accepted.exists?(user_id: user.id)
   end

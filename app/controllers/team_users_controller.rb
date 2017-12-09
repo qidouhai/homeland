@@ -67,7 +67,7 @@ class TeamUsersController < ApplicationController
       @team_user.role = :member
       @team_user.team_id = @team.id
       @team_user.login = current_user.login
-      @team_user.actor_id = @team.team_admin.id
+      @team_user.actor_ids = @team.team_admin_ids
       @team_user.status = :pendding_owner_approved
       @team_user.comment = params[:comment]
       if @team_user.save(context: :invite)
