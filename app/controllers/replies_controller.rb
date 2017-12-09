@@ -80,6 +80,6 @@ class RepliesController < ApplicationController
   end
 
   def reply_params
-    params.require(:reply).permit(:body, :reply_to_id, :anonymous)
+    params.require(:reply).permit(:body, :reply_to_id, :anonymous, :exposed_to_author_only)
   end
 end

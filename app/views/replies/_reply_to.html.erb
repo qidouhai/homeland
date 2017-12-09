@@ -18,7 +18,12 @@
     </div>
     <% if show_body %>
     <div class="markdown">
-      <%= markdown(reply_to.body) %>
+      <% if !reply.exposed_to_author_only? %>
+        <%= markdown(reply_to.body) %>
+      <% else %>
+          <i class="fa fa-lock"></i>
+          <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
+      <%end%>
     </div>
     <% end %>
   </div>

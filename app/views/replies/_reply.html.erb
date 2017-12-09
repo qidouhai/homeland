@@ -14,7 +14,7 @@
       <div class="deleted text-center"><%= floor %><%= t("common.floor")%> <%= t("common.has_deleted")%></div>
     <% elsif reply.system_event? %>
       <%= render '/replies/system_event', reply: reply %>
-    <% else %>
+      <% elsif !reply.exposed_to_author_only? %>
       <div class="avatar"><%= user_avatar_tag(reply.user, :md) %></div>
       <div class="infos">
         <div class="info">
@@ -55,7 +55,68 @@
           <%= reply.body_html %>
         </div>
       </div>
-    <% end %>
+    <% elsif current_user && (reply.topic && reply.topic.user == current_user || reply.user == current_user) %>
+        <div class="avatar"><%= user_avatar_tag(reply.user, :md) %></div>
+        <div class="infos">
+          <div class="info">
+          <span class="name">
+            <%= user_name_tag(reply.user) %>
+          </span> ·
+            <span class='floor'>#<%= floor %></span> ·
+            <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
+            <% if reply.user && reply.user.id == @topic.user_id && @topic.user_id != User.anonymous_user_id %>
+                <span class="label label-info reply_by_author"><%= t("common.author")%></span>
+            <% end %>
+            <i class="fa fa-lock"></i>
+            <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
+            <% if reply.suggested? %>
+                <span class="label label-info"><i class='fa fa-thumb-tack'></i></span>
+            <% end %>
+
+
+            <span class="opts pull-right">
+            <% if !reply.deleted? %>
+              <span class="hideable">
+              <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
+
+                <%= link_to('', "#", 'data-id' => reply.id, 'data-login' => reply.user_login,
+                            title: t("topics.reply_this_floor"), class: "btn-reply fa fa-mail-reply" )
+                %>
+              </span>
+                  <%= likeable_tag(reply, cache: true) %>
+            <% end %>
+          </span>
+          </div>
+          <%= render 'replies/reply_to', reply: reply, show_body: false %>
+          <div class="markdown<%= ' deleted' if reply.deleted? %>">
+            <%= reply.body_html %>
+          </div>
+        </div>
+    <% else %>
+    <div class="author-only-no-content">
+      <div class="avatar"><%= user_avatar_tag(reply.user, :md) %></div>
+      <div class="infos">
+        <div class="info">
+            <span class="name">
+              <%= user_name_tag(reply.user) %>
+            </span> ·
+          <span class='floor'>#<%= floor %></span> ·
+          <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
+          <% if reply.user && reply.user.id == @topic.user_id && @topic.user_id != User.anonymous_user_id %>
+              <span class="label label-info reply_by_author"><%= t("common.author")%></span>
+          <% end %>
+          <% if reply.suggested? %>
+              <span class="label label-info"><i class='fa fa-thumb-tack'></i></span>
+          <% end %>
+        </div>
+        <div class="markdown">
+          <i class="fa fa-lock"></i>
+          <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
+        </div>
+      </div>
+    </div>
+<% end %>
+
   </div>
 </div>
 <% end %>

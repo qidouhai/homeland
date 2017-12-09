@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916005317) do
+ActiveRecord::Schema.define(version: 20171209103120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "actions", id: :serial, force: :cascade do |t|
     t.string "action_type", null: false
@@ -26,6 +27,16 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.datetime "updated_at", null: false
     t.index ["target_type", "target_id", "action_type"], name: "index_actions_on_target_type_and_target_id_and_action_type"
     t.index ["user_type", "user_id", "action_type"], name: "index_actions_on_user_type_and_user_id_and_action_type"
+  end
+
+  create_table "ads", id: :serial, force: :cascade do |t|
+    t.string "topic_id", null: false
+    t.string "topic_title", null: false
+    t.string "topic_author", null: false
+    t.string "cover", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["topic_id"], name: "index_ads_on_topic_id"
   end
 
   create_table "appends", force: :cascade do |t|
@@ -165,6 +176,31 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "opensource_projects", id: :serial, force: :cascade do |t|
+    t.string "title", null: false
+    t.string "avatar"
+    t.string "license"
+    t.string "dev_language"
+    t.string "operator_os"
+    t.string "doc_url"
+    t.string "proj_url"
+    t.string "slug", null: false
+    t.text "body", null: false
+    t.string "summary", limit: 5000
+    t.string "banner"
+    t.integer "user_id"
+    t.integer "likes_count", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "published_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published_at"], name: "index_opensource_projects_on_published_at"
+    t.index ["slug"], name: "index_opensource_projects_on_slug"
+    t.index ["status"], name: "index_opensource_projects_on_status"
+    t.index ["user_id"], name: "index_opensource_projects_on_user_id"
+  end
+
   create_table "page_versions", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "page_id", null: false
@@ -182,7 +218,6 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.string "slug", null: false
     t.string "title", null: false
     t.text "body", null: false
-    t.text "body_html"
     t.boolean "locked", default: false
     t.integer "version", default: 0, null: false
     t.integer "editor_ids", default: [], null: false, array: true
@@ -238,6 +273,7 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.string "target_id"
     t.integer "reply_to_id"
     t.datetime "suggested_at"
+    t.boolean "exposed_to_author_only", default: false, null: false
     t.index ["deleted_at"], name: "index_replies_on_deleted_at"
     t.index ["topic_id"], name: "index_replies_on_topic_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
@@ -321,6 +357,7 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.datetime "closed_at"
     t.integer "team_id"
     t.boolean "draft", default: false, null: false
+    t.integer "suggested_node"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"
@@ -352,6 +389,7 @@ ActiveRecord::Schema.define(version: 20170916005317) do
     t.boolean "email_public", default: false, null: false
     t.string "location"
     t.integer "location_id"
+    t.integer "score", default: 1000, null: false
     t.string "bio"
     t.string "qrcode"
     t.string "website"
