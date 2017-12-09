@@ -80,7 +80,10 @@ class Reply < ApplicationRecord
     end
 
     if reply.exposed_to_author_only?
-      notification_receiver_ids = [topic.user_id]
+      notification_receiver_ids = []
+      if reply.user_id != topic.user_id
+        notification_receiver_ids = [topic.user_id]
+      end
     end
 
     Notification.bulk_insert(set_size: 100) do |worker|
