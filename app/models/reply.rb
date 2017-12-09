@@ -79,6 +79,10 @@ class Reply < ApplicationRecord
       notification_receiver_ids = reply.private_org_notification_receiver_ids
     end
 
+    if reply.exposed_to_author_only?
+      notification_receiver_ids = [topic.user_id]
+    end
+
     Notification.bulk_insert(set_size: 100) do |worker|
       notification_receiver_ids.each do |uid|
         logger.debug "Post Notification to: #{uid}"
