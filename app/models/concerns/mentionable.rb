@@ -51,6 +51,7 @@ module Mentionable
 
     if self.class.name == "Reply"
       return if self&.topic.private_org
+      return if self.exposed_to_author_only?
     end
 
     users = mentioned_users - no_mention_users

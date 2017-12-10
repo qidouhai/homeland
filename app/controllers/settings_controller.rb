@@ -84,6 +84,11 @@ class SettingsController < ApplicationController
   end
 
   def update_reward
+    if !params[:user]
+      redirect_to reward_setting_path, notice: "不需要更新"
+      return
+    end
+
     reward_fields = params[:user][:rewards] || {}
 
     res = {}
