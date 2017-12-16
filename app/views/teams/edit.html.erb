@@ -47,7 +47,13 @@
           <%= f.input :website, type: :url, input_html: { placeholder: "http://" } %>
           <%= f.input :bio, as: :text %>
           <%= f.input :private, as: :boolean %>
+          <hr/>
+          <div class="alert alert-info" role="alert">以下选项只有私有组织才会生效</div>
 
+          <%= f.simple_fields_for :team_profile do |team_profile| %>
+            <%= team_profile.input :show_reward, as: :boolean  %>
+            <%= team_profile.input :apply_message, placeholder: "支持markdown"  %>
+          <% end %>
           <div class="form-group">
             <%= f.submit t("common.save"), class: "btn btn-primary btn-block", 'data-disable-with' => t("common.saving") %>
           </div>

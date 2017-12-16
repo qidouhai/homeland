@@ -29,6 +29,7 @@ class TeamsController < ApplicationController
   end
 
   def edit
+    @team.build_team_profile if @team.team_profile.nil?
   end
 
   def requestjoin
@@ -46,7 +47,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:login, :name, :email, :email_public, :bio, :website, :twitter, :github, :location, :avatar, :private)
+    params.require(:team).permit(:login, :name, :email, :email_public, :bio, :website, :twitter, :github, :location, :avatar, :private, team_profile_attributes: [:apply_message, :show_reward])
   end
 
   def set_team

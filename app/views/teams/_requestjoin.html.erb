@@ -10,12 +10,16 @@
       </div>
       <% if @team.private? %>
           <hr/>
-      <strong>这是一个私密圈子，请打赏加入！</strong>
+        <div id="apply-message" class="markdown">
+            <%= markdown(@team.team_profile&.apply_message) %>
+        </div>
+        <% if @team.team_profile&.show_reward %>
       <div class="modal-body clearfix">
         <% @team.team_admin.reward_fields.each_with_index do |(field, val), idx| %>
         <div class="reward-image"><img src="<%= @team.team_admin.reward_field(field) %>"></div>
         <% end %>
       </div>
+      <% end %>
       <% end %>
       <%= form_tag main_app.join_path(@team), method: :post do %>
       <div class="modal-body clearfix">

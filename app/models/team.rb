@@ -3,6 +3,8 @@ class Team < User
   has_many :users, through: :team_users
 
   has_many :topics
+  has_one :team_profile, dependent: :destroy
+  accepts_nested_attributes_for :team_profile
 
   attr_accessor :owner_id
   after_create do
