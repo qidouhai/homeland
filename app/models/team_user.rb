@@ -6,7 +6,7 @@ class TeamUser < ApplicationRecord
   belongs_to :user
 
   validates :login, :team_id, :role, presence: true, on: :invite
-  validates :user_id, uniqueness: { scope: :team_id, message: I18n.t("teams.user_existed") }
+  validates :user_id, uniqueness: {scope: :team_id, message: I18n.t("teams.user_existed")}
 
   attr_accessor :login, :actor_ids
 
@@ -40,12 +40,24 @@ class TeamUser < ApplicationRecord
     end
     if self.pendding_owner_approved?
       self.actor_ids.each do |actor_id|
-      Notification.create notify_type: 'team_join',
-                          actor_id: actor_id,
-                          user_id: actor_id,
-                          target: self,
-                          second_target: team
+        Notification.create notify_type: 'team_join',
+                            actor_id: actor_id,
+                            user_id: actor_id,
+                            target: self,
+                            second_target: team
       end
     end
+  end
+
+  def reject_user_join(message)
+    self.actor_ids.each do |actor_id|
+      Notification.create notify_type: 'reject_user_join',
+                          actor_id: actor_id,
+                          user_id: self.user_id,
+                          target: self,
+                          second_target: team,
+                          message: message
+    end
+    self.destroy
   end
 end

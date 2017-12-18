@@ -22,7 +22,7 @@ class TeamUsersController < ApplicationController
   def create
     @team_user = TeamUser.new(team_user_params)
     @team_user.team_id = @team.id
-    @team_user.actor_id = current_user.id
+    @team_user.actor_ids = [current_user.id]
     @team_user.status = :pendding
     if @team_user.save(context: :invite)
       redirect_to(user_team_users_path(@team), notice: "邀请成功。")
@@ -94,7 +94,10 @@ class TeamUsersController < ApplicationController
   end
 
   def reject_join
-    @team_user.destroy
+    return if not @team_user.team.owner? current_user
+    @team_user.actor_ids = [current_user.id]
+    reject_join_reason = params[:reject_join_reason]
+    @team_user.reject_user_join(reject_join_reason)
     redirect_to(user_team_users_path(@team), notice: '已拒绝申请成功')
   end
 

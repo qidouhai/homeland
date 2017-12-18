@@ -1,0 +1,13 @@
+<%
+  team = notification.second_target
+%>
+<% if team.blank? %>
+  <div class="media-body">相关信息已删除</div>
+<% else %>
+  <div class="media-heading">
+    <h4>你申请加入 <%= user_name_tag(team) %> 被拒绝！</h4>
+  </div>
+  <div class="media-content summary markdown">
+    <p><%=markdown notification.message%></p>
+  </div>
+<% end %>
