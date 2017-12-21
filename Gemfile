@@ -72,7 +72,7 @@ gem 'omniauth-github'
 gem 'cancancan'
 
 # Redis
-gem 'redis'
+gem 'redis', '~> 3.3.3'
 gem 'hiredis'
 gem 'redis-namespace'
 gem 'redis-objects'
