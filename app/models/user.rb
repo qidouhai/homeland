@@ -293,6 +293,10 @@ class User < ApplicationRecord
     @team_collection = teams.collect { |t| [t.name, t.id] }
   end
 
+  def valid_teams
+    self.teams.reject {|t| !t.member?(self)}
+  end
+
   def self.anonymous_user_id
     12
   end

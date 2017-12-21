@@ -26,7 +26,7 @@
           <% if !@topic.user.teams.blank? %>
               <div class="user-teams">
                 <div>
-                  <% @topic.user.teams.each do |team| %>
+                  <% @topic.user.valid_teams.each do |team| %>
                       <%= user_avatar_tag(team, :sm) %>
                   <% end %>
                 </div>
