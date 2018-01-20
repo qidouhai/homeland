@@ -48,11 +48,13 @@ module Users
 
     def follow
       current_user.follow_user(@user)
+      @user = User.find_by_id(@user.id)
       render json: { code: 0, data: { followers_count: @user.followers_count } }
     end
 
     def unfollow
       current_user.unfollow_user(@user)
+      @user = User.find_by_id(@user.id)
       render json: { code: 0, data: { followers_count: @user.followers_count } }
     end
 
