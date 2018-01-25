@@ -17,14 +17,23 @@
       回复
     </div>
     <% if show_body %>
-    <div class="markdown">
-      <% if !reply.exposed_to_author_only? %>
-        <%= markdown(reply_to.body) %>
-      <% else %>
-          <i class="fa fa-lock"></i>
-          <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
-      <%end%>
-    </div>
+      <div class="markdown">
+        <% if !reply.exposed_to_author_only? %>
+          <% if !reply_to.exposed_to_author_only? or current_user == @topic.user or current_user == user%>
+            <%= markdown(reply_to.body) %>
+          <% else %>
+            <i class="fa fa-lock"></i>
+            <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
+          <% end %>
+        <% else %>
+          <% if !reply_to.exposed_to_author_only? %>
+            <%= markdown(reply_to.body) %>
+          <% else %>
+            <i class="fa fa-lock"></i>
+            <span class="author-only"><%= t("topics.exposed_to_author_only") %></span>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
