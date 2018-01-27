@@ -7,7 +7,13 @@ class TeamUsersController < ApplicationController
   load_and_authorize_resource only: [:accept, :reject, :accept_join, :reject_join, :show, :show_approve]
 
   def index
-    @team_users = @team.team_users
+    if !params[:tq].present?
+      @team_users = @team.team_users
+    else
+      user_ids = User.where("login ilike ? or name ilike ?", params[:tq], params[:tq]).ids
+      Rails.logger.error "-------------------#{user_ids}"
+      @team_users = @team.team_users.where(user_id: user_ids)
+    end
     if cannot? :update, @team
       @team_users = @team_users.accepted
     end
