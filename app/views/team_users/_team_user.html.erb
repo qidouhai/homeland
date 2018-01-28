@@ -1,5 +1,8 @@
 <tr class="team-user media clearfix" data-id="<%= team_user.id %>">
+
+  <% if not mobile? %>
   <td class="avatar"><%= user_avatar_tag(team_user.user, :sm, link: false) %></div>
+  <% end %>
   <td class="name">
     <%= user_name_tag(team_user.user) %>
     <%= team_user&.user&.name %>

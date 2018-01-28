@@ -1,10 +1,12 @@
 <% if mobile? %>
-    <div class="container">
-      <form id="mobile-search-form" class="form-horizontal" action="/search" method="GET">
-        <input class="form-control" name="q" type="text" value="<%= params[:q] %>" placeholder="搜索本站内容"/>
+<div class="panel">
+    <div class="panel-body">
+      <form id="mobile-search-form" class="" action="/search" method="GET">
+        <input class="form-control" name="q" type="text" value="<%= params[:q] %>" placeholder="搜索本站内容，按回车"/>
       </form>
     </div>
-<% end %>
+  </div>
+  <% end %>
 
 <%= raw Setting.index_html %>
 

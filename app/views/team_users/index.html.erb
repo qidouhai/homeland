@@ -8,14 +8,18 @@
       <div class="heading clearfix">
         <%= link_to t('teams.new_team_user'), new_user_team_user_path(@team), class: 'btn btn-success' %>
       </div>
-        <div class="input-group">
-          <form class="navbar-form form-search active" action="<%=user_team_users_path(@team)%>" method="GET">
-          <input type="text" class="form-control" name="tq" type="text" value="<%= params[:tq] %>" placeholder="<%=t('teams.search_team_user')%>">
-          <span class="input-group-btn">
+      <form action="<%= user_team_users_path(@team) %>" method="GET">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <input type="text" class="form-control" name="tq" type="text" value="<%= params[:tq] %>" placeholder="<%= t('teams.search_team_user') %>">
+              <span class="input-group-btn">
             <button class="btn btn-default" type="submit">Go!</button>
           </span>
-          </form>
+            </div>
+          </div>
         </div><!-- /input-group -->
+      </form>
     <% end %>
     <% if @team_users.blank? %>
       <hr/>
@@ -23,9 +27,9 @@
         <div class="no-result">没有搜索到任何有关 <%= params[:tq] %> 的内容</div>
       </div>
     <% else %>
-    <table class="table table-striped">
-      <%= render partial: '/team_users/team_user', collection: @team_users %>
-    </table>
+      <table class="table table-striped">
+        <%= render partial: '/team_users/team_user', collection: @team_users %>
+      </table>
     <% end %>
   </div>
   <div class="panel-footer">
