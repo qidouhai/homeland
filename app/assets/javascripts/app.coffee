@@ -42,6 +42,7 @@ AppView = Backbone.View.extend
     "click a.button-block-user": "blockUser"
     "click a.button-follow-user": "followUser"
     "click a.button-block-node": "blockNode"
+    "click a.button-filter-excellent-topic": "filterExcellentTopic"
     "click a.rucaptcha-image-box": "reLoadRucaptchaImage"
 
   initialize: ->
@@ -257,6 +258,15 @@ AppView = Backbone.View.extend
       $.post("/nodes/#{nodeId}/block")
       btn.addClass('active').attr("title", "")
       span.text("取消屏蔽")
+    return false
+
+  filterExcellentTopic: (e) ->
+    btn = $(e.currentTarget)
+    search_text = btn.data("id")
+    if btn.hasClass("active")
+      document.location = "/search?q=#{search_text}&excellent=0"
+    else
+      document.location = "/search?q=#{search_text}&excellent=1"
     return false
 
   reLoadRucaptchaImage: (e) ->
