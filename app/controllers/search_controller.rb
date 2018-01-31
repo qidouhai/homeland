@@ -51,19 +51,13 @@ class SearchController < ApplicationController
                       bool: {
                           must_not: {
                               term: {
-                                  draft: true
-                              }
-                          },
-                          must_not: {
-                              term: {
                                   private_org: true
                               }
                           },
-                          must: {
-                              term: {
-                                  excellent: 1
-                              }
-                          }
+                          must: [
+                            { match: { draft: false } },
+                            { match: { excellent: 1 } }
+                        ]
                       }
                   }
               }
@@ -88,9 +82,9 @@ class SearchController < ApplicationController
                   },
                   filter: {
                       bool: {
-                          must_not: {
+                          must: {
                               term: {
-                                  draft: true
+                                  draft: false
                               }
                           },
                           must_not: {
