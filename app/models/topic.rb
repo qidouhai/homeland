@@ -161,6 +161,7 @@ class Topic < ApplicationRecord
   after_commit :publish_draft_notify, on: :update
   def publish_draft_notify
     if self.previous_changes["draft"]
+      update!(last_active_mark: Time.now.to_i)
       self.send_mention_notification
       self.async_create_reply_notify
     end
