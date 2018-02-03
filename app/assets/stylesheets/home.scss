@@ -71,9 +71,18 @@ h2 {
   .head { display:none; }
 }
 .location-list {
+  text-align: left;
     .name {
+
+      font-size: 14px;
+      line-height: 14px;
+      margin: 0px 5px 5px 0px;
+      border-radius: 15px;
+      display: inline-block;
+      border: 1px solid #e5e5e5;
         a { color: #666; margin: 6px; display: inline-block; }
     }
+
 }
 @media (min-width: 768px) {
   .home_suggest_topics {
