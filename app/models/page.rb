@@ -49,7 +49,9 @@ class Page < ApplicationRecord
         slug: self.slug,
         title: self.title,
         body: self.body,
-        type_order: self.type_order
+        type_order: self.type_order,
+        draft: false,
+        private_org: false
     }
   end
 

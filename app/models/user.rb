@@ -314,7 +314,9 @@ class User < ApplicationRecord
         bio: self.bio,
         email: self.email,
         location: self.location,
-        type_order: self.type_order
+        type_order: self.type_order,
+        draft: false,
+        private_org: false
     }
   end
 
