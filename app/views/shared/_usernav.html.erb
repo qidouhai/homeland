@@ -47,7 +47,13 @@
       <i class="fa btn-search fa-search"></i>
     </form>
   </li>
+
   <% if current_user %>
+
+    <li class="visible-xs">
+      <a href="<%= main_app.new_topic_path %>"  title="<%=t("topics.new_topic")%>"><i class="fa fa-edit"></i></a>
+    </li>
+
   <%
   badge_class = ""
   badge_class = "new" if unread_notify_count > 0
