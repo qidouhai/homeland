@@ -20,8 +20,10 @@
         <div class="info">
           <span class="name">
             <%= user_name_tag(reply.user) %>
-          </span> ·
-          <span class='floor'>#<%= floor %></span> ·
+          </span>
+          ·
+          <span class='floor'><%= floor %>楼</span>
+          ·
           <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
           <% if reply.user && reply.user.id == @topic.user_id && @topic.user_id != User.anonymous_user_id %>
               <span class="label label-info reply_by_author"><%= t("common.author")%></span>
@@ -31,7 +33,7 @@
           <% end %>
 
 
-          <span class="opts pull-right">
+          <span class="opts  <%= mobile?? '' : 'pull-right' %>">
             <% if !reply.deleted? %>
               <span class="hideable">
               <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
@@ -61,8 +63,10 @@
           <div class="info">
           <span class="name">
             <%= user_name_tag(reply.user) %>
-          </span> ·
-            <span class='floor'>#<%= floor %></span> ·
+          </span>
+            ·
+            <span class='floor'><%= floor %>楼</span>
+            ·
             <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
             <% if reply.user && reply.user.id == @topic.user_id && @topic.user_id != User.anonymous_user_id %>
                 <span class="label label-info reply_by_author"><%= t("common.author")%></span>
@@ -74,7 +78,7 @@
             <% end %>
 
 
-            <span class="opts pull-right">
+            <span class="opts  <%= mobile?? '' : 'pull-right' %>">
             <% if !reply.deleted? %>
               <span class="hideable">
               <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
