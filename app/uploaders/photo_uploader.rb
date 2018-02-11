@@ -24,7 +24,9 @@ class PhotoUploader < BaseUploader
   def add_text
     manipulate! do |image|
       height = image.height
-      size = height * (0.003) * 20
+      width = image.width
+      scale = height > width ? height : width
+      size = scale * (0.003) * 20
       image.combine_options do |c|
         c.gravity 'southeast'
         c.pointsize "#{size}"
