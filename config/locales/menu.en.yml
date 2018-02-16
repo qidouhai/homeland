@@ -112,6 +112,6 @@
     before_wechat_html: "HTML code before wechat content. This can also be used for modifying CSS"
     after_wechat_html: "HTML code after wechat content."
   pagination:
-    next: "Next &#8594;"
-    prev: "&#8592; Prev"
+    next: "Next"
+    prev: "Prev"
     gap: "&hellip;"

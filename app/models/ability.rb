@@ -94,8 +94,8 @@ class Ability
   end
 
   def basic_read_only
-    can [:read, :feed, :node], Topic
-    can [:read, :reply_to], Reply
+    can %i[read feed node], Topic
+    can %i[read reply_to], Reply
     can :read, Photo
     can :read, Section
     can :read, Comment

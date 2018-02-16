@@ -43,7 +43,7 @@ module Homeland
 
     config.generators do |g|
       g.test_framework :rspec
-      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
     config.to_prepare do
@@ -57,7 +57,7 @@ module Homeland
     end
 
     config.action_cable.log_tags = [
-      :action_cable, -> (request) { request.uuid }
+      :action_cable, ->(request) { request.uuid }
     ]
 
     memcached_config = Application.config_for(:memcached)

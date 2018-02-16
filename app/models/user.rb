@@ -321,7 +321,7 @@ class User < ApplicationRecord
   end
 
   def indexed_changed?
-    %i(login name tagline bio email location).each do |key|
+    %i[login name tagline bio email location].each do |key|
       return true if saved_change_to_attribute?(key)
     end
     false

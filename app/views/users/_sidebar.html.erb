@@ -121,5 +121,7 @@
       <% end %>
   <% end %>
 
-  <%= render '/users/repos', user: @user %>
+  <% if !mobile? %>
+    <%= render '/users/repos', user: @user %>
+  <% end %>
 </div>

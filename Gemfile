@@ -122,7 +122,7 @@ gem 'homeland-site'
 
 gem 'homeland-note', github: 'testerhome/homeland-note'
 
-gem 'sdoc', '1.0.0.rc1'
+gem 'sdoc', '~> 1.0.0.rc3'
 
 group :development do
   gem 'derailed'
@@ -134,14 +134,14 @@ end
 
 group :development, :test do
   gem 'listen'
-  gem 'rubocop', '0.47.1', require: false
+  gem 'rubocop', '>= 0.49.0', require: false
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'letter_opener'
-  gem 'yard'
   gem 'binding_of_caller'
+  gem 'yard', '>= 0.9.11'
 
   gem 'codecov', require: false
 end
