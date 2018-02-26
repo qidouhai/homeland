@@ -569,7 +569,11 @@
       .hideable { display: none; }
     }
     &:hover {
-      .hideable { display: inline-block; }
+      @media (min-width: 1026px) {
+        .hideable {
+          display: inline-block;
+        }
+      }
     }
   }
 
