@@ -20,7 +20,6 @@ window.TopicView = Backbone.View.extend
     "click .notify-updated .update": "updateReplies"
     "click #node-selector .nodes .name a": "nodeSelectorNodeSelected"
     "click #team-selector .team-list a.team-name": "teamSelectorNodeSelected"
-    "click #team-selector .team-list a.team-name": "teamSelectorNodeSelected"
     "click .editor-toolbar .reply-to a.close": "unsetReplyTo"
     "tap .topics .topic": "topicRowClick"
     "click #publish, #save_as_draft": "dealDisableWith"
