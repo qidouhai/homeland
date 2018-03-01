@@ -19,6 +19,8 @@ window.TopicView = Backbone.View.extend
     "click .btn-move-page": "scrollPage"
     "click .notify-updated .update": "updateReplies"
     "click #node-selector .nodes .name a": "nodeSelectorNodeSelected"
+    "click #team-selector .team-list a.team-name": "teamSelectorNodeSelected"
+    "click #team-selector .team-list a.team-name": "teamSelectorNodeSelected"
     "click .editor-toolbar .reply-to a.close": "unsetReplyTo"
     "tap .topics .topic": "topicRowClick"
     "click #publish, #save_as_draft": "dealDisableWith"
@@ -319,6 +321,18 @@ window.TopicView = Backbone.View.extend
       nodeId = el.data('id')
       $('.form input[name="topic[node_id]"]').val(nodeId)
       $('#node-selector-button').html(el.text())
+      return false
+    else
+      return true
+
+  teamSelectorNodeSelected: (e) ->
+    el = $(e.currentTarget)
+    $("#team-selector").modal('hide')
+    if $('.form input[name="topic[team_id]"]').length > 0
+      e.preventDefault()
+      teamId = el.data('id')
+      $('.form input[name="topic[team_id]"]').val(teamId)
+      $('#team-selector-button').html(el.text())
       return false
     else
       return true

@@ -1,0 +1,34 @@
+<div class="modal fade" id="team-selector" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>我的圈子</strong>
+      </div>
+      <div class="modal-body">
+
+          <div class="panel panel-default team-section">
+            <div class="panel-body">
+              <div class="row team-list">
+                <% current_user.teams.each do |team| %>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="media user-card">
+                      <div class="media-left"><%= team_avatar_tag(team, :md, {link:false}) %></div>
+                      <div class="media-body">
+                        <div class="media-heading"><%= team_name_tag(team) %></div>
+                        <div class="infos">
+                          <div class="item opts"><%= team_member_counts_tag(team) %></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
