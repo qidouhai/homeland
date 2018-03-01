@@ -12,7 +12,7 @@
               <div class="row team-list">
                 <% current_user.teams.each do |team| %>
                   <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="media user-card">
+                    <div class="media team-card">
                       <div class="media-left"><%= team_avatar_tag(team, :md, {link:false}) %></div>
                       <div class="media-body">
                         <div class="media-heading"><%= team_name_tag(team) %></div>

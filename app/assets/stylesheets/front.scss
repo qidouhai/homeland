@@ -1027,3 +1027,18 @@ div#reply_notice {
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
+.team-card {
+  margin-bottom: 15px;
+  padding-left: 15px;
+  height: 60px;
+  min-height: 60px;
+  .media-heading {
+    font-weight:bold;
+    a { color: #333; }
+  }
+  .infos {
+    color:#999; font-size: 12px;
+    .item { margin-top: 5px; }
+  }
+}
