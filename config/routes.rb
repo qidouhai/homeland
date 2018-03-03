@@ -1,9 +1,11 @@
-require 'sidekiq/web'
+# frozen_string_literal: true
+
+require "sidekiq/web"
 
 Rails.application.routes.draw do
   use_doorkeeper do
-    controllers applications: 'oauth/applications',
-                authorized_applications: 'oauth/authorized_applications'
+    controllers applications: "oauth/applications",
+                authorized_applications: "oauth/authorized_applications"
   end
 
   resources :comments
@@ -15,19 +17,19 @@ Rails.application.routes.draw do
   end
 
   if Setting.has_module?(:home)
-    root to: 'home#index'
+    root to: "home#index"
   else
-    root to: 'topics#index'
+    root to: "topics#index"
   end
-  match '/uploads/:path(![large|lg|md|sm|xs])', to: 'home#uploads', via: :get, constraints: {
+  match "/uploads/:path(![large|lg|md|sm|xs])", to: "home#uploads", via: :get, constraints: {
     path: /[\w\d\.\/]+/i
   }
 
-  devise_for :users, path: 'account', controllers: {
+  devise_for :users, path: "account", controllers: {
     registrations: :account,
     sessions: :sessions,
     passwords: :passwords,
-    omniauth_callbacks: 'auth/omniauth_callbacks'
+    omniauth_callbacks: "auth/omniauth_callbacks"
   }
 
   resource :setting do
@@ -41,7 +43,7 @@ Rails.application.routes.draw do
 
   # SSO
   namespace :auth do
-    resource :sso, controller: 'sso' do
+    resource :sso, controller: "sso" do
       collection do
         get :login
         get :provider
@@ -49,7 +51,7 @@ Rails.application.routes.draw do
     end
   end
 
-  delete 'setting/auth/:provider', to: 'settings#auth_unbind'
+  delete "setting/auth/:provider", to: "settings#auth_unbind"
 
   get 'nodes/list', to: 'nodes#list', as: 'list_nodes'
   resources :nodes do
@@ -63,7 +65,6 @@ Rails.application.routes.draw do
   get 'topics/node:id/:status', to: 'topics#node_status', as: 'node_topics_status'
   get 'topics/node:id/feed', to: 'topics#node_feed', as: 'feed_node_topics', defaults: { format: 'xml' }
   get 'topics/last', to: 'topics#recent', as: 'recent_topics'
-
   resources :topics do
     member do
       post :reply
@@ -82,7 +83,7 @@ Rails.application.routes.draw do
       get :popular
       get :excellent
       get :favorites
-      get :feed, defaults: { format: 'xml' }
+      get :feed, defaults: { format: "xml" }
       post :preview
     end
     resources :replies do
@@ -107,7 +108,7 @@ Rails.application.routes.draw do
   get '/search/users', to: 'search#users', as: 'search_users'
 
   namespace :admin do
-    root to: 'home#index', as: 'root'
+    root to: "home#index", as: "root"
     resources :site_configs
     resources :replies
     resources :topics do
@@ -133,8 +134,8 @@ Rails.application.routes.draw do
     resources :stats
   end
 
-  get 'api', to: 'home#api', as: 'api'
-  get 'markdown', to: 'home#markdown', as: 'markdown'
+  get "api", to: "home#api", as: "api"
+  get "markdown", to: "home#markdown", as: "markdown"
 
   namespace :api do
     namespace :v3 do
@@ -189,18 +190,18 @@ Rails.application.routes.draw do
         end
       end
 
-      match '*path', to: 'root#not_found', via: :all
+      match "*path", to: "root#not_found", via: :all
     end
   end
 
   authenticate :user, ->(u) { u.admin? } do
-    mount Sidekiq::Web, at: 'sidekiq'
+    mount Sidekiq::Web, at: "sidekiq"
     mount PgHero::Engine, at: "pghero"
     mount ExceptionTrack::Engine, at: "exception-track"
   end
 
-  mount Notifications::Engine, at: 'notifications'
-  mount StatusPage::Engine, at: '/'
+  mount Notifications::Engine, at: "notifications"
+  mount StatusPage::Engine, at: "/"
 
   # WARRING! 请保持 User 的 routes 在所有路由的最后，以便于可以让用户名在根目录下面使用，而又不影响到其他的 routes
   # 比如 http://localhost:3000/huacnlee
@@ -208,7 +209,7 @@ Rails.application.routes.draw do
   get 'users', to: 'users#index', as: 'users'
   post '/people/join/:user_id', to: 'team_users#join', as: 'join'
   constraints(id: /[#{User::LOGIN_FORMAT}]*/) do
-    resources :users, path: '', as: 'users' do
+    resources :users, path: "", as: "users" do
       member do
         # User only
         get :topics
@@ -226,7 +227,7 @@ Rails.application.routes.draw do
         get :reward
       end
 
-      resources :team_users, path: 'people' do
+      resources :team_users, path: "people" do
         member do
           post :accept
           post :accept_join
@@ -238,5 +239,5 @@ Rails.application.routes.draw do
     end
   end
 
-  match '*path', to: 'home#error_404', via: :all
+  match "*path", to: "home#error_404", via: :all
 end

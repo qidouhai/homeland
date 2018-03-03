@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class RepliesController < Admin::ApplicationController
     before_action :set_reply, only: %i[show edit update destroy]
@@ -50,6 +52,5 @@ module Admin
     def reply_params
       params.require(:reply).permit(:body, :reply_to_id, :anonymous)
     end
-
   end
 end

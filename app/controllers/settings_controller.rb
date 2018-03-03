@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SettingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
@@ -20,14 +22,14 @@ class SettingsController < ApplicationController
 
   def update
     case params[:by]
-    when "password"
-      update_password
-    when "profile"
-      update_profile
-    when "reward"
-      update_reward
-    else
-      update_basic
+      when "password"
+        update_password
+      when "profile"
+        update_profile
+      when "reward"
+        update_reward
+      else
+        update_basic
     end
   end
 

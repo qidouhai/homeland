@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users
   module UserActions
     extend ActiveSupport::Concern
@@ -79,9 +81,9 @@ module Users
 
     private
 
-    def only_user!
-      render_404 if @user_type != :user
-    end
+      def only_user!
+        render_404 if @user_type != :user
+      end
 
     def user_show
       # 排除掉几个非技术的节点

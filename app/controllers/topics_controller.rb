@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit create update destroy
                                               favorite unfavorite follow unfollow
@@ -326,6 +328,7 @@ class TopicsController < ApplicationController
     params.require(:topic).permit(:title, :body, :node_id, :team_id, :cannot_be_shared)
   end
 
+
   def ability_team_id
     team = Team.find_by_id(topic_params[:team_id])
     return nil if team.blank?
@@ -358,3 +361,4 @@ class TopicsController < ApplicationController
     end
   end
 end
+

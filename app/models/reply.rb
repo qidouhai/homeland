@@ -1,17 +1,14 @@
+# frozen_string_literal: true
+
 require "digest/md5"
 class Reply < ApplicationRecord
-  include MarkdownBody
-  include SoftDelete
-  include Mentionable
-  include MentionTopic
-  include UserAvatarDelegate
-
-  UPVOTES = %w[+1 :+1: :thumbsup: :plus1: 👍 👍🏻 👍🏼 👍🏽 👍🏾 👍🏿]
+  include SoftDelete, MarkdownBody, Mentionable, MentionTopic, UserAvatarDelegate
+  include Reply::Notify, Reply::Voteable
 
   belongs_to :user, counter_cache: true
   belongs_to :topic, touch: true
-  belongs_to :target, polymorphic: true
-  belongs_to :reply_to, class_name: "Reply"
+  belongs_to :target, polymorphic: true, optional: true
+  belongs_to :reply_to, class_name: "Reply", optional: true
 
   delegate :title, to: :topic, prefix: true, allow_nil: true
   delegate :login, to: :user, prefix: true, allow_nil: true
@@ -151,10 +148,6 @@ class Reply < ApplicationRecord
     likes_count >= 5
   end
 
-  def upvote?
-    (body || "").strip.start_with?(*UPVOTES)
-  end
-
   def destroy
     super
     Notification.where(notify_type: "topic_reply", target: self).delete_all
@@ -166,12 +159,12 @@ class Reply < ApplicationRecord
     action.present?
   end
 
-  def self.create_system_event(opts = {})
+  def self.create_system_event!(opts = {})
     opts[:body] ||= ""
     opts[:user] ||= User.current
     return false if opts[:action].blank?
     return false if opts[:user].blank?
-    self.create(opts)
+    self.create!(opts)
   end
 
   def suggested?

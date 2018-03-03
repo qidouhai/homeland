@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mentionable
   extend ActiveSupport::Concern
 
@@ -38,6 +40,8 @@ module Mentionable
     end
   end
 
+  private
+
   def no_mention_users
     [user]
   end
@@ -58,11 +62,11 @@ module Mentionable
     Notification.bulk_insert(set_size: 100) do |worker|
       users.each do |user|
         note = {
-          notify_type: "mention",
-          actor_id: self.user_id,
-          user_id: user.id,
-          target_type: self.class.name,
-          target_id: self.id
+            notify_type: "mention",
+            actor_id: self.user_id,
+            user_id: user.id,
+            target_type: self.class.name,
+            target_id: self.id
         }
         if self.class.name == "Reply"
           note[:second_target_type] = "Topic"
@@ -71,15 +75,15 @@ module Mentionable
           note[:second_target_type] = self.commentable_type
           note[:second_target_id] = self.commentable_id
         end
-        worker.add(note)
       end
-    end
 
-    # Touch push to client
-    # TODO: 确保准确
-    users.each do |u|
-      n = u.notifications.last
-      n.realtime_push_to_client
+      # Touch push to client
+      # TODO: 确保准确
+      users.each do |u|
+        n = u.notifications.last
+        n.realtime_push_to_client
+      end
     end
   end
 end
+

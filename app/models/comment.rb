@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 class Comment < ApplicationRecord
-  include MarkdownBody
-  include Mentionable
-  include UserAvatarDelegate
+  include MarkdownBody, Mentionable, UserAvatarDelegate
 
   belongs_to :commentable, polymorphic: true
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :body, presence: true
 
