@@ -6,17 +6,16 @@ class Topic
 
     included do
       before_save :notify_admin_editing_node_changed
-      after_commit :async_create_reply_notification, on: :create
+      after_commit :async_create_topic_notification, on: :create
       after_commit :publish_draft_notify, on: :update
     end
 
     module ClassMethods
-      def self.notify_topic_created(topic_id)
+      def notify_topic_created(topic_id)
         topic = Topic.find_by_id(topic_id)
         return unless topic && topic.user
         return if topic.draft
         return unless topic&.user
-
         follower_ids = topic.user.follow_by_user_ids
         return if follower_ids.empty?
 
@@ -38,11 +37,10 @@ class Topic
             worker.add(note)
           end
         end
-
         true
       end
 
-      def self.notify_topic_node_changed(topic_id, node_id)
+      def notify_topic_node_changed(topic_id, node_id)
         topic = Topic.find_by_id(topic_id)
         return if topic.blank?
         node = Node.find_by_id(node_id)
@@ -64,15 +62,14 @@ class Topic
       Topic.notify_topic_node_changed(id, node_id)
     end
 
-    def async_create_reply_notification
+    def async_create_topic_notification
       NotifyTopicJob.perform_later(id)
     end
 
     def publish_draft_notify
       if self.previous_changes["draft"]
         update!(last_active_mark: Time.now.to_i)
-        self.send_mention_notification
-        self.async_create_reply_notify
+        NotifyTopicJob.perform_later(id)
       end
     end
   end

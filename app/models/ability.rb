@@ -77,7 +77,7 @@ class Ability
     end
 
     def roles_for_teams
-      if not user.newbie_reply?
+      if not user.newbie?
         can :create, Team
       end
       can [:update, :destroy], Team do |team|
