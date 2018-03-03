@@ -40,8 +40,6 @@ module Mentionable
     end
   end
 
-  private
-
   def no_mention_users
     [user]
   end
@@ -75,15 +73,15 @@ module Mentionable
           note[:second_target_type] = self.commentable_type
           note[:second_target_id] = self.commentable_id
         end
+        worker.add(note)
       end
+    end
 
-      # Touch push to client
-      # TODO: 确保准确
-      users.each do |u|
-        n = u.notifications.last
-        n.realtime_push_to_client
-      end
+    # Touch push to client
+    # TODO: 确保准确
+    users.each do |u|
+      n = u.notifications.last
+      n.realtime_push_to_client
     end
   end
 end
-

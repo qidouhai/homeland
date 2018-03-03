@@ -69,6 +69,7 @@ class Topic
     def publish_draft_notify
       if self.previous_changes["draft"]
         update!(last_active_mark: Time.now.to_i)
+        self.send_mention_notification
         NotifyTopicJob.perform_later(id)
       end
     end

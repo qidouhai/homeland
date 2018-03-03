@@ -24,7 +24,7 @@ class Topic
       transaction do
         update(lock_node: true, node_id: Node.no_point.id, admin_editing: true)
         if opts[:reason]
-          Reply.create_system_event(action: "ban", topic_id: self.id, body: opts[:reason])
+          Reply.create_system_event!(action: "ban", topic_id: self.id, body: opts[:reason])
         end
       end
     end
@@ -32,20 +32,20 @@ class Topic
     def down!
       transaction do
         update!(last_active_mark: self.last_active_mark - 2.day.to_i)
-        # Reply.create_system_event(action: "down", topic_id: self.id)
+        # Reply.create_system_event!(action: "down", topic_id: self.id)
       end
     end
 
     def excellent!
       transaction do
-        Reply.create_system_event(action: "excellent", topic_id: self.id)
+        Reply.create_system_event!(action: "excellent", topic_id: self.id)
         update!(excellent: 1)
       end
     end
 
     def unexcellent!
       transaction do
-        Reply.create_system_event(action: "unexcellent", topic_id: self.id)
+        Reply.create_system_event!(action: "unexcellent", topic_id: self.id)
         update!(excellent: 0)
       end
     end
