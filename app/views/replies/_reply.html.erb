@@ -21,10 +21,10 @@
           <span class="name">
             <%= user_name_tag(reply.user) %>
           </span>
-          ·
-          <span class='floor'><%= floor %>楼</span>
-          ·
-          <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
+          <span class="sub-info">
+            <span class='floor'>#<%= floor %></span> ·
+            <a class="time" href="#reply-<%= reply.id %>"><%= timeago(reply.created_at) %></a>
+          </span>
           <% if reply.user && reply.user.id == @topic.user_id && @topic.user_id != User.anonymous_user_id %>
               <span class="label label-info reply_by_author"><%= t("common.author")%></span>
           <% end %>
