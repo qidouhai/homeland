@@ -85,6 +85,10 @@
   <div id="main" class="main-container container">
     <%= birthday_tag %>
     <%= notice_message %>
+
+    <!--背景动画-->
+    <div id="particles-js"></div>
+
     <%= content_for?(:main) ? yield(:main) : yield %>
   </div>
 
