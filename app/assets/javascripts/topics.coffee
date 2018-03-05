@@ -20,6 +20,7 @@ window.TopicView = Backbone.View.extend
     "click .notify-updated .update": "updateReplies"
     "click #node-selector .nodes .name a": "nodeSelectorNodeSelected"
     "click #team-selector .team-list a.team-name": "teamSelectorNodeSelected"
+    "click .team-clear": "teamClear"
     "click .editor-toolbar .reply-to a.close": "unsetReplyTo"
     "tap .topics .topic": "topicRowClick"
     "click #publish, #save_as_draft": "dealDisableWith"
@@ -331,10 +332,17 @@ window.TopicView = Backbone.View.extend
       e.preventDefault()
       teamId = el.data('id')
       $('.form input[name="topic[team_id]"]').val(teamId)
-      $('#team-selector-button').html(el.text())
+      $('#team-selector-button').val(el.text())
       return false
     else
       return true
+
+  teamClear: (e) ->
+    $('#team-selector-button').val('选择我的社团...')
+    $('.form input[name="topic[team_id]"]').val('')
+    return false
+
+
 
   topicRowClick: (e) ->
     if !App.turbolinks
