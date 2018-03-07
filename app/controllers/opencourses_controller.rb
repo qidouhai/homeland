@@ -10,7 +10,7 @@ class OpencoursesController < ApplicationController
     @node = Node.find(Node.opencourse_id)
     @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
     suggest_topic_ids = @suggest_topics.map(&:id)
-    @topics = @node.topics.last_actived.fields_for_list
+    @topics = @node.topics.last_actived
     @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0
     @topics = @topics.includes(:user).page(params[:page])
     @page_title = "#{t('menu.open_course')} - #{t('menu.topics')}"
