@@ -16,7 +16,7 @@ class Reply < ApplicationRecord
   scope :without_system, -> { where(action: nil) }
   scope :fields_for_list, -> { select(:topic_id, :id, :body, :user_id, :exposed_to_author_only, :updated_at, :created_at) }
 
-  # 置顶
+  # 最佳回复
   scope :suggest,            -> { where('suggested_at IS NOT NULL').order(suggested_at: :desc) }
   scope :no_suggest,         -> { where('suggested_at IS NULL') }
   scope :without_suggest,    -> { where(suggested_at: nil) }

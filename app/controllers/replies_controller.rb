@@ -63,12 +63,12 @@ class RepliesController < ApplicationController
 
   def reply_suggest
     @reply.update_suggested_at(Time.now)
-    redirect_to(topic_path(@reply.topic_id), notice: "回帖置顶成功。")
+    redirect_to(topic_path(@reply.topic_id), notice: "设为最佳回复成功。")
   end
 
   def reply_unsuggest
     @reply.update_suggested_at(nil)
-    redirect_to(topic_path(@reply.topic_id), notice: "回帖取消置顶成功。")
+    redirect_to(topic_path(@reply.topic_id), notice: "取消最佳回复成功。")
   end
 
   protected
