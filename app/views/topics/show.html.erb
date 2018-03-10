@@ -76,15 +76,27 @@
       <%= t("topics.no_replies") %>
     </div>
     <% else %>
+
+    <!--先显示最佳回复-->
+    <% if !@suggest_replies.blank? %>
+    <div id="replies" class="panel panel-default" data-last-floor="<%= @replies.count(:all) %>">
+      <div class="best-reply panel-heading hide-ios">
+        <i class="fa fa-check" aria-hidden="true"> </i> 最佳回复
+      </div>
+
+      <div class="panel-body">
+        <%= render partial: "/replies/reply", collection: @suggest_replies %>
+      </div>
+    </div>
+    <% end %>
+
     <div id="replies" class="panel panel-default" data-last-floor="<%= @replies.count(:all) %>">
       <div class="total panel-heading hide-ios">
         共收到 <b><%= @topic.replies_count %></b> 条回复
       </div>
-      <div class="items panel-body">
-        <!--Display suggested replies first-->
-        <%= render partial: "/replies/reply", collection: @suggest_replies %>
 
-        <%= render partial: "/replies/reply", collection: @without_suggest_replies %>
+      <div class="items panel-body">
+        <%= render partial: "/replies/reply", collection: @replies %>
       </div>
     </div>
   <% end %>
