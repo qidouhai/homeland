@@ -34,6 +34,7 @@ class Topic < ApplicationRecord
   scope :high_likes,         -> { order(likes_count: :desc).order(id: :desc) }
   scope :with_replies_or_likes,       -> { where('replies_count >= 1 or likes_count >= 1') }
   scope :high_replies,       -> { order(replies_count: :desc).order(id: :desc) }
+  scope :last_reply,         -> { where("last_reply_id IS NOT NULL").order(last_reply_id: :desc) }
   scope :no_reply,           -> { where(replies_count: 0) }
   scope :popular,            -> { where("likes_count > 15 or excellent >= 1") }
   scope :excellent,          -> { where("excellent >= 1") }

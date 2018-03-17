@@ -93,11 +93,13 @@ class SettingsController < ApplicationController
 
     reward_fields = params[:user][:rewards] || {}
 
-    res = {}
-    reward_fields.keys.each do |key|
-      photo = Photo.create(image: reward_fields[key])
-      res[key] = photo.image.url
-    end
+
+      res = {}
+      reward_fields.each do |key, value|
+        photo = Photo.create(image: value)
+        res[key] = photo.image.url
+      end
+
 
     if @user.update_reward_fields(res)
       redirect_to reward_setting_path, notice: "更新成功"
