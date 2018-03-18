@@ -292,6 +292,7 @@ window.TopicView = Backbone.View.extend
         received: (json) =>
           return false if json.user_id == App.current_user_id
           return false if json.action != 'create'
+          return false if json.topic_id != Topics.topic_id
           if App.windowInActive
             @updateReplies()
           else

@@ -101,10 +101,6 @@ class Reply < ApplicationRecord
     true
   end
 
-  def self.broadcast_to_client(reply)
-    ActionCable.server.broadcast("topics/#{reply.topic_id}/replies", id: reply.id, user_id: reply.user_id, action: :create)
-  end
-
   def default_notification
     @default_notification ||= {
       notify_type: "topic_reply",

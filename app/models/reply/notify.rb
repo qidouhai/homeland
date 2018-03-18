@@ -35,7 +35,7 @@ class Reply
       end
 
       def broadcast_to_client(reply)
-        ActionCable.server.broadcast("topics/#{reply.topic_id}/replies", id: reply.id, user_id: reply.user_id, action: :create)
+        ActionCable.server.broadcast("topics/#{reply.topic_id}/replies", id: reply.id, user_id: reply.user_id, action: :create, topic_id: reply.topic_id)
       end
     end
 
