@@ -32,9 +32,12 @@ class TopicsController < ApplicationController
 
   def node
     @node = Node.find(params[:id])
-    @topics = topics_scope(@node.topics).last_actived.page(params[:page])
+    @topics = node_topics_scope(@node.topics).last_actived.page(params[:page])
     @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
     @page_title = [@node.name, t("menu.topics")].join(" · ")
+    @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
+    suggest_topic_ids = @suggest_topics.map(&:id)
+    @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0
     set_special_node_active_menu
     render action: "index"
   end
@@ -44,17 +47,15 @@ class TopicsController < ApplicationController
     @status = params[:status]
 
     if @status == 'popular'
-      @topics = @node.topics.popular.withoutDraft.last_actived.fields_for_list
+      @topics = node_topics_scope(@node.topics.popular)
     elsif @status == 'no_reply'
-      @topics = @node.topics.no_reply.withoutDraft.last_actived.fields_for_list
+      @topics = node_topics_scope(@node.topics.no_reply)
     elsif @status == 'recent'
-      @topics = @node.topics.recent.withoutDraft.last_actived.fields_for_list
-    elsif
-      @topics = @node.topics.last_reply.withoutDraft.last_actived.fields_for_list
-      @status = 'last_reply'
+      @topics = node_topics_scope(@node.topics.recent)
+    elsif @status == 'last_reply'
+      @topics = node_topics_scope(@node.topics.last_reply)
     else
-      @topics = @node.topics.withoutDraft.last_actived.fields_for_list
-      @status = 'index'
+      @topics = node_topics_scope(@node.topics)
     end
 
     @topics = @topics.includes(:user).page(params[:page])

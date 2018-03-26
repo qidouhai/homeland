@@ -56,5 +56,15 @@ module Topics
         # must include :user, because it's uses for _topic.html.erb fragment cache_key
         scope.includes(:user)
       end
+
+      def node_topics_scope(base_scope = Topic)
+        scope = base_scope.fields_for_list.withoutDraft
+        if current_user
+          scope = scope.without_users(current_user.block_user_ids)
+        end
+
+        # must include :user, because it's uses for _topic.html.erb fragment cache_key
+        scope.includes(:user)
+      end
   end
 end
