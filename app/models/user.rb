@@ -233,6 +233,13 @@ class User < ApplicationRecord
     10
   end
 
+
+  mapping do
+    indexes :login, type: :string, term_vector: :yes, analyzer: 'ik_smart'
+    indexes :name,  type: :string, term_vector: :yes, analyzer: 'ik_smart'
+  end
+
+
   def as_indexed_json(options={})
     {
         login: self.login,

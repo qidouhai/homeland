@@ -46,7 +46,8 @@ class SearchController < ApplicationController
                           query: params[:q],
                           default_operator: "AND",
                           minimum_should_match: "70%",
-                          fields: %w(title body name login)
+                          fields: %w(title body name login),
+                          analyzer:  'ik_smart'
                       }
                   },
                   filter: {
@@ -79,7 +80,8 @@ class SearchController < ApplicationController
                           query: params[:q],
                           default_operator: "AND",
                           minimum_should_match: "70%",
-                          fields: %w(title body name login)
+                          fields: %w(title body name login),
+                          analyzer:  'ik_smart'
                       }
                   },
                   filter: {

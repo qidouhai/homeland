@@ -43,6 +43,10 @@ class Page < ApplicationRecord
     end
   end
 
+  mapping do
+    indexes :title, type: :string, term_vector: :yes, analyzer: 'ik_smart'
+    indexes :body,  type: :string, term_vector: :yes, analyzer: 'ik_smart'
+  end
 
   def as_indexed_json(_options = {})
     {

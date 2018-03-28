@@ -6,8 +6,8 @@ class Topic
 
     included do
       mapping do
-        indexes :title, type: :string, term_vector: :yes
-        indexes :body,  type: :string, term_vector: :yes
+        indexes :title, type: :string, term_vector: :yes, analyzer: 'ik_smart'
+        indexes :body,  type: :string, term_vector: :yes, analyzer: 'ik_smart'
       end
     end
 
