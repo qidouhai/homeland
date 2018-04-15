@@ -4,9 +4,9 @@ class TeamUsersController < ApplicationController
   require_module_enabled! :team
 
   before_action :set_team
-  before_action :set_team_user, only: [:edit, :update, :destroy, :show_approve]
-  before_action :authorize_team_owner!, except: [:index, :accept, :accept_join, :reject, :reject_join, :show, :show_approve, :join]
-  load_and_authorize_resource only: [:accept, :reject, :accept_join, :reject_join, :show, :show_approve]
+  before_action :set_team_user, only: [:edit, :update, :destroy, :show_approve, :edit_user, :update_user]
+  before_action :authorize_team_owner!, except: [:index, :accept, :accept_join, :reject, :reject_join, :show, :show_approve, :join, :edit_user, :update_user]
+  load_and_authorize_resource only: [:accept, :reject, :accept_join, :reject_join, :show, :show_approve, :update_user]
 
   def index
     if !params[:tq].present?
@@ -41,8 +41,19 @@ class TeamUsersController < ApplicationController
   def edit
   end
 
+  def edit_user
+  end
+
+  def update_user
+    if @team_user.update(params.require(:team_user).permit(:is_receive_notifications))
+      redirect_to(edit_user_user_team_user_path(@team), notice: "保存成功")
+    else
+      render action: "edit_user"
+    end
+  end
+
   def update
-    if @team_user.update(params.require(:team_user).permit(:role))
+    if @team_user.update(params.require(:team_user).permit(:role, :is_receive_notifications))
       redirect_to(user_team_users_path(@team), notice: "保存成功")
     else
       render action: "edit"
@@ -123,6 +134,6 @@ class TeamUsersController < ApplicationController
     end
 
   def team_user_params
-    params.require(:team_user).permit(:login, :user_id, :role, :message)
+    params.require(:team_user).permit(:login, :user_id, :role, :message, :is_receive_notifications)
   end
 end

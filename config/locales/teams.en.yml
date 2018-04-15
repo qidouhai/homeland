@@ -24,6 +24,8 @@
     users: 'Members'
     team_user_pendding: 'Awaiting response'
     settings: 'Settings'
+    member_settings: 'Personal Settings'
+    is_receive_notifications: 'Allow notification push'
     team_users_count: "%{count} team members"
     access_denied: "Access denied. This is a private team. Please contact the admin of the team."
     private: "Private Team."

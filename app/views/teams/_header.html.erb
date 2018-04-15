@@ -50,4 +50,5 @@
   li << link_to(t("teams.topics"), user_path(@team))
   li << link_to(t("teams.users"), user_team_users_path(@team))
   li << link_to(t("teams.settings"), edit_team_path(@team)) if can?(:update, @team)
+  li << link_to(t("teams.member_settings"), main_app.edit_user_user_team_user_path(@team, @team.get_team_user_obj(current_user))) if (current_user and @team.member?(current_user))
 end %>

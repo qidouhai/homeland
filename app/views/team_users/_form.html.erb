@@ -14,7 +14,9 @@
     </div>
   <% end %>
   <%= f.input :role, as: :radio_buttons, collection: TeamUser.roles.keys %>
-
+  <div class="form-group">
+    <%= f.check_box :is_receive_notifications %> <%= t("teams.is_receive_notifications") %>
+  </div>
   <div class="form-group">
     <% if @team_user.new_record? %>
       <%= f.submit t("teams.new_team_user"), class: "btn btn-primary btn-block", 'data-disable-with' => t("common.saving") %>

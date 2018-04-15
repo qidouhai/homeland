@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_16_130855) do
+ActiveRecord::Schema.define(version: 2018_04_15_150723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 2018_03_16_130855) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
+  end
+
+  create_table "china_cities", force: :cascade do |t|
+    t.integer "parent_id"
+    t.string "name"
+    t.string "area"
+    t.integer "level"
+    t.string "code"
+    t.string "prefix"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_china_cities_on_parent_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -335,6 +347,7 @@ ActiveRecord::Schema.define(version: 2018_03_16_130855) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "comment"
+    t.boolean "is_receive_notifications", default: true, null: false
     t.index ["team_id"], name: "index_team_users_on_team_id"
     t.index ["user_id"], name: "index_team_users_on_user_id"
   end
@@ -442,6 +455,9 @@ ActiveRecord::Schema.define(version: 2018_03_16_130855) do
     t.boolean "private", default: false, null: false
     t.integer "followers_count", default: 0
     t.integer "following_count", default: 0
+    t.string "province"
+    t.string "city"
+    t.string "district"
     t.index "lower((login)::text) varchar_pattern_ops", name: "index_users_on_lower_login_varchar_pattern_ops"
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_users_on_lower_name_varchar_pattern_ops"
     t.index ["email"], name: "index_users_on_email"

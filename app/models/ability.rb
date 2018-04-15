@@ -92,6 +92,7 @@ class Ability
     can :read, TeamUser, user_id: user.id
     can :accept, TeamUser, user_id: user.id
     can :reject, TeamUser, user_id: user.id
+    can :update_user, TeamUser, user_id: user.id
     can [:accept_join, :reject_join, :show_approve], TeamUser do |team_user|
       team_user.team.owner?(user)
     end

@@ -20,7 +20,7 @@ class Topic
         return if follower_ids.empty?
 
         if topic.private_org
-          follower_ids = topic&.team.team_users.accepted.pluck(:user_id) || []
+          follower_ids = topic&.team.team_notify_users.pluck(:user_id) || []
         end
 
         notified_user_ids = topic.mentioned_user_ids

@@ -235,6 +235,8 @@ Rails.application.routes.draw do
           post :reject
           post :reject_join
           get :show_approve
+          get :edit_user
+          patch :update_user
         end
       end
     end

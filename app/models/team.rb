@@ -58,4 +58,13 @@ class Team < User
       self.team_users.pendding.find_by_user_id user
     end
   end
+
+  def get_team_user_obj(user)
+      self.team_users.find_by_user_id user
+  end
+
+  def team_notify_users
+    self.team_users.where(is_receive_notifications: true)
+  end
+
 end

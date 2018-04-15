@@ -24,7 +24,9 @@
     topics: '成员的话题列表'
     users: '成员列表'
     team_user_pendding: '等待接受'
-    settings: '设置'
+    settings: '组织设置'
+    member_settings: '个人设置'
+    is_receive_notifications: '是否接受通知'
     team_users_count: "%{count} 个团队成员"
     access_denied: "访问被拒绝，该组织属于私人组织，想要阅读该组织文章，请联系组织管理员。"
 

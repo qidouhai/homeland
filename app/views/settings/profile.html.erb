@@ -8,7 +8,17 @@
         <%= render "shared/error_messages", target: @user %>
         <input type="hidden" name="by" value="profile" />
         <% if Setting.has_profile_field? :location %>
-          <%= f.input :location, input_html: { style: 'width: 200px' }  %>
+            <div class="form-group">
+              <%= f.label :location, class: 'control-label' %>
+              <div class="form-inline cities-select ">
+                <div class="col-xs-4 input-group">
+                  <%= f.select :province, options_for_select(ChinaCity.provinces.map{|city|[city.name,city.name]}), { include_blank: (@user.province ? @user.province : '请选择...') }, {class: 'city-select province-select form-control'} %>
+                </div>
+                <div class="col-xs-4 input-group">
+                  <%= f.select :city, [], { include_blank: (@user.city ? @user.city : '请选择...') }, {class: 'city-select city-select-input form-control'} %>
+                </div>
+              </div>
+            </div>
         <% end %>
         <% if Setting.has_profile_field? :company %>
           <%= f.input :company, input_html: { style: 'width: 400px' } %>
