@@ -130,7 +130,7 @@ class Reply < ApplicationRecord
   def private_org_notification_receiver_ids
     return @private_org_notification_receiver_ids if defined? @private_org_notification_receiver_ids
     if topic.private_org
-      follower_ids = topic&.team.team_users.accepted.pluck(:user_id) || []
+      follower_ids = self.topic&.team.team_notify_users.pluck(:user_id) || []
       # 排除回帖人
       follower_ids.delete(self.user_id)
       @private_org_notification_receiver_ids = follower_ids

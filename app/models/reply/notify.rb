@@ -18,7 +18,6 @@ class Reply
 
         Notification.bulk_insert(set_size: 100) do |worker|
           reply.notification_receiver_ids.each do |uid|
-            logger.debug "Post Notification to: #{uid}"
             note = reply.send(:default_notification).merge(user_id: uid)
             worker.add(note)
           end
@@ -47,6 +46,9 @@ class Reply
       follower_ids += self.user.try(:follow_by_user_ids) || []
       # 加入发帖人
       follower_ids << self.topic.try(:user_id)
+      if self.topic.private_org
+        follower_ids = self.topic&.team.team_notify_users.pluck(:user_id) || []
+      end
       # 去重复
       follower_ids.uniq!
       # 排除回帖人
