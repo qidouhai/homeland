@@ -102,7 +102,13 @@ class TopicsController < ApplicationController
     @suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:suggested_at).suggest
     @without_suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).without_suggest
 
-    @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
+    Rails.logger.error "order #{params[:order_by]}"
+    if params[:order_by] == 'like'
+      @replies = Reply.unscoped.where(topic_id: @topic.id).order(likes_count: :desc).all
+    else
+      @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
+    end
+
     @user_like_reply_ids = current_user&.like_reply_ids_by_replies(@replies) || []
 
     check_current_user_status_for_topic
