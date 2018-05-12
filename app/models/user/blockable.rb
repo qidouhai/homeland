@@ -12,5 +12,10 @@ class User
     def block_users?
       block_user_actions.first.present?
     end
+
+    def block_nodes?
+      block_node_actions.first.present?
+    end
+
   end
 end

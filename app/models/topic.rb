@@ -20,6 +20,15 @@ class Topic < ApplicationRecord
 
   validates :user_id, :title, :body, :node_id, presence: true
 
+  validate do
+    ban_words = (Setting.ban_words_on_topic || "").split("\n").collect(&:strip)
+    for ban_word in ban_words
+      if body && body.strip.downcase.include?(ban_word)
+        errors.add(:body, "请勿发布无意义的内容，请勿挑战！")
+      end
+    end
+  end
+
   counter :hits, default: 0
 
   delegate :login, to: :user, prefix: true, allow_nil: true

@@ -5,6 +5,9 @@
   li << link_to(t("users.menu.favorites"), favorites_user_path(@user), class: 'hide-ios')
   li << link_to(t("users.menu.following"), following_user_path(@user))
   li << link_to(t("users.menu.followers"), followers_user_path(@user))
+  if owner?(@user) && current_user.block_nodes?
+    li << link_to(t("users.menu.draft"), drafts_user_path(@user), class: 'hide-ios')
+  end
   if owner?(@user) && current_user.has_draft?
     li << link_to(t("users.menu.draft"), drafts_user_path(@user), class: 'hide-ios')
   end

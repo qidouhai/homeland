@@ -32,6 +32,7 @@ class Setting < RailsSettings::Base
     reject_newbie_reply_in_the_evening
     newbie_limit_time
     ban_words_on_reply
+    ban_words_on_topic
     newbie_notices
     tips
     apns_pem
