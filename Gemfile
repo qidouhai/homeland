@@ -134,6 +134,7 @@ group :development do
   gem "better_errors"
   gem "spring"
   gem "spring-commands-rspec"
+  gem "letter_opener"
 end
 
 group :development, :test do

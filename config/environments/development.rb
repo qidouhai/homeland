@@ -51,17 +51,19 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'testerhome.com', protocol: 'https' }
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      :address=> Setting.email_server,
-      :port=> Setting.email_port,
-      :domain=> Setting.email_domain,
-      :authentication=> :login,
-      :user_name=> Setting.email_sender,
-      :password=> Setting.email_password,
-      :ssl=>true
-  }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #     :address=> Setting.email_server,
+  #     :port=> Setting.email_port,
+  #     :domain=> Setting.email_domain,
+  #     :authentication=> :login,
+  #     :user_name=> Setting.email_sender,
+  #     :password=> Setting.email_password,
+  #     :ssl=>true
+  # }
 
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.

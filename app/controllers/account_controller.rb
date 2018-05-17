@@ -18,7 +18,15 @@ class AccountController < Devise::RegistrationsController
     resource.login = params[resource_name][:login]
     resource.email = params[resource_name][:email]
     if verify_rucaptcha?(resource) && resource.save
-      sign_in(resource_name, resource)
+
+      if resource.active_for_authentication?
+        sign_in(resource_name, resource)
+      else
+        user_flash_msg
+      end
+      clean_up_passwords resource
+      respond_with resource
+
     end
   end
 
@@ -30,4 +38,11 @@ class AccountController < Devise::RegistrationsController
     def after_update_path_for(_)
       edit_user_registration_path
     end
+  def user_flash_msg
+    if resource.inactive_message == :unconfirmed
+      set_flash_message :notice, :"signed_up_but_unconfirmed", email: resource.email
+    else
+      set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
+    end
+  end
 end

@@ -16,7 +16,7 @@ class User < ApplicationRecord
                         current_password password password_confirmation _rucaptcha]
 
   devise :database_authenticatable, :registerable, :recoverable, :lockable,
-         :rememberable, :trackable, :validatable, :omniauthable
+         :rememberable, :trackable, :validatable, :omniauthable, :confirmable
 
   mount_uploader :avatar, AvatarUploader
 
@@ -44,7 +44,7 @@ class User < ApplicationRecord
   validates :name, length: { maximum: 30 }
   # validates :qq, numericality: { only_integer: true }
 
-  after_commit :send_welcome_mail, on: :create
+  # after_commit :send_welcome_mail, on: :create
 
   scope :hot, -> { order(replies_count: :desc).order(topics_count: :desc) }
   scope :without_team, -> { where(type: nil) }
@@ -128,9 +128,9 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def send_welcome_mail
-    UserMailer.welcome(id).deliver_later
-  end
+  # def send_welcome_mail
+  #   UserMailer.welcome(id).deliver_later
+  # end
 
   def profile_url
     "/#{login}"
