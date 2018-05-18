@@ -30,13 +30,16 @@
       updated: '您的密码已修改成功，请重新登录。'
     confirmations:
       send_instructions: '稍后，您将收到帐号激活的电子邮件。'
-      confirmed: '您的帐号已经激活，请登录。'
+      confirmed: '您的帐号已经激活！'
+      user:
+        mail_has_actived: '您的帐号已激活。'
+        mail_has_existed: '你的邮箱未注册。'
     registrations:
       user:
         signed_up: '您的帐号已注册成功，如无意外，您将收到一封确认邮件。'
         updated: '帐号资料更新成功。'
         destroyed: '再见！您的帐户已成功注销。我们希望很快可以再见到您。'
-        signed_up_but_unconfirmed: '您的帐号已注册成功，但未激活。请打开你的注册邮箱激活账号！'
+        signed_up_but_unconfirmed: '您的帐号已注册成功，但未激活。请前往你的注册邮箱激活账号！'
     unlocks:
       send_instructions: '稍后，您将收到一封帐号解锁的邮件。'
       unlocked: '您的帐号已成功解锁，请登录。'

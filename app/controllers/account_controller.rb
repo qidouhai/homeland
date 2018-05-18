@@ -23,12 +23,11 @@ class AccountController < Devise::RegistrationsController
         sign_in(resource_name, resource)
       else
         user_flash_msg
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
-      clean_up_passwords resource
-      respond_with resource
-
     end
   end
+
 
   private
 
@@ -38,11 +37,16 @@ class AccountController < Devise::RegistrationsController
     def after_update_path_for(_)
       edit_user_registration_path
     end
+
+  def after_inactive_sign_up_path_for(resource)
+    new_user_session_path
+  end
+
   def user_flash_msg
     if resource.inactive_message == :unconfirmed
-      set_flash_message :notice, :"signed_up_but_unconfirmed", email: resource.email
+      set_flash_message :warning, :"signed_up_but_unconfirmed", email: resource.email
     else
-      set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
+      set_flash_message :warning, :"signed_up_but_#{resource.inactive_message}"
     end
   end
 end

@@ -28,7 +28,10 @@
       updated: '您的密碼已修改成功，請重新登錄。'
     confirmations:
       send_instructions: '稍後，您將收到帳號激活的電子郵件。'
-      confirmed: '您的帳號已經激活，請登錄。'
+      confirmed: '您的帳號已經激活！'
+      user:
+        mail_has_actived: '您的帐号已激活。'
+        mail_has_existed: '你的邮箱未注册。'
     registrations:
       user:
         signed_up: '您的帳號已註冊成功，如無意外，您將收到一封確認郵件。'
