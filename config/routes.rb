@@ -126,9 +126,13 @@ Rails.application.routes.draw do
     resources :users, constraints: { id: /[#{User::LOGIN_FORMAT}]*/ } do
       member do
         delete :clean
+        get :user_topics
+        delete :clean_all
+        delete :clean_his_topics
       end
     end
     post '/users/sendMessage', to: 'users#sendSMS', as: 'send_sms'
+    post '/topics/d_topics_by_ids', to: 'topics#delete_topics_by_ids', as: 'd_ts_bids'
     resources :photos
     resources :comments
     resources :locations

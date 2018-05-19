@@ -45,6 +45,7 @@ AppView = Backbone.View.extend
     "click a.button-block-node": "blockNode"
     "click a.button-filter-excellent-topic": "filterExcellentTopic"
     "click a.rucaptcha-image-box": "reLoadRucaptchaImage"
+    "click .admin-delete-topics": "adminDeleteTopics"
 
   initialize: ->
     FormStorage.restore()
@@ -433,6 +434,24 @@ AppView = Backbone.View.extend
       $(".header .navbar").addClass('fixed-title')
     else
       $(".header .navbar").removeClass('fixed-title')
+
+  adminDeleteTopics: (e) ->
+
+    msg = "确定要删除选中 Topic 吗？"
+    if confirm(msg)==true
+      if $( "input:checked").length == 0
+        alert("未选中任何topic")
+      else
+        result = (item.value for item in $( "input:checked"))
+        $.ajax
+          url : "/admin/topics/d_topics_by_ids"
+          type : "POST"
+          data :
+            topic_ids : result
+          success: (html) ->
+            window.location.reload()
+    else
+      console.log("不删除")
 
 
 window.App =

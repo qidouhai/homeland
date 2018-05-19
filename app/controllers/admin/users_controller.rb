@@ -81,6 +81,26 @@ module Admin
       end
     end
 
+    def clean_all
+      @user = User.find_by_login!(params[:id])
+      @user.topics.each {|t| t.destroy_by(current_user)}
+      @user.replies.each {|r| r.destroy}
+      @user.soft_delete
+      redirect_to(admin_users_url)
+    end
+    
+    def clean_his_topics
+      @user = User.find_by_login!(params[:id])
+      @user.topics.each {|t| t.destroy_by(current_user)}
+      @user.replies.each {|r| r.destroy}
+      redirect_to(user_topics_admin_user_path(@user.id))
+    end
+
+    def user_topics
+      @user = User.find(params[:id])
+      @topics = Topic.unscoped.where("user_id = ?", @user.try(:id))
+    end
+
     def sendSMS
       message  = params[:message]
       if message.blank?

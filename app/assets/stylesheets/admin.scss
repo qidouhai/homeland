@@ -55,3 +55,10 @@ table tr td a.fa {
   .total-week { color: $blue; font-size: 12px; margin: 0 10px;  }
   .total-month { color: $green; font-size: 12px;  }
 }
+
+.admin-action-button {
+  margin-bottom: 20px;
+  .btn {
+    margin-right: 5px;
+  }
+}

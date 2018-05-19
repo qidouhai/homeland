@@ -1,0 +1,66 @@
+<% content_for :sitemap do %>
+  <a href="<%= admin_users_path %>"><%= t("admin.menu.users")%></a> <i class="fa fa-angle-right"></i> <span class="current"><%=@user.name%>的 topic</span>
+<% end %>
+
+<div class="btn-group admin-action-button">
+  <%= link_to '删除他的账号，同时删除他的所有文章和他的回复', clean_all_admin_user_path(@user),
+              method: 'delete', class: 'btn btn-danger',
+              data: {confirm: '注意！！！用户删除是软删除，他的文章也是软删'} %>
+  <%= link_to '删除他的所有文章', clean_his_topics_admin_user_path(@user),
+              method: 'delete', class: 'btn btn-warning',
+              data: {confirm: '注意！！！删除他的所有文章和他的回复'} %>
+  <button type="button" class="btn btn-primary admin-delete-topics" >删除选中文章</button>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td class="first">#</td>
+    <td>是否草稿</td>
+    <td style="width:300px">标题</td>
+    <td>节点</td>
+    <td>发帖人</td>
+    <td>回帖</td>
+    <td>时间</td>
+    <td>最后修改的管理员</td>
+    <td style="width:100px"></td>
+  </tr>
+
+  <% @topics.each do |topic| %>
+    <tr class="<%= 'deleted' if !topic.deleted_at.blank? %>">
+      <td class="first"><input type="checkbox" value="<%= topic.id %>"/></td>
+
+      <td class="first"><%= topic.id %></td>
+      <td class="first"><%= topic.draft %></td>
+      <td>
+        <%= link_to truncate(topic.title, length: 30), topic, target: "_blank" %>
+      </td>
+      <td><%= topic.node_name %></td>
+      <td><%= user_name_tag(topic.user) %></td>
+      <td><%= topic.replies_count %></td>
+      <td>
+        <% if topic.deleted_at.blank? and not topic.created_at.blank?%>
+          <%= l topic.created_at, format: :short %>
+        <% else %>
+          <%= link_to topic.who_deleted, user_path(topic.who_deleted) if not topic.who_deleted.blank? %> 删除于 <br />
+          <%= l topic.deleted_at, format: :short if not topic.created_at.blank?%>
+        <% end %>
+      </td>
+      <td>
+        <% if !topic.modified_admin.blank? %>
+          <%= link_to topic.modified_admin.login, user_path(topic.modified_admin.login) if not topic.modified_admin.blank? %>
+        <% else %>
+          无
+        <% end %>
+      </td>
+      <td>
+        <% if topic.deleted_at.blank? %>
+          <%= link_to "", admin_topic_path(topic), 'data-confirm' => 'Are you sure?', method: :delete, class: "fa fa-trash" %>
+        <% else %>
+          <%= link_to "", undestroy_admin_topic_path(topic), title: t("common.undelete"), 'data-confirm' => 'Are you sure?', method: :post, remote: true, class: "fa fa-undo" %>
+        <% end %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>

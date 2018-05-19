@@ -49,9 +49,18 @@ module Admin
       end
     end
 
+    def delete_topics_by_ids
+      topic_ids = params[:topic_ids]
+      topic_ids.each do |tid|
+        topic = Topic.find tid
+        topic.update_attributes(modified_admin: current_user)
+        topic.destroy_by(current_user)
+      end
+    end
+
     def destroy
-      @topic.destroy_by(current_user)
       @topic.update_attributes(modified_admin: current_user)
+      @topic.destroy_by(current_user)
       redirect_to(admin_topics_path)
     end
 
