@@ -5,10 +5,10 @@
 <div class="btn-group admin-action-button">
   <%= link_to '删除他的账号，同时删除他的所有文章和他的回复', clean_all_admin_user_path(@user),
               method: 'delete', class: 'btn btn-danger',
-              data: {confirm: '注意！！！用户删除是软删除，他的文章也是软删'} %>
+              data: {confirm: '注意！！！全部是硬删，不可恢复'} %>
   <%= link_to '删除他的所有文章', clean_his_topics_admin_user_path(@user),
               method: 'delete', class: 'btn btn-warning',
-              data: {confirm: '注意！！！删除他的所有文章和他的回复'} %>
+              data: {confirm: '注意！！！全部是硬删，不可恢复'} %>
   <button type="button" class="btn btn-primary admin-delete-topics" >删除选中文章</button>
 </div>
 

@@ -83,16 +83,16 @@ module Admin
 
     def clean_all
       @user = User.find_by_login!(params[:id])
-      @user.topics.each {|t| t.destroy_by(current_user)}
-      @user.replies.each {|r| r.destroy}
-      @user.soft_delete
+      @user.topics.delete_all
+      @user.replies.delete_all
+      @user.delete
       redirect_to(admin_users_url)
     end
     
     def clean_his_topics
       @user = User.find_by_login!(params[:id])
-      @user.topics.each {|t| t.destroy_by(current_user)}
-      @user.replies.each {|r| r.destroy}
+      @user.topics.delete_all
+      @user.replies.delete_all
       redirect_to(user_topics_admin_user_path(@user.id))
     end
 
