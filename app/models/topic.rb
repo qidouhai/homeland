@@ -21,10 +21,17 @@ class Topic < ApplicationRecord
   validates :user_id, :title, :body, :node_id, presence: true
 
   validate do
-    ban_words = (Setting.ban_words_on_topic || "").split("\n").collect(&:strip)
-    for ban_word in ban_words
-      if body && body.strip.downcase.include?(ban_word)
-        errors.add(:body, "请勿发布无意义的内容，请勿挑战！")
+
+    Rails.logger.error "user_id is #{user_id}"
+    if User.redis.SISMEMBER("blocked_users", user_id) == 1
+      errors.add(:body, "由于你经常发布无意义的内容或者敏感词，屏蔽一天！")
+    else
+      ban_words = (Setting.ban_words_on_topic || "").split("\n").collect(&:strip)
+      for ban_word in ban_words
+        if body && body.strip.downcase.include?(ban_word)
+          add_to_blocked_user
+          errors.add(:body, "请勿发布无意义的内容或者敏感词，请勿挑战！")
+        end
       end
     end
   end
@@ -131,5 +138,22 @@ class Topic < ApplicationRecord
       @total_pages = 60
     end
     @total_pages
+  end
+
+  def add_to_blocked_user
+    key = user_id.to_s + "-" +Time.now.strftime("%Y-%m-%d")
+    hit_blacklist = User.redis.get(key)
+    if not hit_blacklist
+      User.redis.set(key, 1)
+      User.redis.expire(key, 86400)
+    else
+      hit_blacklist_counter = hit_blacklist.to_i
+      if hit_blacklist_counter <=5
+        User.redis.incr(key)
+      else
+        User.redis.sadd("blocked_users", user_id)
+        User.redis.expire("blocked_users", 86400)
+      end
+    end
   end
 end
