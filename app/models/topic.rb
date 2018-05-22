@@ -24,13 +24,13 @@ class Topic < ApplicationRecord
 
     Rails.logger.error "user_id is #{user_id}"
     if User.redis.SISMEMBER("blocked_users", user_id) == 1
-      errors.add(:body, "由于你经常发布无意义的内容或者敏感词，屏蔽一天！")
+      errors.add(:base, "由于你经常发布无意义的内容或者敏感词，屏蔽一天！")
     else
       ban_words = (Setting.ban_words_on_topic || "").split("\n").collect(&:strip)
       for ban_word in ban_words
-        if body && body.strip.downcase.include?(ban_word)
+        if body && body.strip.downcase.include?(ban_word) || title.strip.downcase.include?(ban_word)
           add_to_blocked_user
-          errors.add(:body, "请勿发布无意义的内容或者敏感词，请勿挑战！")
+          errors.add(:base, "请勿发布无意义的内容或者敏感词，请勿挑战！")
         end
       end
     end
