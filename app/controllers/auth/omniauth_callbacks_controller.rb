@@ -16,7 +16,12 @@ module Auth
                 return
               end
               if @user.persisted?
-                flash[:notice] = t('devise.sessions.signed_in')
+                @user.skip_confirmation!
+                if @user.email.include?("@example.com")
+                  flash[:notice] = t('devise.sessions.add_email')
+                else
+                  flash[:notice] = t('devise.sessions.signed_in')
+                end
                 sign_in_and_redirect @user, event: :authentication
               else
                 redirect_to new_user_registration_url

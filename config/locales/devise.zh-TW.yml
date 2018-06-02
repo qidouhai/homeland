@@ -22,6 +22,7 @@
         not_found_in_database: '沒有該用戶，請您重新註冊。'
     sessions:
       signed_in: '登錄成功。'
+      add_email: '请前往个人设置页面，修改邮箱'
       signed_out: '退出成功。'
     passwords:
       send_instructions: '稍後，您將收到重置密碼的電子郵件。'

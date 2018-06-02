@@ -3,3 +3,6 @@
     signed_up: 'Sign up successed.'
     updated: 'Profile update successed.'
     destroyed: 'Goodbye! You account was deleted.'
+  sessions:
+    signed_in: 'Sign in successfully!'
+    add_email: 'please go to account setting page to change your email address!'

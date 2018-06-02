@@ -3,7 +3,7 @@ en:
     hints:
       user:
         location: "Please input city with chinese"
-        email: "Can't change after saved."
+        email: "Can't change after saved. If github login is used, please go to active your account using the email address after change email. Or it will not work. Later you can use the email to get your password."
       doorkeeper_application:
         level: "Application level, this value will effect OAuth 2 accessToken expires, [0 - 1 day | 1 - 7 days | 2 - 14 days | 3 - 30 days]"
     labels:
