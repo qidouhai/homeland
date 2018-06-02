@@ -40,6 +40,8 @@ class Setting < RailsSettings::Base
     admin_emails
     ban_reasons
     new_tags
+    topic_create_limit_interval
+    topic_create_hour_limit_count
   )
 
   class << self
@@ -81,6 +83,10 @@ class Setting < RailsSettings::Base
 
     def sso_provider_enabled?
       self.sso["enable_provider"] == true
+    end
+
+    def topic_create_rate_limit?
+      self.topic_create_rate_limit == 'true'
     end
   end
 end
