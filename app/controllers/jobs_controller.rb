@@ -9,7 +9,7 @@ module Homeland::Jobs
       @topics = @topics.where.not(id: suggest_topic_ids) if suggest_topic_ids.count > 0
       @topics = @topics.last_actived.includes(:user).page(params[:page])
       @topics = @topics.where("title LIKE ?", "%[#{params[:location]}]%") if params[:location]
-      @page_title = "#{t('menu.bugs')} - #{t('menu.topics')}"
+      @page_title = "#{t('menu.jobs')} - #{t('menu.topics')}"
       render '/topics/index'
     end
 
