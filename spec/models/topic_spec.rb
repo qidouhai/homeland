@@ -300,4 +300,12 @@ describe Topic, type: :model do
       end
     end
   end
+      create(:topic, user_id: user_id)
+      count = Rails.cache.read("users:#{user_id}:topic-create-by-hour")
+      assert_equal 1, count
+
+      create(:topic, user_id: user_id)
+      count = Rails.cache.read("users:#{user_id}:topic-create-by-hour")
+      assert_equal 2, count
+
 end

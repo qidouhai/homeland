@@ -83,7 +83,7 @@ module UsersHelper
                   when "hr"      then "label-success"
                   when "blocked" then "label-warning"
                   when "newbie"  then "label-default"
-                  else "label-info"
+                  else "badge-info"
     end
 
     content_tag(:span, user.level_name, class: "label #{level_class} role")

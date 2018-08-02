@@ -26,13 +26,13 @@ class TopicsController < ApplicationController
   end
 
   def feed
-    @topics = Topic.withoutDraft.without_hide_nodes.recent.includes(:node, :user, :last_reply_user).limit(20)
+    @topics = Topic.recent.withoutDraft.without_hide_nodes.includes(:node, :user, :last_reply_user).limit(20)
     render layout: false if stale?(@topics)
   end
 
   def node
     @node = Node.find(params[:id])
-    @topics = node_topics_scope(@node.topics).last_actived.page(params[:page])
+    @topics = node_topics_scope(@node.topics, without_nodes: false).last_actived.page(params[:page])
     @page_title = "#{@node.name} &raquo; #{t('menu.topics')}"
     @page_title = [@node.name, t("menu.topics")].join(" · ")
     @suggest_topics = Topic.where(node_id: @node.id).withoutDraft.suggest_all_parts.limit(4)
