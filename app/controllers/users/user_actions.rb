@@ -16,6 +16,10 @@ module Users
       @topics = @topics.page(params[:page])
     end
 
+    def columns
+      @columns = @user.columns
+    end
+
     def replies
       @replies = @user.replies.without_system.fields_for_list.recent
       @replies = @replies.page(params[:page])
