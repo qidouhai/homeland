@@ -105,6 +105,10 @@ Rails.application.routes.draw do
   resources :questions
 
 
+  resources :columns do
+  end
+
+
   get 'jump', to: 'jump#index'
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'
@@ -184,6 +188,7 @@ Rails.application.routes.draw do
         end
         member do
           get :topics
+          get :columns
           get :replies
           get :favorites
           get :followers
@@ -219,6 +224,7 @@ Rails.application.routes.draw do
       member do
         # User only
         get :topics
+        get :columns
         get :replies
         get :favorites
         get :blocked

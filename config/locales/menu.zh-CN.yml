@@ -97,6 +97,7 @@
     questions: "问答"
     my_home_page: "我的主页"
     edit_account_path: "个人资料设置"
+    my_columns_path: "我的专栏"
     likes: "我的收藏"
     teams: '社团'
   comments:
