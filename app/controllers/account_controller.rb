@@ -17,6 +17,14 @@ class AccountController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.login = params[resource_name][:login]
     resource.email = params[resource_name][:email]
+
+    if !reject_email_blacklist(resource.email)
+      set_flash_message :warning, :"plz_do_not_do_that_again", email: resource.email
+      respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      return
+    end
+
+
     if verify_rucaptcha?(resource) && resource.save
 
       if resource.active_for_authentication?
@@ -49,4 +57,17 @@ class AccountController < Devise::RegistrationsController
       set_flash_message :warning, :"signed_up_but_#{resource.inactive_message}"
     end
   end
+
+  def reject_email_blacklist(email_to_register)
+    blacklist = Setting.blacklist_emails.split("\n")
+    Rails.logger.error "asdasdas ----- #{blacklist}"
+    Rails.logger.error "asdasdas ----- #{email_to_register.split('@')[1]}"
+    
+    if blacklist.include?(email_to_register.split('@')[1])
+      return false
+    else
+      return true
+    end
+  end
+
 end

@@ -37,6 +37,7 @@ class Setting < RailsSettings::Base
     tips
     apns_pem
     blacklist_ips
+    blacklist_emails
     admin_emails
     ban_reasons
     new_tags
