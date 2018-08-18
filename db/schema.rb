@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_05_014253) do
+ActiveRecord::Schema.define(version: 2018_08_18_161806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -56,18 +56,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
   end
 
-  create_table "china_cities", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string "name"
-    t.string "area"
-    t.integer "level"
-    t.string "code"
-    t.string "prefix"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_china_cities_on_parent_id"
-  end
-
   create_table "columns", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -80,6 +68,7 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", null: false
     t.index ["likes_count"], name: "index_columns_on_likes_count"
     t.index ["name"], name: "index_columns_on_name"
     t.index ["suggested_at"], name: "index_columns_on_suggested_at"
@@ -326,6 +315,16 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
+  create_table "settingss", id: false, force: :cascade do |t|
+    t.serial "id", null: false
+    t.string "var", limit: 10485760
+    t.text "value"
+    t.integer "thing_id"
+    t.string "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "site_nodes", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "sort", default: 0, null: false
@@ -472,9 +471,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.boolean "private", default: false, null: false
     t.integer "followers_count", default: 0
     t.integer "following_count", default: 0
-    t.string "province"
-    t.string "city"
-    t.string "district"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

@@ -105,10 +105,6 @@ Rails.application.routes.draw do
   resources :questions
 
 
-  resources :columns do
-  end
-
-
   get 'jump', to: 'jump#index'
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'
@@ -251,6 +247,9 @@ Rails.application.routes.draw do
         end
       end
     end
+  end
+
+  resources :columns, param: :name do
   end
 
   match "*path", to: "home#error_404", via: :all
