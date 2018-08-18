@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_05_014253) do
+ActiveRecord::Schema.define(version: 2018_08_18_161806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -69,23 +69,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug", null: false
-    t.index ["likes_count"], name: "index_columns_on_likes_count"
-    t.index ["name"], name: "index_columns_on_name"
-    t.index ["suggested_at"], name: "index_columns_on_suggested_at"
-  end
-
-  create_table "columns", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "cover"
-    t.integer "user_id", null: false
-    t.string "who_deleted"
-    t.integer "modified_admin_id"
-    t.integer "likes_count", default: 0
-    t.datetime "suggested_at"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["likes_count"], name: "index_columns_on_likes_count"
     t.index ["name"], name: "index_columns_on_name"
     t.index ["suggested_at"], name: "index_columns_on_suggested_at"
@@ -207,7 +190,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.integer "owner_id"
     t.string "owner_type"
     t.integer "level", default: 0, null: false
-    t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
@@ -333,6 +315,16 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
+  create_table "settingss", id: false, force: :cascade do |t|
+    t.serial "id", null: false
+    t.string "var", limit: 10485760
+    t.text "value"
+    t.integer "thing_id"
+    t.string "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "site_nodes", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "sort", default: 0, null: false
@@ -403,7 +395,6 @@ ActiveRecord::Schema.define(version: 2018_08_05_014253) do
     t.integer "team_id"
     t.boolean "draft", default: false, null: false
     t.integer "suggested_node"
-    t.integer "column_id"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"

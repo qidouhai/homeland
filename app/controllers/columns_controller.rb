@@ -1,4 +1,5 @@
 class ColumnsController < ApplicationController
+  before_action :set_column, only: [:show]
 
   def index
     @columns = Column.all
@@ -9,7 +10,6 @@ class ColumnsController < ApplicationController
   end
 
   def show
-    @column = Column.find(params[:id])
   end
 
   def create
@@ -52,4 +52,8 @@ class ColumnsController < ApplicationController
     params.require(:column).permit(:name, :description, :cover)
   end
 
+  def set_column
+    Rails.logger.error "###{column_params[:name]}"
+    @column = Column.find_by(name: column_params[:name])
+  end
 end
