@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_161806) do
+ActiveRecord::Schema.define(version: 2018_08_19_143356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -395,6 +395,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_161806) do
     t.integer "team_id"
     t.boolean "draft", default: false, null: false
     t.integer "suggested_node"
+    t.integer "column_id"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"

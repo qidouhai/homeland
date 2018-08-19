@@ -1,4 +1,4 @@
-<div class="sidebar col-md-4<%= ' hide-ios' if turbolinks_app? && action_name != 'show' %>" id='sidebar'>
+<div class="sidebar col-md-3<%= ' hide-ios' if turbolinks_app? && action_name != 'show' %>" id='sidebar'>
   <div class="panel profile panel-default">
     <div class="panel-body">
       <div class="media">
@@ -16,7 +16,10 @@
             </span>
           </div>
           <div class="item number">
-            第 <%= @user.id %> 位<%= t("menu.users")%> / <span title="注册日期"><%= @user.created_at.to_date %></span>
+            第 <%= @user.id %> 位<%= t("menu.users")%></span>
+          </div>
+          <div class="item number">
+            <span title="注册日期">注册日期: <%= @user.created_at.to_date %></span>
           </div>
           <% if !@user.company.blank? %>
               <div class="item company">
@@ -25,7 +28,8 @@
               </div>
           <% end %>
           <div class="item counts">
-            <span><%= @user.topics_count %></span> 篇帖子 • <span><%= @user.replies_count %></span> 条回帖
+            <span><%= @user.topics_count %></span> 篇帖子
+            <span><%= @user.replies_count %></span> 条回帖
           </div>
           <div class="item social">
             <% if !@user.twitter.blank? %>
@@ -112,7 +116,7 @@
   <% if Setting.has_module?(:team) %>
       <% if !@user.teams.blank? %>
           <div class="panel user-teams">
-            <div class="panel-body">
+            <div class="panel-body user-teams-avatar">
               <% @user.valid_teams.each do |team| %>
                   <%= user_avatar_tag(team, :md) %>
               <% end %>

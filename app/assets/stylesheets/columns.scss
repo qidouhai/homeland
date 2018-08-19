@@ -1,0 +1,30 @@
+.bs-dropzone {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #777;
+  text-align: center;
+  border: 2px dashed #eee;
+  border-radius: 4px;
+}
+
+.column {
+
+  padding: 2px;
+  border-bottom: 1px solid #F0F0F0;
+
+  .infos {
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .count {
+    vertical-align: middle;
+  }
+
+  .column-cover {
+    border-radius: 0px;
+    width: 48px;
+    height: 48px;
+  }
+}

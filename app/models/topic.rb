@@ -11,6 +11,7 @@ class Topic < ApplicationRecord
   belongs_to :modified_admin, class_name: 'User', optional: true
 
   belongs_to :user, inverse_of: :topics, counter_cache: true, optional: true
+  belongs_to :column, inverse_of: :topics, counter_cache: true, optional: true
   belongs_to :team, counter_cache: true, optional: true
   belongs_to :node, counter_cache: true, optional: true
   belongs_to :last_reply_user, class_name: "User", optional: true
