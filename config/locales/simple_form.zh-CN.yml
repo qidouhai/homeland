@@ -17,6 +17,11 @@
       doorkeeper_application:
         level: "应用程序等级，影响 OAuth 2 accessToken 的有效期, 可选 [0 - 1 天 | 1 - 7 天 | 2 - 14 天 | 3 - 30 天]"
     labels:
+      column:
+        name: "专栏名称"
+        slug: "别名"
+        description: "专栏介绍"
+        cover: "专栏封面"
       user:
         name: "名字"
         login: "用户名"

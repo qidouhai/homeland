@@ -1,4 +1,6 @@
 class ColumnsController < ApplicationController
+
+  before_action :authenticate_user!, only: %i[new edit create update destroy]
   before_action :set_column, only: [:show]
 
   def index
@@ -6,6 +8,7 @@ class ColumnsController < ApplicationController
   end
 
   def new
+    @column_already_have = current_user.columns
     @column = Column.new(user_id: current_user.id)
   end
 
@@ -19,7 +22,7 @@ class ColumnsController < ApplicationController
     if @column.save
       redirect_to(column_path(@column), notice: 'Column was created successfully.')
     else
-      set_flash_message :warning, :"Column cannnot be created."
+      flash.now[:alert] = "Column cannnot be created."
       render action: "new"
     end
 
@@ -49,11 +52,11 @@ class ColumnsController < ApplicationController
   protected
 
   def column_params
-    params.require(:column).permit(:name, :description, :cover)
+    params.require(:column).permit(:name, :description, :cover, :slug)
   end
 
   def set_column
-    Rails.logger.error "###{column_params[:name]}"
-    @column = Column.find_by(name: column_params[:name])
+    Rails.logger.error "###{params[:id]}"
+    @column = Column.find_by_slug(params[:id])
   end
 end

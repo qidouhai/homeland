@@ -1,0 +1,20 @@
+<% if columns.blank? %>
+  <% if current_user %>
+
+    <div class="bs-dropzone">
+      <p class="lead">你还没有创建属于你自己的专栏！</p>
+      <hr>
+      <p>
+        <%= link_to ' 创建专栏', new_column_path, class: "fa fa-columns" %>
+      </p>
+    </div>
+  <% else %>
+    <div class="bs-dropzone">
+      <p class="lead"><%=@user.name %>未开通专栏！</p>
+    </div>
+  <% end %>
+<% else %>
+  <% columns.each do |column| %>
+    <%= column.name %>
+  <% end %>
+<% end %>

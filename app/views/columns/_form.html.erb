@@ -1,13 +1,12 @@
 <%= simple_form_for(@column) do |f| %>
     <%= render 'shared/error_messages', target: @column %>
     <fieldset>
-        <%= f.input :cover %>
         <%= f.input :name %>
         <%= f.input :slug %>
         <%= f.input :description %>
+        <%= f.input :cover %>
         <div class="form-actions">
             <%= f.submit t("common.save"), class: "btn btn-primary", 'data-disable-with' => t("common.saving") %>
-            <%= link_to 'Back', columns_path %>
         </div>
     </fieldset>
 <% end %>

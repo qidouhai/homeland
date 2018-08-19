@@ -249,7 +249,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :columns, param: :name do
+  resources :columns do
   end
 
   match "*path", to: "home#error_404", via: :all
