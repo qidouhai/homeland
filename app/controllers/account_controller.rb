@@ -61,9 +61,6 @@ class AccountController < Devise::RegistrationsController
 
   def reject_email_blacklist(email_to_register)
     blacklist = Setting.blacklist_emails.split(Setting.SEPARATOR_REGEXP)
-    Rails.logger.error "asdasdas ----- #{blacklist}"
-    Rails.logger.error "asdasdas ----- #{email_to_register.split('@')[1]}"
-    
     if blacklist.include?(email_to_register.split('@')[1])
       return false
     else

@@ -1,7 +1,32 @@
 <% title_tag t("users.register_user") %>
 
+
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+
+    <% if Setting.has_module? :github and Setting.use_github_only == 'true' %>
+    <div class="panel panel-default">
+      <div class="panel-heading">请使用 Github 登录</div>
+      <ul class="list-group">
+        <li class="list-group-item"><%= link_to raw("<i class='fa fa-github'></i> GitHub"), omniauth_authorize_path(:user, :github), class: "btn btn-default btn-lg btn-block" %> </li>
+      </ul>
+      <div class="panel-body tagline">
+            人心存污,<br>
+            常忧思而多苦,<br>
+            固怒而生怨,<br>
+            尽可为不可为之事,<br>
+            唯不作恶三字,<br>
+            乃天下大善,<br>
+            可济世镇魂者,<br>
+            无他耳。
+      </div>
+    </div>
+
+    
+
+    <% else %>
+
+
     <div class="panel panel-default">
       <div class="panel-heading"><%= t("users.register_user")%></div>
       <div class="panel-body">
@@ -41,4 +66,5 @@
       </div>
     </div>
   </div>
+   <% end %>
 </div>
