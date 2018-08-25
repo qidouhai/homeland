@@ -22,7 +22,6 @@ class User
 
     # 是否能发帖
     def newbie?
-      Rails.logger.error "#{created_at} ---------------- #{avatar?}"
       return false if verified?
       t = Setting.newbie_limit_time.to_i
       return false if t == 0
