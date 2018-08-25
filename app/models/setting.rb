@@ -44,6 +44,7 @@ class Setting < RailsSettings::Base
     topic_create_limit_interval
     topic_create_hour_limit_count
     use_github_only
+    new_from_github
   )
 
   class << self

@@ -125,6 +125,10 @@ class User < ApplicationRecord
 
   # Override Devise to send mails with async
   def send_devise_notification(notification, *args)
+    if email.include?("example.com") and unconfirmed_email.blank?
+      return
+    end
+
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
@@ -150,6 +154,11 @@ class User < ApplicationRecord
     return "" if twitter.blank?
     "https://twitter.com/#{twitter}"
   end
+
+  def just_new_from_github?
+    email.include? "@example.com"
+  end
+
 
   def fullname
     return login if name.blank?

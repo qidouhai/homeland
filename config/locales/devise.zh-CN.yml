@@ -23,7 +23,7 @@
         last_attempt: '密码错误多次，你还有最后一次机会，如果还是不对，帐号将被锁定一小时。'
     sessions:
       signed_in: '登录成功。'
-      add_email: '!! 请前往个人设置页面，修改邮箱'
+      add_email: '请前往个人资料设置页面，修改邮箱！！'
       signed_out: '退出成功。'
       already_signed_out: "退出成功。"
     passwords:
@@ -34,7 +34,8 @@
       confirmed: '您的帐号已经激活！'
       user:
         mail_has_actived: '您的帐号已激活。'
-        mail_has_existed: '你的邮箱未注册。'
+        mail_not_existed: '你的邮箱未注册。'
+        mail_from_github: '请前往个人资料设置界面，修改你的邮箱'
     registrations:
       user:
         signed_up: '您的帐号已注册成功，如无意外，您将收到一封确认邮件。'
