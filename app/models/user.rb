@@ -125,7 +125,7 @@ class User < ApplicationRecord
 
   # Override Devise to send mails with async
   def send_devise_notification(notification, *args)
-    if email.include?("example.com") and unconfirmed_email.blank?
+    if email.include?("@example.com") and unconfirmed_email.blank?
       return
     end
 
