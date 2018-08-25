@@ -2,8 +2,6 @@
  *= require highlight
  */
 
-
-
 /*
  * NOTE:
  * - The use of browser-specific styles (-moz-, -webkit-) should be avoided.
@@ -26,18 +24,17 @@ body {
 /* .markdown-here-wrapper[data-md-url*="mail.yahoo."] ul { color: red; } */
 
 pre, code {
-  font-size: 10px;
   font-family: Consolas, Inconsolata, Courier, monospace;
+  border-radius: 0px;
 }
 
 code {
-  margin: 0 0.15em;
-  padding: 0 0.3em;
-  white-space: pre-wrap;
-  border: 1px solid #EAEAEA;
-  background-color: #F8F8F8;
-  border-radius: 3px;
-  display: inline; /* added to fix Yahoo block display of inline code */
+  word-wrap: break-word;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 0 2px;
+  color: #e96900;
+  background: #f8f8f8;
 }
 
 pre {
@@ -47,11 +44,12 @@ pre {
 
 pre code {
   white-space: pre;
-  overflow: auto; /* fixes issue #70: Firefox/Thunderbird: Code blocks with horizontal scroll would have bad background colour */
   border-radius: 3px;
-  border: 1px solid #CCC;
   padding: 0.5em 0.7em;
   display: block !important; /* added to counteract the Yahoo-specific `code` rule; without this, code blocks in Blogger are broken */
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow: auto !important;
 }
 
 pre.highlight code .c {
@@ -86,12 +84,24 @@ table, pre, dl, blockquote, q, ul, ol {
 }
 
 ul, ol {
-  padding-left: 2em;
+  padding-left: 32px;
 }
 
-li {
-  margin: 0.5em 0;
-  font-size: 14px;
+ul { /*无序列表*/
+  list-style-type: disc;
+}
+
+ol { /*有序列表*/
+  list-style-type: decimal;
+}
+
+li * {
+  /* color: #3e3e3e;*/
+}
+
+li { /*在公众号下，改变不了li符号的属性（如颜色），并会影响其子元素的属性;而在其它博客平台中，则能正常使用*/
+  margin-bottom: 0.5em;
+  /*  color:#159957; */
 }
 
 /* Space paragraphs in a list the same as the list itself. */
@@ -221,24 +231,6 @@ table tr th {
 a {
   color: black;
   text-decoration: none;
-}
-
-/*Syntax Highlighting CSS*/
-
-/*
-
-Zenburn style from voldmar.ru (c) Vladimir Epifanov <voldmar@voldmar.ru>
-based on dark.css by Ivan Sagalaev
-
-*/
-
-.highlight {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #3f3f3f;
-  /*color: #dcdcdc;*/
-  -webkit-text-size-adjust: none;
 }
 
 
