@@ -7,6 +7,37 @@ class Notification < ActiveRecord::Base
   after_create :realtime_push_to_client
   after_update :realtime_push_to_client
 
+  # 消息分组与 notifiy_type 的映射关系。 key 按照优先级来排序
+  @@group_to_nofity_type = {
+      "system" => { "types" => ["admin_sms", "node_changed"], "icon" => "fa-bullhorn" },
+      "team" => { "types" =>  ["team_invite", "team_join", "reject_user_join"], "icon" => "fa-group" },
+      "personal" => { "types" =>  ["append", "comment", "follow", "mention", "topic", "topic_reply"], "icon" => "fa-bell" }
+  }
+
+  def self.default_group
+    @@group_to_nofity_type.keys[0]
+  end
+
+  def self.available_group?(group_name)
+    @@group_to_nofity_type.has_key?(group_name)
+  end
+
+  def self.available_groups
+    @@group_to_nofity_type.keys
+  end
+
+  def self.get_notify_types_by_group(group_name)
+    @@group_to_nofity_type[group_name]["types"]
+  end
+
+  def self.get_icon_by_group(group_name)
+    @@group_to_nofity_type[group_name]["icon"]
+  end
+
+  def self.get_group_names
+    @@group_to_nofity_type.keys
+  end
+
   def realtime_push_to_client
     if user
       Notification.realtime_push_to_client(user)
@@ -16,6 +47,10 @@ class Notification < ActiveRecord::Base
 
   def self.realtime_push_to_client(user)
     ActionCable.server.broadcast("notifications_count/#{user.id}", count: Notification.unread_count(user))
+  end
+
+  def self.unread_count_by_group(user, group)
+    Notification.where(user: user, notify_type: Notification.get_notify_types_by_group(group)).unread.count
   end
 
   def apns_note

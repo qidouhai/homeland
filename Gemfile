@@ -3,7 +3,7 @@
 if ENV["TRAVIS"]
   source "https://rubygems.org"
 else
-  source "https://gems.ruby-china.org"
+  source "https://gems.ruby-china.com"
 end
 
 gem "coffee-rails"
@@ -53,7 +53,7 @@ gem "devise"
 gem "devise-encryptable"
 
 # 通知系统
-gem "notifications"
+gem "notifications", github: 'chenhengjie123/notifications'
 gem "ruby-push-notifications"
 
 # 赞、关注、收藏、屏蔽等功能的数据结构

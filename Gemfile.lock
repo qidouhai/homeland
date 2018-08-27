@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/chenhengjie123/notifications.git
+  revision: 48e3b8b6c58f424e967a8df0b732d7431b8695fd
+  specs:
+    notifications (0.6.1)
+      kaminari (>= 0.15)
+      rails (~> 5)
+
+GIT
   remote: git://github.com/testerhome/homeland-note.git
   revision: 9f338ca6e9da53a9a59f541e962326a708b6bb93
   specs:
@@ -13,7 +21,7 @@ GIT
       rails (~> 5)
 
 GEM
-  remote: https://gems.ruby-china.org/
+  remote: https://gems.ruby-china.com/
   specs:
     action-store (0.3.3)
       rails (~> 5)
@@ -257,9 +265,6 @@ GEM
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.5.0)
       nokogiri
-    notifications (0.4.4)
-      kaminari (>= 0.15)
-      rails (>= 4.2.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
       jwt (~> 1.0)
@@ -490,7 +495,7 @@ DEPENDENCIES
   letter_opener
   listen
   mini_magick
-  notifications
+  notifications!
   omniauth
   omniauth-github
   pg
@@ -528,4 +533,4 @@ DEPENDENCIES
   yard (>= 0.9.11)
 
 BUNDLED WITH
-   1.16.0
+   1.16.3
