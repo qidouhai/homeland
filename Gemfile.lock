@@ -504,7 +504,7 @@ DEPENDENCIES
   rack-attack
   rack-cors
   rack-utf8_sanitizer
-  rails (~> 5.2.0.rc)
+  rails (= 5.2.0.rc1)
   rails-i18n
   rails-settings-cached
   rails_autolink
