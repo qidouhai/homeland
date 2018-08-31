@@ -34,10 +34,6 @@ class Notification < ActiveRecord::Base
     @@group_to_nofity_type[group_name]["icon"]
   end
 
-  def self.get_group_names
-    @@group_to_nofity_type.keys
-  end
-
   def realtime_push_to_client
     if user
       Notification.realtime_push_to_client(user)
