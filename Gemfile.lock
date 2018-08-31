@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/chenhengjie123/notifications.git
-  revision: b806e95fa5588e632319fc58c5b4ce43bf416518
-  specs:
-    notifications (0.6.1)
-      kaminari (>= 0.15)
-      rails (~> 5)
-
-GIT
   remote: git://github.com/testerhome/homeland-note.git
   revision: 9f338ca6e9da53a9a59f541e962326a708b6bb93
   specs:
@@ -18,6 +10,14 @@ GIT
   revision: bb01862334a5e6a0edee9bf19f6f26b15f1d1c23
   specs:
     homeland-opensource_project (0.1.0)
+      rails (~> 5)
+
+GIT
+  remote: git://github.com/testerhome/notifications.git
+  revision: b806e95fa5588e632319fc58c5b4ce43bf416518
+  specs:
+    notifications (0.6.1)
+      kaminari (>= 0.15)
       rails (~> 5)
 
 GEM
