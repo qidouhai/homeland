@@ -2,7 +2,7 @@
   <div class="box">
     <div class="list-group text-center">
       <% for group in Notification.get_group_names %>
-        <a href="<%=notifications.group_by_type_notifications_path(group: group) %>" class="list-group-item big no-pjax <% if params[:group] == group %> active <% end %>">
+        <a href="<%=notifications.notifications_path + group %>" class="list-group-item big no-pjax <% if params[:group] == group %> active <% end %>">
           <i class="text-md fa <%=Notification.get_icon_by_group(group) %>" aria-hidden="true"></i>
           &nbsp;<%= t("notification_group." + group) %>
 
@@ -24,7 +24,7 @@
       <%= t("notification_group." + params[:group]) %>
 
       <span class="pull-right">
-        <%= link_to t('notifications.clean_all'), notifications.clean_notifications_path(group: params[:group]), class: 'btn btn-sm btn-danger', id: 'btn-remove-all', method: 'delete', remote: true %>
+        <%= link_to t('notifications.clean_all'), notifications.notifications_path + params[:group], class: 'btn btn-sm btn-danger', id: 'btn-remove-all', method: 'delete', remote: true %>
       </span>
     </div>
 

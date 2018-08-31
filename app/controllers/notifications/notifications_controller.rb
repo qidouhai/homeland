@@ -6,11 +6,11 @@ module Notifications
       # 跳转优先级：system > team > personal ，默认 system
       for available_group in Notification.available_groups
         if Notification.unread_count_by_group(current_user, available_group) > 0
-          redirect_to group_by_type_notifications_path(group: available_group)
+          redirect_to notifications_path + available_group
           return
         end
       end
-      redirect_to group_by_type_notifications_path(group: Notification.default_group)
+      redirect_to notifications_path + Notification.default_group
     end
 
     def group_by_type
@@ -20,8 +20,7 @@ module Notifications
         return
       end
 
-      @notifications = notifications.where(notify_type: Notification.get_notify_types_by_group(group))
-                           .includes(:actor).order("id desc").page(params[:page])
+      @notifications = notifications(group).includes(:actor).order("id desc").page(params[:page])
 
       unread_ids = @notifications.reject(&:read?).select(&:id)
       Notification.read!(unread_ids)
@@ -40,14 +39,14 @@ module Notifications
         return
       end
 
-      notifications.where(notify_type: Notification.get_notify_types_by_group(group)).delete_all
-      redirect_to group_by_type_notifications_path(group: group)
+      notifications(group).delete_all
+      redirect_to notifications_path + group
     end
 
     private
 
-      def notifications
-        Notification.where(user_id: current_user.id)
+      def notifications(group)
+        Notification.where(user_id: current_user.id, notify_type: Notification.get_notify_types_by_group(group))
       end
   end
 end
