@@ -3,7 +3,7 @@
 module Notifications
   class NotificationsController < Notifications::ApplicationController
     def index
-      # 跳转优先级：system > team > personal ，默认 system
+      # 按照配置的优先级进行跳转
       for available_group in Notification.available_groups
         if Notification.unread_count_by_group(current_user, available_group) > 0
           redirect_to notifications_path + available_group
