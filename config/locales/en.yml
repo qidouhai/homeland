@@ -107,6 +107,6 @@ en:
         odd: "should be odd number."
         even: "should be even number."
   notification_group:
-    system: 'System'
+    tsystem: 'System'
     team: 'Team'
     personal: 'Personal'

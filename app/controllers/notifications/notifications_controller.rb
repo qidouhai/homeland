@@ -15,9 +15,7 @@ module Notifications
 
     def group_by_type
       group = params[:group]
-      Rails.logger.error "xxxxxxxx ----  #{group}"
       if group.blank? || !Notification.available_group?(group)
-        Rails.logger.error "xxxxxxxx ----  #{Notification.available_group?(group)}"
         render_404
         return
       end

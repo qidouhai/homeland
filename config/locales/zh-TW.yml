@@ -127,7 +127,7 @@
           You cannot call create or create! through a relational association
           relation (%{document}) who's parent (%{base}) is not already saved.
   notification_group:
-    system: '系統'
+    tsystem: '系統'
     team: '組織'
     personal: '個人'
 
