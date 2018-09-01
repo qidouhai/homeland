@@ -146,3 +146,7 @@
         unsaved_document:
           You cannot call create or create! through a relational association
           relation (%{document}) who's parent (%{base}) is not already saved.
+  notification_group:
+    system: '系统'
+    team: '组织'
+    personal: '个人'

@@ -10,7 +10,7 @@ gem "coffee-rails"
 gem "dropzonejs-rails"
 gem "jbuilder"
 gem "jquery-rails"
-gem "rails", "~> 5.2.0.rc"
+gem "rails", "5.2.0.rc1"
 gem "rails_autolink"
 gem "sass-rails"
 gem "sprockets"
@@ -53,7 +53,7 @@ gem "devise"
 gem "devise-encryptable"
 
 # 通知系统
-gem "notifications"
+gem "notifications", github: 'testerhome/notifications'
 gem "ruby-push-notifications"
 
 # 赞、关注、收藏、屏蔽等功能的数据结构
