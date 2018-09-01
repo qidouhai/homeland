@@ -9,7 +9,7 @@ class Notification < ActiveRecord::Base
 
   # 消息分组与 notifiy_type 的映射关系。 key 按照优先级来排序
   @@group_to_nofity_type = {
-      "system" => { "types" => ["admin_sms", "node_changed"], "icon" => "fa-bullhorn" },
+      "tsystem" => { "types" => ["admin_sms", "node_changed"], "icon" => "fa-bullhorn" },
       "team" => { "types" =>  ["team_invite", "team_join", "reject_user_join"], "icon" => "fa-group" },
       "personal" => { "types" =>  ["append", "comment", "follow", "mention", "topic", "topic_reply"], "icon" => "fa-bell" }
   }
