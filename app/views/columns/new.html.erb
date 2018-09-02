@@ -7,14 +7,14 @@
         <div class="panel-body blog-info">
           <% if @column_already_have.blank? %>
             <div class="alert alert-success" role="alert">你还未开通属于自己的专栏！</div>
-          <% end %>
+          <% else %>
           <% @column_already_have.each do |column| %>
             <div class="column media column-<%= column.id %>">
               <div class="avatar media-left">
                 <%= image_tag(column.cover.url, class: "column-cover") %>
               </div>
               <div class="infos media-body">
-                <div class="title media-heading">
+                <div class="title media-heading column-heading">
                   <%= link_to(main_app.column_path(column), title: column.name) do %>
                     <%= column.name %>
                   <% end %>
@@ -26,6 +26,7 @@
                   </span>
               </div>
             </div>
+          <%end %>
           <%end %>
         </div>
       </div>
