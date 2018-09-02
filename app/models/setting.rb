@@ -42,6 +42,7 @@ class Setting < RailsSettings::Base
     new_tags
     topic_create_limit_interval
     topic_create_hour_limit_count
+    column_max_count
   )
 
   class << self

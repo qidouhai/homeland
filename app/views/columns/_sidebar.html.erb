@@ -4,26 +4,20 @@
       <div class="panel-body text-center topic-author-box blog-info">
 
         <div class="image blog-cover">
-          <a href="https://laravel-china.org/testerhome">
-            <img class=" avatar-112 avatar img-thumbnail" src="https://lccdn.phphub.org/uploads/images/201806/13/1/HN1mtUk1Cf.png?imageView2/1/w/224/h/224">
-          </a>
+          <img class='avatar img-thumbnail' src="<%= @column.cover_url %>">
         </div>
         <div class="blog-name">
           <h4><a href="https://laravel-china.org/testerhome"><%= @column.name %></a></h4>
         </div>
         <div class="blog-description">
-          testerhome
+          <%= @column.description %>
         </div>
 
         <hr>
 
-        <a href="https://laravel-china.org/testerhome" class="">
-          <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（2）</li>
-        </a>
-
-
+        <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.topics.count%>）</li>
         <hr>
-        <a class="btn btn-default btn-block" href="https://laravel-china.org/blogs/160/edit">
+        <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">
           <i class="fa fa-edit"></i> 编辑专栏
         </a>
 

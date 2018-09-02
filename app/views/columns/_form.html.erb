@@ -1,4 +1,4 @@
-<%= simple_form_for(@column) do |f| %>
+<%= simple_form_for(@column, url: columns_path, html: { method: :post, enctype:  "multipart/form-data" }) do |f| %>
     <%= render 'shared/error_messages', target: @column %>
     <fieldset>
         <%= f.input :name %>

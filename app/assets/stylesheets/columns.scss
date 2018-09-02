@@ -23,8 +23,17 @@
   }
 
   .column-cover {
-    border-radius: 0px;
-    width: 48px;
-    height: 48px;
+    border-radius: 130px;
+    width: 24px;
+    height: 24px;
+  }
+  .column-heading {
+    margin-bottom: 0px;
+  }
+}
+
+.user-columns {
+  .column-cover-image {
+    height: 200px;
   }
 }

@@ -107,6 +107,10 @@ class User < ApplicationRecord
     login
   end
 
+  def user_column_count_left
+    Setting.column_max_count.to_i - self.columns.size
+  end
+
   def user_type
     (self[:type] || "User").underscore.to_sym
   end
