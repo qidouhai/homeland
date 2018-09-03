@@ -1,8 +1,9 @@
 class ColumnsController < ApplicationController
 
   before_action :authenticate_user!, only: %i[new edit create update destroy]
-  before_action :set_column, only: [:show, :edit, :update]
-  before_action :set_columns_have, only: [:show, :edit, :update]
+  load_and_authorize_resource only: %i[new edit create update destroy],:find_by => :slug
+  before_action :set_column, only: [:show, :edit, :update, :destroy]
+  before_action :set_columns_have, only: [:new, :edit, :update, :create]
 
   def index
     @columns = Column.all
@@ -19,7 +20,7 @@ class ColumnsController < ApplicationController
     @column = Column.new(column_params)
     @column.user_id = current_user.id
     if @column.save
-      redirect_to(column_path(@column), notice: 'Column was created successfully.')
+      redirect_to(column_path(@column),  notice: I18n.t("column.column_created_successfully"))
     else
       render 'new'
     end
@@ -30,16 +31,14 @@ class ColumnsController < ApplicationController
 
   def update
     if @column.update(column_params)
-      redirect_to(column_path(@column), notice: 'Column was successfully updated.')
+      redirect_to(column_path(@column), notice: I18n.t("column.column_updated_successfully"))
     else
       render action: "edit"
     end
   end
 
   def destroy
-    @column = Column.find(params[:id])
     @column.destroy
-
     redirect_to(columns_url)
   end
 
