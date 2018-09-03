@@ -28,6 +28,7 @@ class Ability
       roles_for_photos
       roles_for_teams
       roles_for_team_users
+      roles_for_columns
       basic_read_only
     end
 
@@ -95,6 +96,16 @@ class Ability
     can :update_user, TeamUser, user_id: user.id
     can [:accept_join, :reject_join, :show_approve], TeamUser do |team_user|
       team_user.team.owner?(user)
+    end
+  end
+
+  def roles_for_columns
+    unless user.newbie?
+      can :create, Column
+    end
+    can %i[update], Column, user_id: user.id
+    can :destroy, Column do |column|
+      column.user_id == user.id
     end
   end
 

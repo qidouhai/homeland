@@ -1,13 +1,19 @@
 class Column < ApplicationRecord
   include SoftDelete, MarkdownBody, Searchable
 
+  second_level_cache expires_in: 2.weeks
+
   mount_uploader :cover, PhotoUploader
   validates :cover, :name, :slug, presence: true
   validates :name, uniqueness: { scope: %i[user_id], message: "专栏名重复"  }
-  validates :slug, uniqueness: { scope: %i[user_id], message: "专栏别名重复"  }
 
   SLUG_FORMAT              = 'A-Za-z0-9\-\_\.'
   ALLOW_SLUG_FORMAT_REGEXP = /\A[#{SLUG_FORMAT}]+\z/
+  validates :slug, format: { with: ALLOW_SLUG_FORMAT_REGEXP, message: "只允许数字、大小写字母、中横线、下划线" },
+            length: { in: 4..30 },
+            presence: true,
+            uniqueness: { case_sensitive: false }
+
 
   belongs_to :user, inverse_of: :topics, counter_cache: true, optional: true
   has_many :comments, dependent: :destroy
