@@ -15,7 +15,7 @@ class Column < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
 
-  belongs_to :user, inverse_of: :topics, counter_cache: true, optional: true
+  belongs_to :user, counter_cache: true, optional: true
   has_many :comments, dependent: :destroy
   has_many :topics, dependent: :destroy
 
