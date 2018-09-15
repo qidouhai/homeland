@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_135708) do
+ActiveRecord::Schema.define(version: 2018_09_12_075805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -56,16 +56,22 @@ ActiveRecord::Schema.define(version: 2018_05_17_135708) do
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
   end
 
-  create_table "china_cities", force: :cascade do |t|
-    t.integer "parent_id"
+  create_table "columns", force: :cascade do |t|
     t.string "name"
-    t.string "area"
-    t.integer "level"
-    t.string "code"
-    t.string "prefix"
+    t.text "description"
+    t.string "cover"
+    t.integer "user_id", null: false
+    t.string "who_deleted"
+    t.integer "modified_admin_id"
+    t.integer "likes_count", default: 0
+    t.datetime "suggested_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_china_cities_on_parent_id"
+    t.string "slug", null: false
+    t.index ["likes_count"], name: "index_columns_on_likes_count"
+    t.index ["name"], name: "index_columns_on_name"
+    t.index ["suggested_at"], name: "index_columns_on_suggested_at"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -184,6 +190,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_135708) do
     t.integer "owner_id"
     t.string "owner_type"
     t.integer "level", default: 0, null: false
+    t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
@@ -379,6 +386,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_135708) do
     t.integer "team_id"
     t.boolean "draft", default: false, null: false
     t.integer "suggested_node"
+    t.integer "column_id"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"
@@ -455,13 +463,11 @@ ActiveRecord::Schema.define(version: 2018_05_17_135708) do
     t.boolean "private", default: false, null: false
     t.integer "followers_count", default: 0
     t.integer "following_count", default: 0
-    t.string "province"
-    t.string "city"
-    t.string "district"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.integer "columns_count", default: 0
     t.index "lower((login)::text) varchar_pattern_ops", name: "index_users_on_lower_login_varchar_pattern_ops"
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_users_on_lower_name_varchar_pattern_ops"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
