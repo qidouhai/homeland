@@ -12,6 +12,8 @@ module MentionTopic
   end
 
   def extract_mentioned_topic_ids
+    # 忽略专栏文章
+    return if self.class.name == "Article"
     matched_ids = body.scan(TOPIC_LINK_REGEXP).flatten
     current_topic_id = self.class.name == "Topic" ? self.id : self.topic_id
     return if matched_ids.blank?
