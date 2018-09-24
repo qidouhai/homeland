@@ -29,6 +29,7 @@ class Ability
       roles_for_teams
       roles_for_team_users
       roles_for_columns
+      roles_for_articles
       basic_read_only
     end
 
@@ -106,6 +107,18 @@ class Ability
     can %i[update], Column, user_id: user.id
     can :destroy, Column do |column|
       column.user_id == user.id
+    end
+  end
+
+  def roles_for_articles
+    unless user.newbie?
+      can :create, Article
+    end
+    can %i[favorite unfavorite follow unfollow], Article
+    can %i[update open close append], Article, user_id: user.id
+    can :change_node, Article, user_id: user.id, lock_node: false
+    can :destroy, Article do |article|
+      article.user_id == user.id && article.replies_count == 0
     end
   end
 

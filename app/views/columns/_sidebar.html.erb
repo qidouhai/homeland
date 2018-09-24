@@ -17,11 +17,15 @@
 
         <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.topics.count%>）</li>
         <hr>
-        <% if %>
-        <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">
-          <i class="fa fa-edit"></i> 编辑专栏
-        </a>
-          <% end %>
+        <% if @column.user == current_user %>
+          <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">
+            <i class="fa fa-edit"></i> 编辑专栏
+          </a>
+
+          <a class="btn btn-primary btn-block" href="<%= new_article_path @column.id %>">
+            <i class="fa fa-new"></i> 新增文章
+          </a>
+        <% end %>
       </div>
     </div>
   </div>
