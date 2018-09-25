@@ -2,7 +2,7 @@
 
 
 # 专栏文章称为 article ，model 层继续用 topic
-class ArticlesController < TopicsController
+class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
