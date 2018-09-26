@@ -6,8 +6,8 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-btn">
-        <button type="hidden" class="btn btn-default" id="node-selector-button"
-                data-toggle="modal" data-target="#node-selector"><%= @article.column&.name || '选择节点...' %></button>
+        <button type="button" class="btn btn-default" id="node-selector-button"
+                data-toggle="modal" data-target="#node-selector"><%= @article.column&.name || '选择专栏...' %></button>
       </div>
       <%= f.text_field :title, class: "form-control", placeholder: "在这里填写标题" %>
     </div>

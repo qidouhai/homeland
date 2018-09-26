@@ -17,7 +17,7 @@ class Column < ApplicationRecord
 
   belongs_to :user, counter_cache: true, optional: true
   has_many :comments, dependent: :destroy
-  has_many :topics, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   validate do
     if self.new_record?
