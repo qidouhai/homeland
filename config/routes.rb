@@ -227,6 +227,7 @@ Rails.application.routes.draw do
       member do
         # User only
         get :topics
+        get :profile
         get :columns
         get :replies
         get :favorites

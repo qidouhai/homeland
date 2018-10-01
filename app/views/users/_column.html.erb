@@ -6,7 +6,9 @@
       <p><%= column.description %></p>
       <p>
         <a href="<%=column_path(column) %>" class="btn btn-primary" role="button">进入该专栏</a>
-        <a href="<%=edit_column_path(column) %>" class="btn btn-default" role="button">编辑专栏</a>
+        <% if current_user && @user.id == current_user.id %>
+          <a href="<%=edit_column_path(column) %>" class="btn btn-default" role="button">编辑专栏</a>
+        <% end %>
       </p>
     </div>
   </div>
