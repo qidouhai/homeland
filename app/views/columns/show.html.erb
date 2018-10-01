@@ -10,7 +10,38 @@
   <% end %>
 
   <div class="col-md-9">
-    <%= @column.topics %>
+    <% if not mobile? %>
+      <%= raw Setting.topic_list_top_html %>
+    <%end%>
+    <div class="topics panel panel-default">
+      <% if @column.articles %>
+        <div class="panel-heading node-header">
+          <ul class="filter nav nav-pills">
+
+          </ul>
+        </div>
+      <%end%>
+      <div class="panel-body item-list">
+        <%= render partial: '/articles/article', collection: @articles, locals: { suggest: true } %>
+
+      </div>
+
+      <div class="panel-footer clearfix">
+        <%= paginate @articles, total_pages: Article.total_pages %>
+      </div>
+    </div>
+
+
+    <% if current_user %>
+      <script type="text/javascript">
+          var readed_topic_ids = <%= @read_topic_ids || [] %>;
+          for (var i = 0; i < readed_topic_ids.length; i++) {
+              topic_id = readed_topic_ids[i];
+              $(".topic-"+ topic_id).addClass('topic-visited');
+              $(".topic-"+ topic_id + " .count a").addClass("state-true");
+          }
+      </script>
+    <% end %>
   </div>
 
 

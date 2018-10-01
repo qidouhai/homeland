@@ -1,0 +1,35 @@
+<% cache([article, article.user_avatar_raw, suggest]) do %>
+<div class="topic media topic-<%= article.id %>">
+  <div class="avatar media-left">
+    <%= user_avatar_tag(article.user, :md) %>
+  </div>
+  <div class="infos media-body">
+    <div class="title media-heading">
+      <%= link_to(main_app.article_path(article), title: article.title) do %>
+        <%= article.title %>
+      <% end %>
+      <% if suggest %>
+        <i class="fa fa-thumb-tack" title="置顶"></i>
+      <% end %>
+      <%= topic_excellent_tag(article) %>
+      <%= topic_close_tag(article) %>
+    </div>
+    <div class="info">
+      <%= user_name_tag(article.user) %>
+      <span class="hidden-mobile">
+      •
+      <% if article.last_reply_user_login.blank? %>
+        <%= raw t("common.created_at", time: timeago(article.created_at))%>
+      <% else %>
+        <%= t("common.last_by")%> <%= user_name_tag(article.last_reply_user_login) %> <%= raw t("common.reply_at", time: timeago(article.replied_at))%>
+      <% end %>
+      </span>
+    </div>
+  </div>
+  <div class="count media-right">
+    <% if article.replies_count > 0 %>
+      <%= link_to(article.replies_count,"#{main_app.topic_path(topic)}#reply-#{article.last_reply_id}", class: "state-false") %>
+    <% end %>
+  </div>
+</div>
+<% end %>

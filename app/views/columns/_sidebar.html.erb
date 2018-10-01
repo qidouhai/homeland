@@ -15,7 +15,7 @@
 
         <hr>
 
-        <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.topics.count%>）</li>
+        <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count%>）</li>
         <hr>
         <% if @column.user == current_user %>
           <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">

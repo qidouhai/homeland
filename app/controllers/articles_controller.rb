@@ -4,6 +4,9 @@
 # 专栏文章称为 article ，model 层继续用 topic
 class ArticlesController < ApplicationController
 
+  before_action :set_article, only: [:show, :ban, :append, :edit, :update, :destroy, :follow,
+                                   :unfollow, :action, :down]
+
   def index
     @articles = Article.all
   end
@@ -12,15 +15,28 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    # TODO: 增加筛选，不返回非本专栏的文章
-    @article = Article.find(params[:id])
   end
 
   def edit
   end
 
   def update
+    @article.admin_editing = true if current_user.admin?
 
+    if current_user.admin? && current_user.id != @article.user_id
+      # 管理员且非本帖作者
+      @article.modified_admin = current_user
+    end
+    
+    @article.title = article_params[:title]
+    @article.body = article_params[:body]
+    @article.cannot_be_shared = article_params[:cannot_be_shared]
+    if params[:commit] and params[:commit] == 'draft'
+      @article.draft = true
+    else
+      @article.draft = false
+    end
+    @article.save
   end
 
   def destroy
@@ -53,5 +69,8 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body, :node_id, :column_id, :cannot_be_shared)
   end
 
+  def set_article
+    @article ||= Article.find(params[:id])
+  end
 end
 

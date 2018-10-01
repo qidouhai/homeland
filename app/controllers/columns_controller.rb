@@ -14,6 +14,7 @@ class ColumnsController < ApplicationController
   end
 
   def show
+    @articles = @column.articles.withoutDraft.page(params[:page])
   end
 
   def create
