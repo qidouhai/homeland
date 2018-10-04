@@ -56,7 +56,7 @@ AppView = Backbone.View.extend
     @initCable()
     @restoreHeaderSearchBox()
 
-    if $('body').data('controller-name') in ['topics', 'replies']
+    if $('body').data('controller-name') in ['topics', 'articles', 'replies']
       window._topicView = new TopicView({parentView: @})
 
     window._tocView = new TOCView({parentView: @})
