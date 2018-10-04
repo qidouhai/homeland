@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_143356) do
+ActiveRecord::Schema.define(version: 2018_09_26_150453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_143356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug", null: false
+    t.integer "articles_count", default: 0, null: false
     t.index ["likes_count"], name: "index_columns_on_likes_count"
     t.index ["name"], name: "index_columns_on_name"
     t.index ["suggested_at"], name: "index_columns_on_suggested_at"
@@ -190,6 +191,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_143356) do
     t.integer "owner_id"
     t.string "owner_type"
     t.integer "level", default: 0, null: false
+    t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
@@ -386,6 +388,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_143356) do
     t.boolean "draft", default: false, null: false
     t.integer "suggested_node"
     t.integer "column_id"
+    t.string "type"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"
@@ -467,6 +470,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_143356) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.integer "columns_count", default: 0
+    t.integer "articles_count"
     t.index "lower((login)::text) varchar_pattern_ops", name: "index_users_on_lower_login_varchar_pattern_ops"
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_users_on_lower_name_varchar_pattern_ops"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
