@@ -3,7 +3,7 @@
     <img class='column-cover-image' src="<%= column.cover_url %>">
     <div class="caption">
       <h3><%= column.name %></h3>
-      <p><%= column.description %></p>
+      <div class="column-desc"><i><%= column.description %></i></div>
       <p>
         <a href="<%=column_path(column) %>" class="btn btn-primary" role="button">进入该专栏</a>
         <% if current_user && @user.id == current_user.id %>

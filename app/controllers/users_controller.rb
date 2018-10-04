@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 
   def show
     @user_type == :team ? team_show : user_show
-    @columns = @user.columns
   end
 
   protected

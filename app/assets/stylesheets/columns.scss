@@ -36,6 +36,14 @@
   .column-cover-image {
     height: 200px;
   }
+  .column-desc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    width:inherit;
+    padding-left: 15px;
+    padding-bottom: 20px;
+  }
 }
 .column-edit-image {
   width: 250px;
