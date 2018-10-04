@@ -15,7 +15,9 @@
         <div class="group">
           <div class="btn-group" role="group">
             <%= topic_follow_tag(@article, class: 'btn btn-default') %>
-            <%= topic_favorite_tag(@article, class: 'btn btn-default') %>
+            <% if !owner?(@article) %>
+              <%= topic_favorite_tag(@article, class: 'btn btn-default') %>
+            <% end %>
           </div>
         </div>
       </div>

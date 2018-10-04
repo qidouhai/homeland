@@ -2,7 +2,9 @@
   <% if !turbolinks_ios? %>
     <%= likeable_tag(@article) %>
     <%= topic_follow_tag(@article) %>
-    <%= topic_favorite_tag(@article) %>
+    <% if !owner?(@article) %>
+      <%= topic_favorite_tag(@article) %>
+    <% end %>
   <% end %>
 
   <% if admin? %>
