@@ -272,6 +272,8 @@ window.TopicView = Backbone.View.extend
 
     # Focus title field in new-topic page
     $("body[data-controller-name='topics'] #topic_title").focus()
+    # Also focus title field in new-article page
+    $("body[data-controller-name='articles'] #topic_title").focus()
 
     # init editor toolbar
     window._editor = new Editor()
