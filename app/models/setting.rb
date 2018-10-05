@@ -43,6 +43,7 @@ class Setting < RailsSettings::Base
     topic_create_limit_interval
     topic_create_hour_limit_count
     column_max_count
+    article_node
   )
 
   class << self

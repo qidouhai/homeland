@@ -105,6 +105,8 @@ class TopicsController < ApplicationController
     Rails.logger.error "order #{params[:order_by]}"
     if params[:order_by] == 'like'
       @replies = Reply.unscoped.where(topic_id: @topic.id).order(likes_count: :desc).all
+    elsif params[:order_by] == 'created_at'
+      @replies = Reply.unscoped.where(topic_id: @topic.id).order(created_at: :desc).all
     else
       @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
     end

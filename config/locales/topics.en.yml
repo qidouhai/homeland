@@ -19,6 +19,7 @@
       excellent: "Excellent Topics"
     read_topic: "Read Topic"
     create_topic_success: "Topic created successfully."
+    create_article_success: "Article created successfully.。"
     delete_topic_success: "Topic deleted successfully.."
     update_topic_success: "Topic modified successfully.."
     cannot_read_others_drafts: "You cannot access other's drafts.."
