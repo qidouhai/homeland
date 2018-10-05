@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     @article.column_id = article_params[:column_id]
     # 固定给一个 node id 占位
-    @article.node_id = "1"
+    @article.node_id = Setting.article_node.to_s
 
     if params[:commit] and params[:commit] == 'draft'
       @article.draft = true

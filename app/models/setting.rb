@@ -44,6 +44,7 @@ class Setting < RailsSettings::Base
     topic_create_limit_interval
     topic_create_hour_limit_count
     column_max_count
+    article_node
     use_github_only
     new_from_github_notices
     notification_sidebar_advertise
