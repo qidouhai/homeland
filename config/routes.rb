@@ -215,7 +215,27 @@ Rails.application.routes.draw do
     resources :articles
   end
 
-  resources :articles
+  resources :articles do
+    member do
+      post :reply
+      post :favorite
+      delete :unfavorite
+      post :follow
+      delete :unfollow
+      get :ban
+      get :append
+      get :down
+      post :action
+      get :show_wechat
+    end
+    resources :replies do
+      member do
+        get :reply_to
+        post :reply_suggest
+        post :reply_unsuggest
+      end
+    end
+  end
 
   # WARRING! 请保持 User 的 routes 在所有路由的最后，以便于可以让用户名在根目录下面使用，而又不影响到其他的 routes
   # 比如 http://localhost:3000/huacnlee

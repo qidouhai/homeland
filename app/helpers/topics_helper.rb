@@ -58,4 +58,8 @@ module TopicsHelper
   def render_node_name(name, id)
     link_to(name, main_app.node_topics_path(id), class: "node")
   end
+
+  def render_column_name(name, slug)
+    link_to(name, main_app.column_path(slug), class: "node")
+  end
 end

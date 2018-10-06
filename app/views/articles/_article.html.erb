@@ -28,7 +28,7 @@
   </div>
   <div class="count media-right">
     <% if article.replies_count > 0 %>
-      <%= link_to(article.replies_count,"#{main_app.topic_path(topic)}#reply-#{article.last_reply_id}", class: "state-false") %>
+      <%= link_to(article.replies_count,"#{main_app.article_path(article)}#reply-#{article.last_reply_id}", class: "state-false") %>
     <% end %>
   </div>
 </div>

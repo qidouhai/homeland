@@ -25,7 +25,7 @@
 <div class="row">
   <div class="col-md-8">
     <div class="topic-detail panel panel-default">
-      <%= render partial: "topics/topic_info", locals: { topic: @article } %>
+      <%= render partial: "articles/article_info", locals: { article: @article } %>
 
       <% if @article.excellent? %>
         <div class="label-awesome">
@@ -109,7 +109,7 @@
 
   <% if current_user %>
     <% if @article.closed? %>
-      <div class="alert alert-info">此话题已经于 <%= l @article.closed_at, format: :long %> 关闭，不再接受任何回帖。</div>
+      <div class="alert alert-info">此文章已经于 <%= l @article.closed_at, format: :long %> 关闭，不再接受任何评论。</div>
     <% else %>
       <div id="reply" class="panel panel-default">
         <div class="panel-heading hide-ios">回帖</div>

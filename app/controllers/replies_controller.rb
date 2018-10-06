@@ -55,7 +55,11 @@ class RepliesController < ApplicationController
 
   def destroy
     if @reply.destroy
-      redirect_to(topic_path(@reply.topic_id), notice: "回帖删除成功。")
+      if @reply.topic.isArticle?
+        redirect_to(article_path(@reply.topic_id), notice: "回帖删除成功。")
+      else
+        redirect_to(topic_path(@reply.topic_id), notice: "回帖删除成功。")
+      end
     else
       redirect_to(topic_path(@reply.topic_id), alert: "程序异常，删除失败。")
     end
@@ -74,7 +78,12 @@ class RepliesController < ApplicationController
   protected
 
     def set_topic
-      @topic = Topic.find(params[:topic_id])
+      # 兼容 topic 和 article
+      if (params[:topic_id])
+        @topic = Topic.find(params[:topic_id])
+      else
+        @topic = Topic.find(params[:article_id])
+      end
     end
 
     def set_reply
