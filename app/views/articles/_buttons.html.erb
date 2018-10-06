@@ -1,7 +1,6 @@
 <div class="opts">
   <% if !turbolinks_ios? %>
     <%= likeable_tag(@article) %>
-    <%= topic_follow_tag(@article) %>
     <% if !owner?(@article) %>
       <%= topic_favorite_tag(@article) %>
     <% end %>
@@ -9,7 +8,7 @@
 
   <% if admin? %>
     <% if !@article.excellent? %>
-    <%= link_to raw("<i class='fa fa-diamond'></i> 加精"), action_topic_path(@article.id, type: 'excellent'), title: "设为精华帖" , method: "post", remote: true %>
+    <%= link_to raw("<i class='fa fa-diamond'></i> 加精"), action_article_path(@article.id, type: 'excellent'), title: "设为精华帖" , method: "post", remote: true %>
     <% end %>
 
   <% end %>
@@ -17,9 +16,9 @@
     <% if owner?(@article) or admin? %>
     <% if can?(:close, @article) %>
       <% if !@article.closed? %>
-        <%= link_to raw("<i class='fa fa-check'></i>"), action_topic_path(@article, type: 'close'), method: 'post', title: "关闭讨论／问题已解决", remote: true, data: { toggle: 'tooltip' } %>
+        <%= link_to raw("<i class='fa fa-check'></i>"), action_article_path(@article, type: 'close'), method: 'post', title: "关闭讨论／问题已解决", remote: true, data: { toggle: 'tooltip' } %>
       <% else %>
-        <%= link_to raw("<i class='fa fa-undo'></i>"), action_topic_path(@article, type: 'open'), method: 'post', title: "重新开启话题", remote: true, data: { toggle: 'tooltip' } %>
+        <%= link_to raw("<i class='fa fa-undo'></i>"), action_article_path(@article, type: 'open'), method: 'post', title: "重新开启话题", remote: true, data: { toggle: 'tooltip' } %>
       <% end %>
     <% end %>
     <%= link_to "", edit_column_article_path(@article.column.id, @article), class: "fa fa-pencil", title: "修改本帖" %>
@@ -27,12 +26,8 @@
       <%= link_to "", article_path(@article.id), method: :delete, remote: true, 'data-confirm': t("common.confirm_delete"), class: "fa fa-trash", title: "删除本帖" %>
       <% end %>
     <% end %>
-    <% if owner?(@article) or admin? %>
-      <%= link_to raw("<i class='fa fa-plus'></i>"), append_topic_path(@article), remote: true, title: "追加附言" %>
-    <% end %>
-    <%= link_to raw("<i class='fa fa-weixin'></i>"), show_wechat_topic_path(@article), target: "_blank", title: "微信排版" %>
+    <%= link_to raw("<i class='fa fa-weixin'></i>"), show_wechat_article_path(@article), target: "_blank", title: "微信排版" %>
     <% if admin? %>
-      <%= link_to "", new_ad_path(topic_id: @article.id), class: "fa fa-space-shuttle", title: "推送本帖到客户端头条" %>
     <% end %>
   </span>
 </div>

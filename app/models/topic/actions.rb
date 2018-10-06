@@ -39,6 +39,15 @@ class Topic
     def excellent!
       transaction do
         Reply.create_system_event!(action: "excellent", topic_id: self.id)
+        # 专栏文章加精，通知作者。
+        opts = {
+            notify_type: "article_excellent",
+            user_id: self.user_id,
+            target: self
+        }
+        return if Notification.where(opts).count > 0
+        Notification.create opts
+        Notification.realtime_push_to_client(self.user)
         update!(excellent: 1)
       end
     end

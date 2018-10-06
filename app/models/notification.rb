@@ -9,7 +9,7 @@ class Notification < ActiveRecord::Base
 
   # 消息分组与 notifiy_type 的映射关系。 key 按照优先级来排序
   @@group_to_nofity_type = {
-      "tsystem" => { "types" => ["admin_sms", "node_changed"], "icon" => "fa-bullhorn" },
+      "tsystem" => { "types" => ["admin_sms", "node_changed", "article_favorite", "article_like", "article_excellent"], "icon" => "fa-bullhorn" },
       "team" => { "types" =>  ["team_invite", "team_join", "reject_user_join"], "icon" => "fa-group" },
       "personal" => { "types" =>  ["append", "comment", "follow", "mention", "topic", "topic_reply"], "icon" => "fa-bell" }
   }
@@ -65,6 +65,10 @@ class Notification < ActiveRecord::Base
       "#{self.actor.login} 提及了你"
     elsif notify_type == "node_changed"
       "你的话题被移动了节点到 #{self.second_target.name}"
+    elsif notify_type == "article_like"
+      "#{self.actor.login} 赞了专栏文章 《#{self.target.title}》"
+    elsif notify_type == "article_favorite"
+      "#{self.actor.login} 收藏了专栏文章 《#{self.target.title}》"
     else
       ""
     end
