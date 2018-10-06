@@ -3,6 +3,25 @@
     <div class="panel-body">
       <div class="panel-body text-center topic-author-box blog-info">
 
+        <div class="media">
+
+          <div class="media-body text-left">
+            <h4 class="media-heading">作者</h4>
+            <div class="item">
+              <%= @user.fullname %>
+            </div>
+          </div>
+          <div class="avatar media-right">
+            <div class='image'><%= user_avatar_tag(@user, :md, link: false) %></div>
+          </div>
+
+        </div>
+        <% if !@user.tagline.blank? %>
+          <div class="tagline row">
+            <%= @user.tagline %>
+          </div>
+        <% end %>
+        <hr>
         <div class="image blog-cover">
           <img class='avatar img-thumbnail' src="<%= @column.cover_url %>">
         </div>
@@ -14,8 +33,8 @@
         </div>
 
         <hr>
-        <%= link_to  column_path(@column), class: "btn btn-default btn-block" do %>
-          <i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count%>）
+        <%= link_to column_path(@column), class: "btn btn-default btn-block" do %>
+          <i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count %>）
         <% end %>
         <hr>
         <% if @column.user == current_user %>
