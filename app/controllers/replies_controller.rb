@@ -74,7 +74,12 @@ class RepliesController < ApplicationController
   protected
 
     def set_topic
-      @topic = Topic.find(params[:topic_id])
+      # 兼容 topic 和 article
+      if (params[:topic_id])
+        @topic = Topic.find(params[:topic_id])
+      else
+        @topic = Topic.find(params[:article_id])
+      end
     end
 
     def set_reply
