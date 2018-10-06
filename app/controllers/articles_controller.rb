@@ -11,6 +11,11 @@ class ArticlesController < TopicsController
     @articles = Article.all
   end
 
+  def show
+    @user = @article.user
+    @column = @article.column
+  end
+
   def update
     @article.admin_editing = true if current_user.admin?
 
