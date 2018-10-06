@@ -8,11 +8,6 @@
   <% end %>
 
   <% if admin? %>
-    <% if !@article.suggested_at.blank? %>
-    <%= link_to raw("<i class='fa fa-thumb-tack'></i> 取消"), unsuggest_admin_topic_path(@article), method: :post, remote: true %>
-    <% else %>
-    <%= link_to raw("<i class='fa fa-thumb-tack'></i> 置顶"), pop_suggest_admin_topic_path(@article), remote: true %>
-    <% end %>
     <% if !@article.excellent? %>
     <%= link_to raw("<i class='fa fa-diamond'></i> 加精"), action_topic_path(@article.id, type: 'excellent'), title: "设为精华帖" , method: "post", remote: true %>
     <% end %>
