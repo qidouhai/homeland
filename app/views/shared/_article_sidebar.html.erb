@@ -1,4 +1,4 @@
-<div class="col-md-3 sidebar">
+<div class="article-sidebar sidebar  col-md-3<%= ' hide-ios' if turbolinks_app? && action_name != 'show' %>" id='sidebar'>
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="panel-body text-center topic-author-box blog-info">
@@ -14,8 +14,9 @@
         </div>
 
         <hr>
-
-        <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count%>）</li>
+        <%= link_to  column_path(@column), class: "btn btn-default btn-block" do %>
+          <i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count%>）
+        <% end %>
         <hr>
         <% if @column.user == current_user %>
           <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">

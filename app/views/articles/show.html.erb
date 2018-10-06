@@ -24,7 +24,7 @@
 
 <div class="row">
   <% if !mobile? %>
-    <%= render 'article_sidebar' %>
+    <%= render '/shared/article_sidebar' %>
   <% else %>
     <div class="move-page-buttons">
       <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
@@ -32,7 +32,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-8">
+  <div class="col-md-9 article-content">
     <div class="topic-detail panel panel-default">
       <%= render partial: "articles/article_info", locals: { article: @article } %>
 
@@ -43,9 +43,7 @@
       <% end %>
 
 
-      <% if @article.user&.reward_enabled? %>
-        <%= render partial: "reward" %>
-      <%end%>
+
 
       <% if @article.excellent? %>
         <div class="label-awesome">
@@ -70,18 +68,15 @@
         <%= raw Setting.after_topic_html %>
       </div>
 
-      <% if not @article.appends.blank? %>
-        <%= render partial: '/topics/append_content', collection:  @article.appends  %>
-      <% end %>
-
-
       <%= render partial: "cannot_be_shared" %>
       <div class="panel-footer clearfix">
         <%= render "buttons" %>
       </div>
     </div>
 
-
+    <% if @article.user&.reward_enabled? %>
+      <%= render partial: "reward" %>
+    <%end%>
 
   <% if @replies.blank? %>
     <div class="no-result">

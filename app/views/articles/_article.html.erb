@@ -1,8 +1,6 @@
 <% cache([article, article.user_avatar_raw, suggest]) do %>
 <div class="topic media topic-<%= article.id %>">
-  <div class="avatar media-left">
-    <%= user_avatar_tag(article.user, :md) %>
-  </div>
+
   <div class="infos media-body">
     <div class="title media-heading">
       <%= link_to(main_app.article_path(article), title: article.title) do %>
@@ -15,21 +13,26 @@
       <%= topic_close_tag(article) %>
     </div>
     <div class="info">
-      <%= user_name_tag(article.user) %>
+      创建于 <%= timeago(article.created_at) %>
+      <% if !article.last_reply_user_login.blank? %>
       <span class="hidden-mobile">
-      •
-      <% if article.last_reply_user_login.blank? %>
-        <%= raw t("common.created_at", time: timeago(article.created_at))%>
-      <% else %>
+         ·
         <%= t("common.last_by")%> <%= user_name_tag(article.last_reply_user_login) %> <%= raw t("common.reply_at", time: timeago(article.replied_at))%>
       <% end %>
       </span>
+      <% if !article.modified_admin.blank? %>
+        ·
+        <%= t("common.modified_by_admin")%> <%= user_name_tag(article.modified_admin) %>
+      <% end %>
+
+      <% if article.hits > 0 %>
+      ·
+      <%= article.hits %> <%= t("common.read_times")%>
+      <% end %>
+      <% if article.replies_count > 0 %>
+        · <%= link_to("#{article.replies_count} 个回复","#{main_app.article_path(article)}#reply-#{article.last_reply_id}", class: "state-false") %>
+      <% end %>
     </div>
-  </div>
-  <div class="count media-right">
-    <% if article.replies_count > 0 %>
-      <%= link_to(article.replies_count,"#{main_app.article_path(article)}#reply-#{article.last_reply_id}", class: "state-false") %>
-    <% end %>
   </div>
 </div>
 <% end %>

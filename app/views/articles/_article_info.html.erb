@@ -25,7 +25,7 @@
          ·
         <%= t("common.last_by")%> <%= user_name_tag(article.last_reply_user_login) %> <%= raw t("common.reply_at", time: timeago(article.replied_at))%>
       <% end %>
-
+      </span>
       <% if !article.modified_admin.blank? %>
          ·
         <%= t("common.modified_by_admin")%> <%= user_name_tag(article.modified_admin) %>
