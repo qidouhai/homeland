@@ -23,6 +23,14 @@
   <% end %>
 </div>
 <% end %>
+<% if current_user && current_user.just_new_from_github? %>
+  <div class="panel panel-default alert-warning">
+      <div class="panel-heading">Github 登录必读</div>
+      <div class="panel-body">
+        <%= raw Setting.new_from_github_notices  %>
+      </div>
+  </div>
+<% end %>
 
 <% cache(["hot-nodes",Time.now.strftime("%Y-%m-%d")]) do %>
     <div class="index-locations panel panel-default">

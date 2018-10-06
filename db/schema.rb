@@ -470,7 +470,6 @@ ActiveRecord::Schema.define(version: 2018_09_26_150453) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.integer "columns_count", default: 0
-    t.integer "articles_count"
     t.index "lower((login)::text) varchar_pattern_ops", name: "index_users_on_lower_login_varchar_pattern_ops"
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_users_on_lower_name_varchar_pattern_ops"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

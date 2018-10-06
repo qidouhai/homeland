@@ -22,7 +22,6 @@ class Topic < ApplicationRecord
 
   validate do
 
-    Rails.logger.error "user_id is #{user_id}"
     if User.redis.SISMEMBER("blocked_users", user_id) == 1
       errors.add(:base, "由于你经常发布无意义的内容或者敏感词，屏蔽一天！")
     else

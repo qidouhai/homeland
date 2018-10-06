@@ -106,3 +106,7 @@ en:
         less_than_or_equal_to: "should be less than or equal to %{count}"
         odd: "should be odd number."
         even: "should be even number."
+  notification_group:
+    tsystem: 'System'
+    team: 'Team'
+    personal: 'Personal'

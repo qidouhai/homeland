@@ -51,7 +51,18 @@ module Homeland
         def block_code(code, lang)
           lang = lang.downcase if lang.is_a?(String)
           code = code.strip_heredoc
-          super(code, lang)
+
+          # hike 一把
+          code =~ /\A\s*#!(.*)$/
+          lang = $1
+          if lang.blank?
+            lang = "java"
+          else
+            lang = lang.strip
+          end
+
+          # 代码块换行统一替换为 <br> 标签，解决粘贴到微信编辑器后换行丢失问题
+          super(code, lang).gsub("\n", "<br>")
         end
 
         def table(header, body)

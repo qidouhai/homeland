@@ -37,6 +37,7 @@ class Setting < RailsSettings::Base
     tips
     apns_pem
     blacklist_ips
+    blacklist_emails
     admin_emails
     ban_reasons
     new_tags
@@ -44,6 +45,9 @@ class Setting < RailsSettings::Base
     topic_create_hour_limit_count
     column_max_count
     article_node
+    use_github_only
+    new_from_github_notices
+    notification_sidebar_advertise
   )
 
   class << self

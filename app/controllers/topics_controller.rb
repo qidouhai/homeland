@@ -102,7 +102,6 @@ class TopicsController < ApplicationController
     @suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:suggested_at).suggest
     @without_suggest_replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).without_suggest
 
-    Rails.logger.error "order #{params[:order_by]}"
     if params[:order_by] == 'like'
       @replies = Reply.unscoped.where(topic_id: @topic.id).order(likes_count: :desc).all
     elsif params[:order_by] == 'created_at'

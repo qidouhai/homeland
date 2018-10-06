@@ -14,16 +14,30 @@ class AccountController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    build_resource(sign_up_params)
-    resource.login = params[resource_name][:login]
-    resource.email = params[resource_name][:email]
-    if verify_rucaptcha?(resource) && resource.save
 
-      if resource.active_for_authentication?
-        sign_in(resource_name, resource)
-      else
-        user_flash_msg
+    if Setting.has_module? :github and Setting.use_github_only == 'true'
+      redirect_to(root_path, notice: "暂停注册！请关注社区公众号！")
+      return
+    else
+      build_resource(sign_up_params)
+      resource.login = params[resource_name][:login]
+      resource.email = params[resource_name][:email]
+
+      if !reject_email_blacklist(resource.email)
+        set_flash_message :warning, :"plz_do_not_do_that_again", email: resource.email
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
+        return
+      end
+
+
+      if verify_rucaptcha?(resource) && resource.save
+
+        if resource.active_for_authentication?
+          sign_in(resource_name, resource)
+        else
+          user_flash_msg
+          respond_with resource, location: after_inactive_sign_up_path_for(resource)
+        end
       end
     end
   end
@@ -49,4 +63,14 @@ class AccountController < Devise::RegistrationsController
       set_flash_message :warning, :"signed_up_but_#{resource.inactive_message}"
     end
   end
+
+  def reject_email_blacklist(email_to_register)
+    blacklist = Setting.blacklist_emails.split(Setting.SEPARATOR_REGEXP)
+    if blacklist.include?(email_to_register.split('@')[1])
+      return false
+    else
+      return true
+    end
+  end
+
 end

@@ -25,7 +25,7 @@ class User
       return false if verified?
       t = Setting.newbie_limit_time.to_i
       return false if t == 0
-      created_at > t.seconds.ago
+      created_at > t.seconds.ago or !avatar?
     end
 
     def roles?(role)
