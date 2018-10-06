@@ -2,22 +2,13 @@
 
 
 # 专栏文章称为 article ，model 层继续用 topic
-class ArticlesController < ApplicationController
+class ArticlesController < TopicsController
 
   before_action :set_article, only: [:show, :ban, :append, :edit, :update, :destroy, :follow,
                                    :unfollow, :action, :down]
 
   def index
     @articles = Article.all
-  end
-
-  def new
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update
@@ -40,7 +31,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-
+    @article.destroy_by(current_user)
+    # 返回地址改为文章所在专栏的首页
+    redirect_to(column_path(@article.column), notice: t("topics.delete_article_success"))
   end
 
   def new

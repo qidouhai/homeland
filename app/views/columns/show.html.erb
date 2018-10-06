@@ -10,9 +10,6 @@
   <% end %>
 
   <div class="col-md-9">
-    <% if not mobile? %>
-      <%= raw Setting.topic_list_top_html %>
-    <%end%>
     <div class="topics panel panel-default">
       <% if @column.articles %>
         <div class="panel-heading node-header">
@@ -22,7 +19,8 @@
         </div>
       <%end%>
       <div class="panel-body item-list">
-        <%= render partial: '/articles/article', collection: @articles, locals: { suggest: true } %>
+
+        <%= render partial: '/articles/article', collection: @articles, locals: { suggest: false } %>
 
       </div>
 
