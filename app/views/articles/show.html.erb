@@ -25,7 +25,7 @@
 <div class="row">
   <div class="col-md-9">
     <div class="topic-detail panel panel-default">
-      <%= render partial: "topics/topic_info", locals: { topic: @article } %>
+      <%= render partial: "articles/article_info", locals: { article: @article } %>
 
       <% if @article.excellent? %>
         <div class="label-awesome">
@@ -149,7 +149,7 @@
 
   <% if !mobile? %>
     <div class="sidebar hidden-mobile col-md-3">
-      <%= render 'topic_sidebar' %>
+      <%= render 'article_sidebar' %>
     </div>
   <% else %>
     <div class="move-page-buttons">
