@@ -24,9 +24,7 @@
 
 <div class="row">
   <% if !mobile? %>
-    <div class="sidebar hidden-mobile col-md-3">
-      <%= render 'article_sidebar' %>
-    </div>
+    <%= render 'article_sidebar' %>
   <% else %>
     <div class="move-page-buttons">
       <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
@@ -34,7 +32,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-9">
+  <div class="col-md-8">
     <div class="topic-detail panel panel-default">
       <%= render partial: "articles/article_info", locals: { article: @article } %>
 

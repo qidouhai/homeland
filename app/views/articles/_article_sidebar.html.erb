@@ -1,5 +1,32 @@
-<% if !@article.user.blank? %>
+<div class="sidebar col-md-4<%= ' hide-ios' if turbolinks_app? && action_name != 'show' %>" id='sidebar'>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="panel-body text-center topic-author-box blog-info">
 
-    <%= render "article_author_info" %>
+        <div class="image blog-cover">
+          <img class='avatar img-thumbnail' src="<%= @column.cover_url %>">
+        </div>
+        <div class="blog-name">
+          <h4><a href="https://laravel-china.org/testerhome"><%= @column.name %></a></h4>
+        </div>
+        <div class="blog-description">
+          <%= @column.description %>
+        </div>
 
-<%end%>
+        <hr>
+
+        <li class="list-group-item"><i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count%>）</li>
+        <hr>
+        <% if @column.user == current_user %>
+          <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">
+            <i class="fa fa-edit"></i> 编辑专栏
+          </a>
+
+          <a class="btn btn-primary btn-block" href="<%= new_column_article_path @column.id %>">
+            <i class="fa fa-new"></i> 新增文章
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

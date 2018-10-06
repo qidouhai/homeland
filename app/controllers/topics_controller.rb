@@ -93,7 +93,6 @@ class TopicsController < ApplicationController
     if @topic.draft and @topic.user_id != current_user&.id
       redirect_to(topics_path, notice: t("topics.cannot_read_others_drafts"))
     end
-
     @topic.hits.incr(1)
     @node = @topic.node
     @show_raw = params[:raw] == "1"
