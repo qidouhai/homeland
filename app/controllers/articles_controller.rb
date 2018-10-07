@@ -14,6 +14,27 @@ class ArticlesController < TopicsController
   def show
     @user = @article.user
     @column = @article.column
+
+    if @article.draft and @article.user_id != current_user&.id
+      redirect_to(topics_path, notice: t("topics.cannot_read_others_drafts"))
+    end
+    @article.hits.incr(1)
+    @node = @article.node
+    @show_raw = params[:raw] == "1"
+    @can_reply = can?(:create, Reply)
+
+    if params[:order_by] == 'like'
+      @replies = Reply.unscoped.where(topic_id: @article.id).order(likes_count: :desc).all
+    elsif params[:order_by] == 'created_at'
+      @replies = Reply.unscoped.where(topic_id: @article.id).order(created_at: :desc).all
+    else
+      @replies = Reply.unscoped.where(topic_id: @article.id).order(:id).all
+    end
+    @can_reply = can?(:create, Reply)
+    
+    
+    # fixme: 为了兼容回复列表模板里引用 @topic 而加。后续需考虑重构。
+    @topic = @article
   end
 
   def update
