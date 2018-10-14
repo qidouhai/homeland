@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <% if columns.blank? %>
-        <% if current_user && @user.id == current_user.id %>
+        <% if current_user && @user.id == current_user.id && current_user.column_editor? %>
 
           <div class="bs-dropzone">
             <p class="lead">你还没有创建属于你自己的专栏！</p>
@@ -18,13 +18,19 @@
         <% end %>
       <% else %>
         <% if current_user && @user.id == current_user.id && current_user.user_column_count_left > 0 %>
-          <div class="bs-dropzone">
-            <p class="lead">你还可以创建 <%=current_user.user_column_count_left %> 个专栏！</p>
-            <hr>
-            <p>
-              <%= link_to ' 创建专栏', new_column_path, class: "fa fa-columns" %>
-            </p>
-          </div>
+          <% if current_user.column_editor?  %>
+            <div class="bs-dropzone">
+              <p class="lead">你还可以创建 <%=current_user.user_column_count_left %> 个专栏！</p>
+              <hr>
+              <p>
+                <%= link_to ' 创建专栏', new_column_path, class: "fa fa-columns" %>
+              </p>
+            </div>
+          <% else %>
+            <div class="bs-dropzone">
+              <p class="lead"> 不能再创建专栏！</p>
+            </div>
+          <% end %>
         <% end %>
         <div class="row">
         <% columns.each do |column| %>

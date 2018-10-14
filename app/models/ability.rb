@@ -101,7 +101,7 @@ class Ability
   end
 
   def roles_for_columns
-    unless user.newbie?
+    if user.column_editor? && !user.newbie?
       can :create, Column
     end
     can %i[update], Column, user_id: user.id
@@ -111,8 +111,10 @@ class Ability
   end
 
   def roles_for_articles
-    unless user.newbie?
+    if user.column_editor? && !user.newbie?
       can :create, Article
+    else
+      cannot :create, Article
     end
     can %i[favorite unfavorite follow unfollow], Article
     can %i[update open close append], Article, user_id: user.id
