@@ -5,6 +5,7 @@ module MentionTopic
 
   TOPIC_LINK_REGEXP = %r{://#{Setting.domain}/topics/([\d]+)}i
 
+
   included do
     attr_accessor :mentioned_topic_ids
 
@@ -12,10 +13,9 @@ module MentionTopic
   end
 
   def extract_mentioned_topic_ids
-    # 忽略专栏文章
-    return if self.class.name == "Article"
+    # 目前对 article 无效（路径不匹配正则表达式）
     matched_ids = body.scan(TOPIC_LINK_REGEXP).flatten
-    current_topic_id = self.class.name == "Topic" ? self.id : self.topic_id
+    current_topic_id = [Topic.name, Article.name].include? self.class.name ? self.id : self.topic_id
     return if matched_ids.blank?
     matched_ids = matched_ids.map(&:to_i).reject { |id| id == current_topic_id }
     Topic.where("id IN (?)", matched_ids).pluck(:id)
