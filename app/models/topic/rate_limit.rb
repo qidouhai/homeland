@@ -20,8 +20,6 @@ class Topic
     end
 
     def _rate_limit_create
-
-      Rails.logger.error "asdasdasd eror : Rails.cache.read(_rate_limit_key): #{Rails.cache.read(_rate_limit_key)}"
       if Rails.cache.read(_rate_limit_key)
         self.errors.add(:base, "创建太频繁，请稍后再试")
       end
@@ -37,7 +35,6 @@ class Topic
 
     def _log_rate_limit_create
       limit_interval = Setting.topic_create_limit_interval.to_i
-      Rails.logger.error "asdasdasd eror : limit_interval: #{limit_interval}"
       if limit_interval > 0
         Rails.cache.write(_rate_limit_key, 1, expires_in: limit_interval)
       end
