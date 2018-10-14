@@ -16,10 +16,6 @@ module Users
       @topics = @topics.page(params[:page])
     end
 
-    def profile
-      @user_type == :team ? team_show : user_show
-    end
-
     def columns
       @columns = @user.columns
     end
