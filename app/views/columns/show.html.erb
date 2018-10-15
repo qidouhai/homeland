@@ -1,0 +1,34 @@
+<div class="row">
+
+  <% if !mobile? %>
+    <%= render '/shared/article_sidebar' %>
+  <% else %>
+    <div class="move-page-buttons">
+      <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
+      <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="bottom"><i class="fa fa-arrow-down"></i></a>
+    </div>
+  <% end %>
+
+  <div class="col-md-9 article-content">
+    <div class="topics panel panel-default">
+      <% if @column.articles %>
+        <div class="panel-heading node-header">
+          <ul class="filter nav nav-pills">
+            所有文章
+          </ul>
+        </div>
+      <%end%>
+      <div class="panel-body item-list">
+
+        <%= render partial: '/articles/article', collection: @articles, locals: { suggest: false } %>
+
+      </div>
+
+      <div class="panel-footer clearfix">
+        <%= paginate @articles, total_pages: Article.total_pages %>
+      </div>
+    </div>
+  </div>
+
+
+</div>

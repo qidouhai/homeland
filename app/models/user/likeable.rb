@@ -8,6 +8,8 @@ class User
     included do
       # Action for Topic
       action_store :like, :topic, counter_cache: true
+      # Action for Article
+      action_store :like, :article, counter_cache: true
       # Action for Reply
       action_store :like, :reply, counter_cache: true
     end
@@ -15,7 +17,8 @@ class User
     # 赞
     def like(likeable)
       return false if likeable.blank?
-      return false if likeable.user_id == self.id
+      # 允许自己给自己的文章点赞
+      return false if likeable.user_id == self.id && likeable.class != Article
       self.create_action(:like, target: likeable)
     end
 

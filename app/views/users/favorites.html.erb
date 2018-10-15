@@ -13,8 +13,8 @@
           </tr>
           <% @topics.each do |item| %>
           <tr class="topic <%= cycle('odd',"") %>">
-            <td><%= render_node_name(item.node_name,item.node_id) %></td>
-            <td class="title"><%= topic_title_tag(item) %></td>
+            <td><%= item.isArticle? ? render_column_name(item.column.name,item.column.slug) : render_node_name(item.node_name,item.node_id) %></td>
+            <td class="title"><%= item.isArticle? ? article_title_tag(item) : topic_title_tag(item) %></td>
           </tr>
           <% end %>
         </table>

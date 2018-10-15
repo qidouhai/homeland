@@ -43,6 +43,10 @@ class Setting < RailsSettings::Base
     new_tags
     topic_create_limit_interval
     topic_create_hour_limit_count
+    column_max_count
+    column_user_white_list
+    column_enabled
+    article_node
     use_github_only
     new_from_github_notices
     notification_sidebar_advertise

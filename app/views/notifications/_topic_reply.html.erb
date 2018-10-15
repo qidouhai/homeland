@@ -7,8 +7,13 @@
   %>
 
   <div class="media-heading">
-    在帖子
-    <%= topic_title_tag(topic, reply: reply) %> 回复了：
+    <% if topic.isArticle? %>
+      在文章
+      <%= article_title_tag(topic, reply: reply) %> 留言了：
+    <% else %>
+      在帖子
+      <%= topic_title_tag(topic, reply: reply) %> 留言了：
+    <% end %>
   </div>
   <%- if reply.present? -%>
     <div class="media-content summary markdown">

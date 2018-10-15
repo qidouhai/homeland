@@ -5,8 +5,7 @@
 
   <div class="col-md-8">
     <%= render "menu" %>
-
-    <%= render "info" %>
+    <%= render "profile" %>
 
     <div class="tabbable">
       <ul class="nav nav-tabs">
@@ -21,8 +20,8 @@
               <% @topics.each do |item| %>
               <li class="list-group-item">
                 <div class="title">
-                  <%= render_node_name(item.node_name,item.node_id) %>
-                  <%= topic_title_tag(item) %> <%= topic_excellent_tag(item) %>
+                  <%= item.isArticle? ? render_column_name(item.column.name,item.column.slug) : render_node_name(item.node_name,item.node_id) %>
+                  <%= item.isArticle? ? article_title_tag(item) : topic_title_tag(item) %> <%= topic_excellent_tag(item) %>
                 </div>
                 <div class="info">
                   <span class="counter"><%= item.likes_count %> 个赞 • <%= item.replies_count %> 条回复</span>

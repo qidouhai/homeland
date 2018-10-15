@@ -6,7 +6,7 @@ module Users
 
     included do
       before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts]
-      before_action :only_user!, only: [:topics, :replies, :favorites,
+      before_action :only_user!, only: [:topics, :replies, :favorites, :columns,
                                         :block, :unblock, :follow, :unfollow,
                                         :followers, :following, :calendar, :reward]
     end
@@ -14,6 +14,10 @@ module Users
     def topics
       @topics = @user.topics.withoutDraft.fields_for_list.recent
       @topics = @topics.page(params[:page])
+    end
+
+    def columns
+      @columns = @user.columns
     end
 
     def replies

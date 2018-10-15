@@ -33,12 +33,18 @@
           <span class="opts  <%= mobile?? '' : 'pull-right' %>">
             <% if !reply.deleted? %>
               <span class="hideable">
-              <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
-
-              <% if reply.suggested? %>
-                <%= link_to raw("<i class='fa fa-times-circle'></i>"), reply_unsuggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest", title: "取消最佳回复" %>
+              <% if @topic.isArticle? %>
+                <%= link_to('', edit_article_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
               <% else %>
-                <%= link_to raw("<i class='fa fa-check'></i>"), reply_suggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest", title: "设为最佳回复" %>
+                <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
+              <% end %>
+
+              <% if !@topic.isArticle? %>
+                <% if reply.suggested? %>
+                  <%= link_to raw("<i class='fa fa-times-circle'></i>"), reply_unsuggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest", title: "取消最佳回复" %>
+                <% else %>
+                  <%= link_to raw("<i class='fa fa-check'></i>"), reply_suggest_topic_reply_path(@topic, reply), 'data-uid' => @topic.user_id, method: :post, remote: true, class: "suggest", title: "设为最佳回复" %>
+                <% end %>
               <% end %>
 
               <%= link_to('', "#", 'data-id' => reply.id, 'data-login' => reply.user_login,
@@ -75,7 +81,11 @@
             <span class="opts  <%= mobile?? '' : 'pull-right' %>">
             <% if !reply.deleted? %>
               <span class="hideable">
-              <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
+              <% if @topic.isArticle? %>
+                <%= link_to('', edit_article_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
+              <% else %>
+                <%= link_to('', edit_topic_reply_path(@topic,reply), class: "edit fa fa-pencil", 'data-uid' => reply.user_id, title: "修改回帖")%>
+              <% end %>
 
                 <%= link_to('', "#", 'data-id' => reply.id, 'data-login' => reply.user_login,
                             title: t("topics.reply_this_floor"), class: "btn-reply fa fa-mail-reply" )

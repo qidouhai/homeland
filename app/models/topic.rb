@@ -139,6 +139,14 @@ class Topic < ApplicationRecord
     @total_pages
   end
 
+  def topic_type
+    (self[:type] || "Topic").underscore.to_sym
+  end
+
+  def isArticle?
+    topic_type == :article
+  end
+
   def add_to_blocked_user
     key = user_id.to_s + "-" +Time.now.strftime("%Y-%m-%d")
     hit_blacklist = User.redis.get(key)

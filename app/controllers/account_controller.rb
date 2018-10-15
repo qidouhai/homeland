@@ -65,10 +65,15 @@ class AccountController < Devise::RegistrationsController
   end
 
   def reject_email_blacklist(email_to_register)
-    blacklist = Setting.blacklist_emails.split(Setting.SEPARATOR_REGEXP)
-    if blacklist.include?(email_to_register.split('@')[1])
-      return false
+    if Setting.blacklist_emails
+      blacklist = Setting.blacklist_emails.split(Setting.SEPARATOR_REGEXP)
+      if blacklist.include?(email_to_register.split('@')[1])
+        return false
+      else
+        return true
+      end
     else
+      # 默认为空时，所有邮箱地址均可注册
       return true
     end
   end

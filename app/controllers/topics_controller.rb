@@ -93,7 +93,6 @@ class TopicsController < ApplicationController
     if @topic.draft and @topic.user_id != current_user&.id
       redirect_to(topics_path, notice: t("topics.cannot_read_others_drafts"))
     end
-
     @topic.hits.incr(1)
     @node = @topic.node
     @show_raw = params[:raw] == "1"
@@ -104,6 +103,8 @@ class TopicsController < ApplicationController
 
     if params[:order_by] == 'like'
       @replies = Reply.unscoped.where(topic_id: @topic.id).order(likes_count: :desc).all
+    elsif params[:order_by] == 'created_at'
+      @replies = Reply.unscoped.where(topic_id: @topic.id).order(created_at: :desc).all
     else
       @replies = Reply.unscoped.where(topic_id: @topic.id).order(:id).all
     end
@@ -207,6 +208,18 @@ class TopicsController < ApplicationController
 
   def favorite
     current_user.favorite_topic(params[:id])
+    if @topic.isArticle?
+      # 专栏文章被收藏，通知作者。因为收藏是统一由前端异步请求到 topics 路由的，所以写在这里。
+      opts = {
+          notify_type: "article_favorite",
+          user_id: @topic.user_id,
+          actor_id: current_user.id,
+          target: @topic
+      }
+      return if Notification.where(opts).count > 0
+      Notification.create opts
+      Notification.realtime_push_to_client(@topic.user)
+    end
     render plain: "1"
   end
 

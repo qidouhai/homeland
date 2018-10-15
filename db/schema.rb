@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_075805) do
+ActiveRecord::Schema.define(version: 2018_09_26_150453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_075805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug", null: false
+    t.integer "articles_count", default: 0, null: false
     t.index ["likes_count"], name: "index_columns_on_likes_count"
     t.index ["name"], name: "index_columns_on_name"
     t.index ["suggested_at"], name: "index_columns_on_suggested_at"
@@ -387,6 +388,7 @@ ActiveRecord::Schema.define(version: 2018_09_12_075805) do
     t.boolean "draft", default: false, null: false
     t.integer "suggested_node"
     t.integer "column_id"
+    t.string "type"
     t.index ["deleted_at"], name: "index_topics_on_deleted_at"
     t.index ["excellent"], name: "index_topics_on_excellent"
     t.index ["last_active_mark"], name: "index_topics_on_last_active_mark"

@@ -1,0 +1,62 @@
+.bs-dropzone {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #777;
+  text-align: center;
+  border: 2px dashed #eee;
+  border-radius: 4px;
+}
+
+.column {
+
+  padding: 2px;
+  border-bottom: 1px solid #F0F0F0;
+
+  .infos {
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .count {
+    vertical-align: middle;
+  }
+
+  .column-cover {
+    border-radius: 130px;
+    width: 24px;
+    height: 24px;
+  }
+  .column-heading {
+    margin-bottom: 0px;
+  }
+}
+
+.user-columns {
+  .column-cover-image {
+    height: 200px;
+  }
+  .column-desc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+    width:inherit;
+    padding-left: 15px;
+    padding-bottom: 20px;
+  }
+}
+.column-edit-image {
+  width: 250px;
+  height: 250px;
+  border: 1px solid #d9d6d6;
+  border-radius: 2px;
+  padding: 6px;
+  margin: 11px 0px;
+}
+.article-sidebar {
+  margin-left: 15px;
+}
+
+.article-content {
+  margin-right: -15px;
+}

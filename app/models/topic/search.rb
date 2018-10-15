@@ -37,14 +37,23 @@ class Topic
     end
 
     def related_topics(limit: 5)
+      i = self.class.index_name
+      t = self.class.document_type
+      c = self.class
+
+      if self.topic_type == :article
+        i = "topics"
+        t = "topic"
+        c = Topic
+      end
       opts = {
         query: {
           more_like_this: {
             fields: %i[title body],
             like: [
               {
-                _index: self.class.index_name,
-                _type: self.class.document_type,
+                _index: i,
+                _type: t,
                 _id: id
               }
             ],
@@ -54,7 +63,7 @@ class Topic
         },
         size: limit
       }
-      self.class.__elasticsearch__.search(opts).records.to_a
+      c.__elasticsearch__.search(opts).records.to_a
     end
   end
 end

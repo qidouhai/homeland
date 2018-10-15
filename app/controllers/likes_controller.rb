@@ -11,6 +11,18 @@ class LikesController < ApplicationController
 
   def create
     current_user.like(@item)
+    if @item.class.name == Article.name
+      # 专栏文章被赞，通知作者。
+      opts = {
+          notify_type: "article_like",
+          user_id: @item.user_id,
+          actor_id: current_user.id,
+          target: @item
+      }
+      return if Notification.where(opts).count > 0
+      Notification.create opts
+      Notification.realtime_push_to_client(@item.user)
+    end
     render plain: @item.reload.likes_count
   end
 

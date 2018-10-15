@@ -20,6 +20,17 @@ class User
       self.admin? || replies_count >= 100
     end
 
+    # 是否可以发专栏
+    def column_editor?
+      # 开关为关时，不能发专栏
+      return false if Setting.column_enabled.blank?
+      # 只有白名单用户可以发专栏
+      return false if Setting.column_user_white_list.nil?
+      if Setting.column_user_white_list.split(Setting.SEPARATOR_REGEXP).include? login
+        return true
+      end
+    end
+
     # 是否能发帖
     def newbie?
       return false if verified?
@@ -30,10 +41,11 @@ class User
 
     def roles?(role)
       case role
-      when :admin then admin?
-      when :wiki_editor then wiki_editor?
-      when :site_editor then site_editor?
-      when :member then self.normal?
+        when :admin then admin?
+        when :wiki_editor then wiki_editor?
+        when :site_editor then site_editor?
+        when :column_editor then column_editor?
+        when :member then self.normal?
       else false
       end
     end

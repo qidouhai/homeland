@@ -5,7 +5,7 @@
       <li class="list-group-item">
         <%	 if !reply.exposed_to_author_only? %>
         <div class="title">
-          <%= link_to(reply.topic.title, topic_path(reply.topic_id)) %>
+          <%= reply.topic.isArticle? ? link_to(reply.topic.title, article_path(reply.topic_id)) : link_to(reply.topic.title, topic_path(reply.topic_id)) %>
           <span class="info">at <%= timeago(reply.created_at) %></span>
         </div>
         <div class="body markdown">
@@ -13,7 +13,7 @@
         </div>
         <% elsif current_user && (reply.topic && reply.topic.user == current_user || reply.user == current_user) %>
           <div class="title">
-            <%= link_to(reply.topic.title, topic_path(reply.topic_id)) %>
+            <%= reply.topic.isArticle? ? link_to(reply.topic.title, article_path(reply.topic_id)) : link_to(reply.topic.title, topic_path(reply.topic_id)) %>
             <span class="info">at <%= timeago(reply.created_at) %></span>
             <span class="info"><i class="fa fa-lock"></i> <%= t("topics.exposed_to_author_only") %></span>
           </div>
@@ -22,7 +22,7 @@
           </div>
         <% else %>
           <div class="title">
-            <%= link_to(reply.topic.title, topic_path(reply.topic_id)) %>
+            <%= reply.topic.isArticle? ? link_to(reply.topic.title, article_path(reply.topic_id)) : link_to(reply.topic.title, topic_path(reply.topic_id)) %>
             <span class="info">at <%= timeago(reply.created_at) %></span>
           </div>
           <div class="body markdown">

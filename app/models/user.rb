@@ -21,6 +21,7 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :topics, dependent: :destroy
+  has_many :columns, dependent: :destroy
   has_many :replies, dependent: :destroy
   has_many :authorizations, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -104,6 +105,10 @@ class User < ApplicationRecord
 
   def to_param
     login
+  end
+
+  def user_column_count_left
+    Setting.column_max_count.to_i - self.columns.size
   end
 
   def user_type

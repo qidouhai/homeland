@@ -185,6 +185,7 @@ Rails.application.routes.draw do
         end
         member do
           get :topics
+          get :columns
           get :replies
           get :favorites
           get :followers
@@ -210,6 +211,32 @@ Rails.application.routes.draw do
   mount Notifications::Engine, at: "notifications"
   mount StatusPage::Engine, at: "/"
 
+  resources :columns do
+    resources :articles
+  end
+
+  resources :articles do
+    member do
+      post :reply
+      post :favorite
+      delete :unfavorite
+      post :follow
+      delete :unfollow
+      get :ban
+      get :append
+      get :down
+      post :action
+      get :show_wechat
+    end
+    resources :replies do
+      member do
+        get :reply_to
+        post :reply_suggest
+        post :reply_unsuggest
+      end
+    end
+  end
+
   # WARRING! 请保持 User 的 routes 在所有路由的最后，以便于可以让用户名在根目录下面使用，而又不影响到其他的 routes
   # 比如 http://localhost:3000/huacnlee
   get 'users/city/:id', to: 'users#city', as: 'location_users'
@@ -220,6 +247,8 @@ Rails.application.routes.draw do
       member do
         # User only
         get :topics
+        get :profile
+        get :columns
         get :replies
         get :favorites
         get :blocked
@@ -247,6 +276,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+
 
   match "*path", to: "home#error_404", via: :all
 end
