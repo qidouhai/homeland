@@ -23,10 +23,10 @@ class User
     # 是否可以发专栏
     def column_editor?
       # 开关为关时，不能发专栏
-      return false if Setting.column_enabled.nil? || Setting.column_enabled.to_s.lstrip.rstrip == ""
+      return false if Setting.column_enabled.blank?
       # 只有白名单用户可以发专栏
       return false if Setting.column_user_white_list.nil?
-      if Setting.column_user_white_list.to_s.split("\n").include? name
+      if Setting.column_user_white_list.split(Setting.SEPARATOR_REGEXP).include? login
         return true
       end
     end
