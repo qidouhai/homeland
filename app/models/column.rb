@@ -10,7 +10,7 @@ class Column < ApplicationRecord
   SLUG_FORMAT              = 'A-Za-z0-9\-\_\.'
   ALLOW_SLUG_FORMAT_REGEXP = /\A[#{SLUG_FORMAT}]+\z/
   validates :slug, format: { with: ALLOW_SLUG_FORMAT_REGEXP, message: "只允许数字、大小写字母、中横线、下划线" },
-            length: { in: 4..10 },
+            length: { in: 4..30 },
             presence: true,
             uniqueness: { case_sensitive: false }
 
