@@ -60,7 +60,13 @@ module Admin
       if @user.user_type == :user
         @user.soft_delete
       else
-        @user.destroy
+        if not @user.team_profile.blank?
+          @user.team_profile.destroy
+        end
+        if not @user.team_users.blank?
+          @user.team_users.each {|t| t.destroy}
+        end
+        @user.delete
       end
 
       redirect_to(admin_users_url)

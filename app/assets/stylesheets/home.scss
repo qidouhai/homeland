@@ -147,7 +147,9 @@ h2 {
   a:hover {
     text-decoration: none;
   }
-  padding-left: 0px;
+  @media (min-width: 992px) {
+    padding-left: 0px;
+  }
   .sidebar_topic {
     padding: 2px;
     border-bottom: 1px solid #F0F0F0;

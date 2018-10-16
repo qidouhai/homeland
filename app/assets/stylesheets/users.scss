@@ -169,7 +169,9 @@ table.node-topics {
 }
 
 .sidebar {
-  padding-right: 0;
+  @media (min-width: 992px) {
+    padding-right: 0;
+  }
   .profile {
     .avatar {
       .level { margin-top: 6px; text-align: center; }

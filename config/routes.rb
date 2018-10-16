@@ -123,6 +123,7 @@ Rails.application.routes.draw do
       end
     end
     resources :nodes
+    resources :columns
     resources :sections
     resources :users, constraints: { id: /[#{User::LOGIN_FORMAT}]*/ } do
       member do

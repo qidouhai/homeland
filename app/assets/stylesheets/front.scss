@@ -250,6 +250,7 @@
     .info {
       color: #8f8d8b; font-size: 12px; margin-top: 0;
       a { color: #797776; text-decoration: underline; }
+      .column-node {color: $green}
       .team-name {
         font-size: 13px;
         color: $green;
@@ -359,14 +360,14 @@
   display: none;
   width: 260px;
 
-  @media (min-width: 960px) {
+  @media (min-width: 992px) {
     display: block;
     width: 242px;
   }
 
   @media (min-width: 1200px) {
     display: block;
-   width: 292px;
+   width: 300px;
   }
 
   .group {

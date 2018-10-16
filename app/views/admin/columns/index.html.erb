@@ -1,0 +1,21 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.menu.columns")%></span>
+<% end %>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr class="head">
+    <td class="first">#</td>
+    <td>名称</td>
+    <td>作者</td>
+    <td>帖子数量</td>
+  </tr>
+
+<% @columns.each do |column| %>
+  <tr>
+    <td class="first"><%= column.id %></td>
+    <td><%= link_to column.name, column_path(column) %></td>
+    <td><%= column.user.login %></td>
+    <td><%= column.articles_count %></td>
+  </tr>
+<% end %>
+</table>

@@ -71,6 +71,6 @@ module TopicsHelper
   end
 
   def render_column_name(name, slug)
-    link_to(name, main_app.column_path(slug), class: "node")
+    link_to(name, main_app.column_path(slug), class: "node column-node")
   end
 end
