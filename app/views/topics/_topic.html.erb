@@ -6,7 +6,7 @@
   <div class="infos media-body">
     <div class="title media-heading">
       <%= link_to((topic.isArticle? ? main_app.article_path(topic) : main_app.topic_path(topic)), title: topic.title) do %>
-        <%= raw content_tag(:span,topic.node_name, class: 'node') %>
+        <%= raw content_tag(:span, topic.node_name, class: topic.isArticle? ? 'column-node' :   'node') %>
         <%= topic.title %>
       <% end %>
       <% if suggest %>
@@ -16,12 +16,12 @@
       <%= topic_close_tag(topic) %>
     </div>
     <div class="info">
-      <%= user_name_tag(topic.user) %>
-
       <% if topic.isArticle? and not topic.column.blank? %>
-        for <%= render_column_name(topic.column.try(:name), topic.column.try(:slug)) %>
+        <%= raw t("topics.from_column", user: topic.user&.login) %>
+        <%= render_column_name(topic.column.try(:name), topic.column.try(:slug)) %>
+      <% else %>
+        <%= user_name_tag(topic.user) %>
       <% end %>
-
       <% if topic.team %>
           for <%= user_name_tag(topic.team) %>
       <% end %>

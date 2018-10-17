@@ -34,3 +34,4 @@
     real_name: "not Anonymous"
     exposed_to_author_only: "Author only"
     cannot_be_shared: "All right reserved, any unauthorized reproduction or transfer is prohibitted"
+    from_column: "from %{user}'s column"

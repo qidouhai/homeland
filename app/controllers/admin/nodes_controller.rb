@@ -5,7 +5,7 @@ module Admin
     before_action :set_node, only: %i[show edit update destroy]
 
     def index
-      @nodes = Node.sorted.includes(:section)
+      @nodes = Node.admin_sorted.includes(:section)
     end
 
     def show

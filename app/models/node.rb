@@ -13,6 +13,7 @@ class Node < ApplicationRecord
 
   scope :hots, -> { order(topics_count: :desc) }
   scope :sorted, -> { where("id != #{Setting.article_node}").order(sort: :desc) }
+  scope :admin_sorted, -> { order(sort: :desc) }
 
   after_save :update_cache_version
   after_destroy :update_cache_version
