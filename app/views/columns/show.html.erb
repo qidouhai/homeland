@@ -1,8 +1,7 @@
 <div class="row">
 
-  <% if !mobile? %>
-    <%= render '/shared/article_sidebar' %>
-  <% else %>
+  <%= render '/shared/article_sidebar' %>
+  <% if mobile? %>
     <div class="move-page-buttons">
       <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="top"><i class="fa fa-arrow-up"></i></a>
       <a href="#" class="btn btn-block btn-sm btn-move-page" data-type="bottom"><i class="fa fa-arrow-down"></i></a>
@@ -14,7 +13,7 @@
       <% if @column.articles %>
         <div class="panel-heading node-header">
           <ul class="filter nav nav-pills">
-            所有文章
+            最新文章
           </ul>
         </div>
       <%end%>
