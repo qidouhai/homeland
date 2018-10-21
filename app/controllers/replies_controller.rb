@@ -23,9 +23,6 @@ class RepliesController < ApplicationController
     else
       @msg = @reply.errors.full_messages.join("<br />")
     end
-    if @topic.isArticle?
-      Reply.notify_reply_created(@reply.id)
-    end
   end
 
   def index

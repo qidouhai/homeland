@@ -5,7 +5,7 @@ class Reply
     extend ActiveSupport::Concern
 
     included do
-      after_commit :async_create_reply_notify, on: :create, unless: -> { system_event? }
+      after_commit :async_create_reply_notify, on: :create, unless: -> {system_event?}
     end
 
     module ClassMethods
@@ -16,15 +16,28 @@ class Reply
         topic = Topic.find_by_id(reply.topic_id)
         return if topic.blank?
 
+        notification_receiver_ids = reply.notification_receiver_ids
+        if topic.private_org
+          notification_receiver_ids = reply.private_org_notification_receiver_ids
+        end
+
+        if reply.exposed_to_author_only?
+          notification_receiver_ids = []
+          if reply.user_id != topic.user_id
+            notification_receiver_ids = [topic.user_id]
+          end
+        end
+
         Notification.bulk_insert(set_size: 100) do |worker|
-          reply.notification_receiver_ids.each do |uid|
+          notification_receiver_ids.each do |uid|
+            logger.debug "Post Notification to: #{uid}"
             note = reply.send(:default_notification).merge(user_id: uid)
             worker.add(note)
           end
         end
 
         # Touch realtime_push_to_client
-        reply.notification_receiver_ids.each do |uid|
+        notification_receiver_ids.each do |uid|
           n = Notification.where(user_id: uid).last
           n.realtime_push_to_client if n.present?
         end
@@ -34,7 +47,19 @@ class Reply
       end
 
       def broadcast_to_client(reply)
-        ActionCable.server.broadcast("topics/#{reply.topic_id}/replies", id: reply.id, user_id: reply.user_id, action: :create, topic_id: reply.topic_id)
+        ActionCable.server.broadcast("topics/#{reply.topic_id}/replies", id: reply.id, user_id: reply.user_id, action: :create)
+      end
+    end
+
+    def private_org_notification_receiver_ids
+      return @private_org_notification_receiver_ids if defined? @private_org_notification_receiver_ids
+      if topic.private_org
+        follower_ids = self.topic&.team.team_notify_users.pluck(:user_id) || []
+        # 排除回帖人
+        follower_ids.delete(self.user_id)
+        @private_org_notification_receiver_ids = follower_ids
+      else
+        @private_org_notification_receiver_ids = []
       end
     end
 
@@ -46,9 +71,6 @@ class Reply
       follower_ids += self.user.try(:follow_by_user_ids) || []
       # 加入发帖人
       follower_ids << self.topic.try(:user_id)
-      if self.topic.private_org
-        follower_ids = self.topic&.team.team_notify_users.pluck(:user_id) || []
-      end
       # 去重复
       follower_ids.uniq!
       # 排除回帖人
@@ -59,19 +81,21 @@ class Reply
     end
 
     private
-      def default_notification
-        @default_notification ||= {
+
+    def default_notification
+      @default_notification ||= {
           notify_type: "topic_reply",
           target_type: "Reply",
           target_id: self.id,
           second_target_type: "Topic",
           second_target_id: self.topic_id,
           actor_id: self.user_id
-        }
-      end
+      }
+    end
 
-      def async_create_reply_notify
-        NotifyReplyJob.perform_later(id)
-      end
+
+    def async_create_reply_notify
+      NotifyReplyJob.perform_later(id)
+    end
   end
 end

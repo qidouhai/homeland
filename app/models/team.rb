@@ -64,7 +64,7 @@ class Team < User
   end
 
   def team_notify_users
-    self.team_users.where(is_receive_notifications: true)
+    self.team_users.accepted.where(is_receive_notifications: true)
   end
 
 end

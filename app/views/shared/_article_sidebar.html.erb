@@ -32,6 +32,25 @@
           <i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count %>）
         <% end %>
         <hr>
+
+        <!--div class="panel panel-default">
+          <div class="panel-heading hide-ios text-left">文章归档</div>
+            <ul class="list-group text-left">
+              <li class="list-group-item">
+                <span class="badge">14 篇</span>
+                2018年10月
+              </li>
+              <li class="list-group-item">
+                <span class="badge">14 篇</span>
+                2018年9月
+              </li>
+              <li class="list-group-item">
+                <span class="badge">14 篇</span>
+                2018年8月
+              </li>
+            </ul>
+        </div-->
+
         <% if @column.user == current_user %>
           <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">
             <i class="fa fa-edit"></i> 编辑专栏

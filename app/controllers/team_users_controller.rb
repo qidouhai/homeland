@@ -18,7 +18,7 @@ class TeamUsersController < ApplicationController
     if cannot? :update, @team
       @team_users = @team_users.accepted
     end
-    @team_users = @team_users.order("id asc").includes(:user).page(params[:page])
+    @team_users = @team_users.order("status asc").includes(:user).page(params[:page])
   end
 
   def new
