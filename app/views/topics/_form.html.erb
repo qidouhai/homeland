@@ -28,7 +28,7 @@
   <%= render "/shared/editor_toolbar" %>
 
   <div class="form-group">
-    <%= f.text_area :body, class: "topic-editor form-control closewarning", rows: 20 %>
+    <%= f.text_area :body, class: "topic-editor form-control closewarning", style: "resize: none", rows: 20 %>
   </div>
 
     <span class="help-inline">
@@ -37,22 +37,17 @@
                     </label>
                   </span>
 
-  <% if Setting.has_module?(:team) %>
-    <% if current_user.team_collection.any? %>
-      <%= f.hidden_field :team_id %>
-      <div class="form-group has-feedback">
-        <input id="team-selector-button" data-toggle="modal" data-target="#team-selector" type="button" class="form-control" value="<%= @topic.team&.name || '选择我的社团...' %>">
-        <span class="form-control-feedback team-clear" aria-hidden="true"><i class="fa fa-remove"></i></span>
-      </div>
-    <% end %>
-  <% end %>
-
   <div class="form-group hide-ios">
     <%= f.submit t("common.save"), id: 'publish', class: "btn btn-primary col-xs-2", 'data-disable-with' => t("common.saving"), 'data-tb' => "save-topic" %>
     <% if @topic.draft or @topic.new_record? %>
-        &nbsp;&nbsp;or&nbsp;&nbsp;
-    <%=	 button_tag  t("common.save_as_draft"), name: 'commit',id: 'save_as_draft', value: 'draft', type: 'submit', class: "btn btn-info", 'data-disable-with' => t("common.saving_as_draft"), 'data-tb' => "save-topic-draft"  %>
+    <%=	 button_tag  t("common.save_as_draft"), name: 'commit',id: 'save_as_draft', value: 'draft', type: 'submit', class: "btn btn-default col-xs-2 col-xs-offset-1", 'data-disable-with' => t("common.saving_as_draft"), 'data-tb' => "save-topic-draft"  %>
     <%	end %>
-    <div class="pull-right hide-ios"><a href="/markdown" target="_blank"><i class="fa fa-tip"></i> 排版说明</a></div>
+    <% if Setting.has_module?(:team) %>
+      <% if current_user.team_collection.any? %>
+        <%= f.hidden_field :team_id %>
+        <input data-toggle="modal" data-target="#team-selector" type="button" class="btn btn-default col-xs-5 col-xs-offset-1" value="<%= @topic.team&.name || '选择话题所属的社团...' %>">
+        <a class="btn btn-default team-clear"><i class="fa fa-remove"></i></a>
+      <% end %>
+    <% end %>
   </div>
 <% end %>
