@@ -96,9 +96,8 @@
         共收到 <b><%= @topic.replies_count %></b> 条回复
         </span>
         <span class="pull-right">
-          排序方式&nbsp;
-          <a data-toggle="tooltip" data-original-title="按创建时间排序" class="btn btn-default btn-sm <%=params[:order_by] == 'created_at'? 'active' : ''  %>" href="?order_by=created_at&#replies">按时间</a>
-          <a data-toggle="tooltip" data-original-title="按回复点赞数量排序" class="btn btn-default btn-sm <%=params[:order_by] == 'like'? 'active' : ''  %>" href="?order_by=like&#replies" >按点赞数</a>
+          <a data-toggle="tooltip" data-original-title="按创建时间排序" class="btn btn-default btn-sm <%=params[:order_by] == 'created_at'? 'active' : ''  %>" href="?order_by=created_at&#replies">时间</a>
+          <a data-toggle="tooltip" data-original-title="按回复点赞数量排序" class="btn btn-default btn-sm <%=params[:order_by] == 'like'? 'active' : ''  %>" href="?order_by=like&#replies" >点赞</a>
         </span>
 
       </div>
