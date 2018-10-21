@@ -109,6 +109,8 @@ Rails.application.routes.draw do
   get 'jump', to: 'jump#index'
   get '/search', to: 'search#index', as: 'search'
   get '/search/users', to: 'search#users', as: 'search_users'
+  get '/mtsc/2018', to: 'mtsc#conf2018'
+  get '/mtsc/2019', to: 'mtsc#conf2019'
 
   namespace :admin do
     root to: "home#index", as: "root"

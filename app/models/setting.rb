@@ -50,6 +50,8 @@ class Setting < RailsSettings::Base
     use_github_only
     new_from_github_notices
     notification_sidebar_advertise
+    conf2018
+    conf2019
   )
 
   class << self
