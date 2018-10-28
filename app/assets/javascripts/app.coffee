@@ -21,6 +21,7 @@
 #= require action_cable
 #= require form_storage
 #= require topics
+#= require columns
 #= require editor
 #= require toc
 #= require turbolinks
@@ -60,6 +61,9 @@ AppView = Backbone.View.extend
       window._topicView = new TopicView({parentView: @})
 
     window._tocView = new TOCView({parentView: @})
+
+    if $('body').data('controller-name') in ['columns', 'articles']
+      window._columnView = new ColumnView({parentView: @})
 
   initComponents: () ->
     $("abbr.timeago").timeago()

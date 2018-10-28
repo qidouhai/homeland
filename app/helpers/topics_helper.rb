@@ -45,17 +45,6 @@ module TopicsHelper
     link_to(topic.title, path, title: topic.title)
   end
 
-  def article_title_tag(article, opts = {})
-    return t("topics.topic_was_deleted") if article.blank?
-    if opts[:reply]
-      index = article.floor_of_reply(opts[:reply])
-      path = main_app.article_path(article, anchor: "reply#{index}")
-    else
-      path = main_app.article_path(article)
-    end
-    link_to(article.title, path, title: article.title)
-  end
-
   def topic_excellent_tag(topic)
     return "" unless topic.excellent?
     content_tag(:i, "", title: "精华帖", class: "fa fa-diamond", data: { toggle: "tooltip" })
@@ -68,9 +57,5 @@ module TopicsHelper
 
   def render_node_name(name, id)
     link_to(name, main_app.node_topics_path(id), class: "node")
-  end
-
-  def render_column_name(name, slug)
-    link_to(name, main_app.column_path(slug), class: "node column-node")
   end
 end

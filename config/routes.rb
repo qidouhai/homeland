@@ -216,6 +216,12 @@ Rails.application.routes.draw do
 
   resources :columns do
     resources :articles
+    member do
+      post :follow
+      delete :unfollow
+      post :block
+      post :unblock
+    end
   end
 
   resources :articles do

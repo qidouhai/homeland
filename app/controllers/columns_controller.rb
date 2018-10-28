@@ -1,9 +1,9 @@
 class ColumnsController < ApplicationController
 
-  before_action :authenticate_user!, only: %i[new edit create update destroy]
+  before_action :authenticate_user!, only: %i[new edit create update destroy follow unfollow block unblock]
   load_and_authorize_resource only: %i[new edit create update destroy],:find_by => :slug
-  before_action :set_column, only: [:show, :edit, :update, :destroy]
-  before_action :set_columns_have, only: [:new, :edit, :update, :create]
+  before_action :set_column, only: [:show, :edit, :update, :destroy, :follow, :unfollow,  :block, :unblock]
+  before_action :set_columns_have, only: [:new, :edit, :update, :create, :follow, :unfollow,  :block, :unblock]
 
   def index
     @columns = Column.all
@@ -42,6 +42,26 @@ class ColumnsController < ApplicationController
   def destroy
     @column.destroy
     redirect_to(columns_url)
+  end
+
+  def follow
+    current_user.follow_column(@column)
+    render json: { code: 0, data: { followers_count: 0 } }
+  end
+
+  def unfollow
+    current_user.unfollow_column(@column)
+    render json: { code: 0, data: { followers_count: 1 } }
+  end
+
+  def block
+    current_user.block_column(@column)
+    render json: { code: 0 }
+  end
+
+  def unblock
+    current_user.unblock_column(@column)
+    render json: { code: 0 }
   end
 
   protected

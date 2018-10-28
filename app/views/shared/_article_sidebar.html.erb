@@ -62,6 +62,19 @@
           <% end %>
         <% end %>
 
+        <% if !owner? @user %>
+          <div class="buttons row">
+            <div class="col-xs-6">
+              <%= follow_column_tag(@column) %>
+            </div>
+
+            <div class="col-xs-6">
+              <%= block_column_tag(@column) %>
+            </div>
+          </div>
+
+        <% end %>
+
         <% if owner?(@user) && current_user && current_user.has_draft? %>
           <div class="text-center panel panel-default alert alert-warning draft-box hide-ios">
             <div class="panel-body">
