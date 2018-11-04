@@ -23,6 +23,11 @@ class Topic
           follower_ids = topic&.team.team_notify_users.pluck(:user_id) || []
         end
 
+        if topic.isArticle?
+          column_focus_user_ids = topic.column.follow_by_user_ids || []
+          follower_ids = follower_ids | column_focus_user_ids
+        end
+
         notified_user_ids = topic.mentioned_user_ids
 
         # 给关注者发通知

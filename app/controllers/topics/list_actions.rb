@@ -51,6 +51,7 @@ module Topics
         if current_user
           scope = scope.without_nodes(current_user.block_node_ids)
           scope = scope.without_users(current_user.block_user_ids)
+          scope = scope.without_columns(current_user.block_column_ids)
         end
 
         # must include :user, because it's uses for _topic.html.erb fragment cache_key

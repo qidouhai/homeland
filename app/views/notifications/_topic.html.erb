@@ -4,7 +4,7 @@
 <% else %>
   <div class="media-heading">
     <% if topic.isArticle? %>
-      创建了文章 <%= article_title_tag(topic) %>
+      您关注的专栏：<%= render_column_name(topic.column.name,topic.column.slug) %> 有了新文章： <%= article_title_tag(topic) %>
     <% else %>
       创建了帖子 <%= topic_title_tag(topic) %>
     <% end %>

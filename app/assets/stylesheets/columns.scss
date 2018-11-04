@@ -64,3 +64,14 @@
     margin-right: -15px;
   }
 }
+
+.blog-description{
+  text-align: left;
+  padding: 18px;
+}
+.blog-description:first-letter {
+  font-size : 200%;
+  font-weight : bold;
+  float : left;
+  margin-right: 3px;
+}

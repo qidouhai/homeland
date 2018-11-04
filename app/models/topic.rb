@@ -58,6 +58,7 @@ class Topic < ApplicationRecord
   scope :without_node_ids,   ->(ids) { exclude_column_ids("node_id", ids) }
   scope :without_users,      ->(ids) { exclude_column_ids("user_id", ids) }
   scope :exclude_column_ids, ->(column, ids) { ids.empty? ? all : where.not(column => ids) }
+  scope :without_columns, ->(ids) { where.not("column_id" => ids).or(where(column_id: nil)) }
 
   scope :in_seven_days,         ->{ where('created_at >= ?', 1.week.ago) }
   scope :open, -> { where('closed_at IS NULL').order(created_at: :desc) }
