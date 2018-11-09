@@ -9,23 +9,18 @@ module UsersHelper
   def user_name_tag(user, options = {})
     return "匿名" if user.blank?
 
-    user_type = :user
-    login     = user
-    label     = login
-    name      = login
+    user_type = user.user_type
+    login     = user.login
+    name      = user.name
 
-    if user.is_a? User
-      user_type = user.user_type
-      login     = user.login
-      label     = user_type == :team ? user.name : user.login
-      name      = user.name
+    if name.blank?
+      name = login
     end
 
-    name ||= login
     options[:class] ||= "#{user_type}-name"
     options["data-name"] = name
 
-    link_to(label, "/#{login}", options)
+    link_to(name, "/#{login}", options)
   end
   alias team_name_tag user_name_tag
 

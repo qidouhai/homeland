@@ -17,7 +17,7 @@
     </div>
     <div class="info">
       <% if topic.isArticle? and not topic.column.blank? %>
-        <%= raw t("topics.from_column", user: topic.user&.login) %>
+        <%= raw t("topics.from_column", user: topic.user&.name ? topic.user&.name : topic.user&.login) %>
         <%= render_column_name(topic.column.try(:name), topic.column.try(:slug)) %>
       <% else %>
         <%= user_name_tag(topic.user) %>
@@ -30,7 +30,7 @@
       <% if topic.last_reply_user_login.blank? %>
         <%= raw t("common.created_at", time: timeago(topic.created_at))%>
       <% else %>
-        <%= t("common.last_by")%> <%= user_name_tag(topic.last_reply_user_login) %> <%= raw t("common.reply_at", time: timeago(topic.replied_at))%>
+        <%= t("common.last_by")%> <%= user_name_tag(topic.last_reply_user) %> <%= raw t("common.reply_at", time: timeago(topic.replied_at))%>
       <% end %>
       </span>
     </div>
