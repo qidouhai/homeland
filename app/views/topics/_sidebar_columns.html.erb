@@ -1,14 +1,22 @@
-<div class="panel panel-default">
-  <div class="panel-heading">专栏推荐 <i class="fa fa-columns"></i></div>
+<div class="topic-sidebar panel panel-default">
+  <div class="panel-heading">大家都在关注的专栏 <i class="fa fa-columns"></i></div>
   <div class="panel-body">
+    <% Column.hot.limit(3).each do |column| %>
 
+    <div class="media sidebar-column">
+      <div class="media-left media-middle">
+        <img class="media-object avatar-48" src="<%=column.cover_url %>" >
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading sidebar-name"><%=column.name %></h4>
+        <p><%=column.user.name %></p>
 
-    <hr>
-    <div class="input-group">
-      <input type="text" class="form-control disabled" readonly="readonly" placeholder="我要内推！">
-      <span class="input-group-btn">
-        <a href="https://jinshuju.net/f/V3TeyX" class="btn btn-default" type="button">Go!</a>
-      </span>
+      </div>
+      <div class="media-right">
+        <div class="sidebar-count"><%=column.articles_count %> 篇</div>
+      </div>
+      <div class="sidebar-description"><i><%=column.description %></i></div>
     </div>
+    <% end %>
   </div>
 </div>

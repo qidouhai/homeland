@@ -13,7 +13,6 @@ window.ColumnView = Backbone.View.extend
     span = btn.find("span")
 
     followerCounter = $(".follow-info .followers[data-login='#{column_id}'] .counter")
-    alert(followerCounter.text())
 
     if btn.hasClass("active")
       $.ajax

@@ -14,6 +14,7 @@ class Column < ApplicationRecord
             presence: true,
             uniqueness: { case_sensitive: false }
 
+  scope :hot, -> { order(followers_count: :desc) }
 
   belongs_to :user, counter_cache: true, optional: true
   has_many :comments, dependent: :destroy
@@ -30,10 +31,6 @@ class Column < ApplicationRecord
   def self.find_by_slug(slug)
     return nil unless slug.match? ALLOW_SLUG_FORMAT_REGEXP
     fetch_by_uniq_keys(slug: slug) || where("lower(slug) = ?", slug.downcase).take
-  end
-
-  def followers_count
-    follow_by_users.count
   end
 
   def to_param

@@ -46,11 +46,13 @@ class ColumnsController < ApplicationController
 
   def follow
     current_user.follow_column(@column)
+    @column.reload
     render json: { code: 0, data: { followers_count: @column.followers_count } }
   end
 
   def unfollow
     current_user.unfollow_column(@column)
+    @column.reload
     render json: { code: 0, data: { followers_count: @column.followers_count } }
   end
 

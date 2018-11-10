@@ -101,3 +101,43 @@
   }
 }
 
+.fa-columns {
+  color: #0D54AB;
+}
+
+.topic-sidebar {
+
+  .sidebar-column {
+    border: 1px solid #ccc;
+    padding: 10px 20px 10px 20px;
+  }
+
+  .sidebar-description {
+    margin-top: 5px;
+    margin-bottom: 4px;
+    line-height: 18px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .sidebar-name {
+    margin-bottom: 4px;
+    line-height: 18px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+    font-size: 14px;
+  }
+
+  .sidebar-count {
+    width: 30px;
+    font-size: 14px;
+    color: #797776;
+  }
+}
