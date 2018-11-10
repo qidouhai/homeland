@@ -26,7 +26,7 @@ module Users
     end
 
     def favorites
-      @topics = @user.favorite_topics.withoutDraft.order("actions.id desc")
+      @topics = @user.favorites_topics_and_articles.withoutDraft.order("actions.id desc")
       @topics = @topics.page(params[:page])
     end
 

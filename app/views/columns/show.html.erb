@@ -10,6 +10,7 @@
 
   <div class="col-md-9 article-content">
     <div class="topics panel panel-default">
+    <% if  @articles.count > 0 %>
       <% if @column.articles %>
         <div class="panel-heading node-header">
           <ul class="filter nav nav-pills">
@@ -27,7 +28,18 @@
         <%= paginate @articles, total_pages: Article.total_pages %>
       </div>
     </div>
-  </div>
 
-
+    <% else %>
+        <div class="panel-heading node-header">
+          <ul class="filter nav nav-pills">
+            暂时没有文章
+          </ul>
+        </div>
+        <div class="column">
+          <div class="bs-dropzone">
+            <%= link_to " 写文章", new_column_article_path(@column.id), class: "fa fa-pencil", title: "编辑发布" %>
+          </div>
+        </div>
+    <%end%>
+      </div>
 </div>

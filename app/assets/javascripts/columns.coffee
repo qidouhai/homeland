@@ -11,6 +11,10 @@ window.ColumnView = Backbone.View.extend
     btn = $(e.currentTarget)
     column_id = btn.data("id")
     span = btn.find("span")
+
+    followerCounter = $(".follow-info .followers[data-login='#{column_id}'] .counter")
+    alert(followerCounter.text())
+
     if btn.hasClass("active")
       $.ajax
         url: "/columns/#{column_id}/unfollow"
@@ -19,6 +23,7 @@ window.ColumnView = Backbone.View.extend
           if res.code == 0
             btn.removeClass('active')
             span.text("关注")
+            followerCounter.text(res.data.followers_count)
     else
       $.ajax
         url: "/columns/#{column_id}/follow"
@@ -27,6 +32,7 @@ window.ColumnView = Backbone.View.extend
           if res.code == 0
             btn.addClass('active').attr("title", "")
             span.text("取消关注")
+            followerCounter.text(res.data.followers_count)
     return false
 
   blockColumn: (e) ->

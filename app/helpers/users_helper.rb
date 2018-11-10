@@ -19,10 +19,21 @@ module UsersHelper
 
     options[:class] ||= "#{user_type}-name"
     options["data-name"] = name
+    options["title"] = "#{name}(#{login})"
 
     link_to(name, "/#{login}", options)
   end
   alias team_name_tag user_name_tag
+
+  def user_name_plain_span(user, options = {})
+    return "匿名" if user.blank?
+    login     = user.login
+    name      = user.name
+    if name.blank?
+      name = login
+    end
+    content_tag(:span, name, class: 'user-name')
+  end
 
   def user_qrcode_width_for_size(size)
     case size

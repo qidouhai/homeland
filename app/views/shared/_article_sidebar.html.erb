@@ -8,7 +8,7 @@
           <div class="media-body text-left">
             <h4 class="media-heading">作者</h4>
             <div class="item">
-              <%= @user.fullname %>
+              <%= user_name_tag(@user) %>
             </div>
           </div>
           <div class="avatar media-right">
@@ -16,40 +16,42 @@
           </div>
           <hr>
         </div>
-
+        <%= link_to column_path(@column), class: "" do %>
         <div class="image blog-cover">
           <img class='avatar img-thumbnail' src="<%= @column.cover_url %>">
         </div>
         <div class="blog-name">
-          <h4><%= @column.name %></h4>
+          <h4>
+
+              <%= @column.name %>
+
+          </h4>
         </div>
+            <% end %>
         <div class="blog-description">
           <%= @column.description %>
         </div>
 
-        <hr>
-        <%= link_to column_path(@column), class: "btn btn-default btn-block" do %>
-          <i class="text-md fa fa-list-ul"></i> &nbsp;专栏文章（<%= @column.articles.withoutDraft.count %>）
-        <% end %>
-        <hr>
+        <div class="follow-info row hide-ios">
 
-        <!--div class="panel panel-default">
-          <div class="panel-heading hide-ios text-left">文章归档</div>
-            <ul class="list-group text-left">
-              <li class="list-group-item">
-                <span class="badge">14 篇</span>
-                2018年10月
-              </li>
-              <li class="list-group-item">
-                <span class="badge">14 篇</span>
-                2018年9月
-              </li>
-              <li class="list-group-item">
-                <span class="badge">14 篇</span>
-                2018年8月
-              </li>
-            </ul>
-        </div-->
+          <div class="col-xs-4 articles">
+            <span class="counter"><%= @column.articles.withoutDraft.count %></span>
+            <span class="text">文章</span>
+          </div>
+
+          <div class="col-xs-4 excellent">
+            <span class="counter"><%=@column.articles.excellent.count %></span>
+            <span class="text">精华</span>
+          </div>
+
+          <div class="col-xs-4 followers" data-login="<%= @column.slug %>">
+            <span class="counter"><%=@column.follow_by_users.count %></span>
+            <span class="text">粉丝</span>
+          </div>
+
+        </div>
+
+        <hr>
 
         <% if @column.user == current_user %>
           <a class="btn btn-default btn-block" href="<%= edit_column_path @column %>">

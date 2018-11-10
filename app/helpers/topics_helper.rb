@@ -7,7 +7,7 @@ module TopicsHelper
     opts[:class] ||= ""
     class_name = ""
     link_title = "收藏"
-    if current_user&.favorite_topic?(topic)
+    if current_user&.favorite_topic?(topic) || current_user&.favorite_article?(topic)
       class_name = "active"
       link_title = "取消收藏"
     end

@@ -32,6 +32,10 @@ class Column < ApplicationRecord
     fetch_by_uniq_keys(slug: slug) || where("lower(slug) = ?", slug.downcase).take
   end
 
+  def followers_count
+    follow_by_users.count
+  end
+
   def to_param
     slug
   end

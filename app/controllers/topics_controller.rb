@@ -207,8 +207,9 @@ class TopicsController < ApplicationController
   end
 
   def favorite
-    current_user.favorite_topic(params[:id])
+
     if @topic.isArticle?
+      current_user.favorite_article(params[:id])
       # 专栏文章被收藏，通知作者。因为收藏是统一由前端异步请求到 topics 路由的，所以写在这里。
       opts = {
           notify_type: "article_favorite",
@@ -219,12 +220,19 @@ class TopicsController < ApplicationController
       return if Notification.where(opts).count > 0
       Notification.create opts
       Notification.realtime_push_to_client(@topic.user)
+    else
+      current_user.favorite_topic(params[:id])
     end
     render plain: "1"
   end
 
   def unfavorite
-    current_user.unfavorite_topic(params[:id])
+    if @topic.isArticle?
+      current_user.unfavorite_topic(params[:id])
+      current_user.unfavorite_article(params[:id])
+    else
+      current_user.unfavorite_topic(params[:id])
+    end
     render plain: "1"
   end
 

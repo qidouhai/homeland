@@ -7,10 +7,22 @@ class User
 
     included do
       action_store :favorite, :topic
+      action_store :favorite, :article
     end
 
     def favorites_count
-      favorite_topic_actions.count
+      favorites_topics_and_articles.count
+    end
+
+    def favorites_article_count
+      favorite_article_actions.count
+    end
+
+    def favorites_topics_and_articles
+      where_sql = "actions.user_id = ? AND actions.action_type = 'favorite'
+                 AND (actions.target_type = 'Topic' or actions.target_type = 'Article') AND actions.user_type = 'User' "
+      Topic.withoutDraft.joins("INNER JOIN actions ON topics.id = actions.target_id")
+          .where(where_sql, self.id)
     end
 
     # 是否读过 topic 的最近更新
