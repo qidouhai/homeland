@@ -8,7 +8,7 @@
         <img class="media-object avatar-48" src="<%=column.cover_url %>" >
       </div>
       <div class="media-body">
-        <h4 class="media-heading sidebar-name"><%=column.name %></h4>
+        <h4 class="media-heading sidebar-name"><%= render_column_name(column.name, column.slug) %></h4>
         <p><%=column.user.name %></p>
 
       </div>
