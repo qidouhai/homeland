@@ -49,6 +49,6 @@ module ColumnsHelper
   end
 
   def render_column_name(name, slug)
-    link_to(name, main_app.column_path(slug), class: "node column-node")
+    link_to(name, main_app.column_path(slug), title: "#{name}", class: "node column-node")
   end
 end

@@ -124,7 +124,7 @@
     font-size: 12px;
   }
 
-  .sidebar-name {
+  .sidebar-column-name {
     margin-bottom: 4px;
     line-height: 18px;
     display: inline-block;
@@ -139,5 +139,34 @@
     width: 30px;
     font-size: 14px;
     color: #797776;
+  }
+
+  .sidebar-column-second-level {
+    margin-top: -1px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .sidebar-column {
+      border: 1px solid #e5e5e5;
+      padding: 5px 5px 5px 5px;
+    }
+
+    .sidebar-column:nth-child(odd) {
+      margin-right: -1px;
+    }
+
+    .sidebar-column-name {
+      width: 60px;
+    }
+    .sidebar-column-user-name {
+      margin-bottom: 4px;
+      line-height: 18px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 60px;
+      font-size: 14px;
+    }
   }
 }
