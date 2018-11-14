@@ -32,14 +32,16 @@
     <% else %>
         <div class="panel-heading node-header">
           <ul class="filter nav nav-pills">
-            暂时没有文章
+            暂时没有文章或页数已超过最后一页
           </ul>
         </div>
-        <div class="column">
-          <div class="bs-dropzone">
-            <%= link_to " 写文章", new_column_article_path(@column.id), class: "fa fa-pencil", title: "编辑发布" %>
+        <% if current_user == @column.user %>
+          <div class="column">
+            <div class="bs-dropzone">
+              <%= link_to " 写文章", new_column_article_path(@column.id), class: "fa fa-pencil", title: "编辑发布" %>
+            </div>
           </div>
-        </div>
+        <% end %>
     <%end%>
       </div>
 </div>
