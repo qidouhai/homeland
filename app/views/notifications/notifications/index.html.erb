@@ -7,7 +7,7 @@
           &nbsp;<%= t("notification_group." + group) %>
 
           <% if Notification.unread_count_by_group(current_user, group) > 0 %>
-            <span class="badge badge-important" style="color: white;">
+            <span class="badge badge-important">
               <%=Notification.unread_count_by_group(current_user, group) %>
             </span>
           <% end %>
