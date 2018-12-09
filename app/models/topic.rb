@@ -68,6 +68,7 @@ class Topic < ApplicationRecord
     exclude_column_ids("node_id", ids)
   }
   scope :withoutDraft, -> { where(draft: false) }
+  scope :withoutNotPublicArticles, -> { where(article_public: true) }
 
   before_save { self.node_name = node.try(:name) || "" }
   before_create { self.last_active_mark = Time.now.to_i }

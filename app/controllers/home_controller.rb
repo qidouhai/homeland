@@ -2,10 +2,10 @@
 
 class HomeController < ApplicationController
   def index
-    @excellent_topics = Topic.withoutDraft.no_suggest.excellent.recent.fields_for_list.limit(20).to_a
-    @suggest_topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(4).to_a
-    @latest_topics = Topic.withoutDraft.no_suggest.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(6).to_a
-    @hot_topics = Topic.withoutDraft.without_hide_nodes.in_seven_days.high_replies.no_suggest.fields_for_list.limit(10).to_a
+    @excellent_topics = topics_scope.no_suggest.excellent.recent.fields_for_list.limit(20).to_a
+    @suggest_topics = topics_scope.suggest.fields_for_list.limit(4).to_a
+    @latest_topics = topics_scope.no_suggest.recent.without_hide_nodes.with_replies_or_likes.fields_for_list.limit(6).to_a
+    @hot_topics = topics_scope.in_seven_days.high_replies.no_suggest.fields_for_list.limit(10).to_a
     @users = User.normal.without_team.new_guy.limit(100).select { |user| !user.admin? }[0..9]
     bugs_node = Node.find_by_id Node.bugs_id
     if bugs_node
@@ -42,5 +42,18 @@ class HomeController < ApplicationController
   end
 
   def markdown
+  end
+
+  private
+  def topics_scope(base_scope = Topic)
+    scope = base_scope.fields_for_list.without_hide_nodes.withoutDraft.withoutNotPublicArticles
+    if current_user
+      scope = scope.without_nodes(current_user.block_node_ids)
+      scope = scope.without_users(current_user.block_user_ids)
+      scope = scope.without_columns(current_user.block_column_ids)
+    end
+
+    # must include :user, because it's uses for _topic.html.erb fragment cache_key
+    scope.includes(:user)
   end
 end

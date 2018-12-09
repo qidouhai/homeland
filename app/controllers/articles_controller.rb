@@ -48,6 +48,7 @@ class ArticlesController < TopicsController
     @article.title = article_params[:title]
     @article.body = article_params[:body]
     @article.cannot_be_shared = article_params[:cannot_be_shared]
+    @article.article_public = article_params[:article_public]
     if params[:commit] and params[:commit] == 'draft'
       @article.draft = true
     else
@@ -85,7 +86,7 @@ class ArticlesController < TopicsController
   protected
 
   def article_params
-    params.require(:article).permit(:title, :body, :node_id, :column_id, :cannot_be_shared)
+    params.require(:article).permit(:title, :body, :node_id, :column_id, :cannot_be_shared, :article_public)
   end
 
   def set_article
