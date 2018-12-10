@@ -66,7 +66,12 @@ class Reply
     def notification_receiver_ids
       return @notification_receiver_ids if defined? @notification_receiver_ids
       # 加入帖子关注着
+      #
+      follower_ids = []
+      if not self.topic.isArticle?
       follower_ids = self.topic.try(:follow_by_user_ids) || []
+      end
+
       # 加入回帖人的关注者
       follower_ids += self.user.try(:follow_by_user_ids) || []
       # 加入发帖人
