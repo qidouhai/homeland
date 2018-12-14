@@ -8,7 +8,7 @@ module Api
       # GET /api/v3/nodes
       # @return [Array<NodeSerializer>]
       def index
-        @nodes = Node.includes(:section).all
+        @nodes = Node.includes(:section).all.where("id != #{Setting.article_node}")
         @meta = { total: Node.count }
       end
 

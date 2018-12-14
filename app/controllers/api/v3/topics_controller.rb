@@ -25,7 +25,7 @@ module Api
         params[:type] = params[:type].downcase
 
         if params[:node_id].blank?
-          @topics = Topic
+          @topics = Topic.withoutNotPublicArticles
           if current_user
             @topics = @topics.without_nodes(current_user.block_node_ids)
             @topics = @topics.without_users(current_user.block_user_ids)
