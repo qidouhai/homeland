@@ -47,6 +47,8 @@ AppView = Backbone.View.extend
     "click a.button-filter-excellent-topic": "filterExcellentTopic"
     "click a.rucaptcha-image-box": "reLoadRucaptchaImage"
     "click .admin-delete-topics": "adminDeleteTopics"
+    "click a#cornertip": "popWelcomePage"
+    "click a#welcome-page-skip": "skipWelcomePage"
 
   initialize: ->
     FormStorage.restore()
@@ -425,6 +427,15 @@ AppView = Backbone.View.extend
     $(window).off('scroll.navbar-fixed')
     $(window).on('scroll.navbar-fixed', @toggleNavbarFixed)
     @toggleNavbarFixed()
+
+  popWelcomePage: ->
+    $('#main-page').hide()
+    $('#welcome-page').show()
+    return false
+  skipWelcomePage: ->
+    $('#main-page').show()
+    $('#welcome-page').hide()
+    return false
 
   toggleNavbarFixed: (e) ->
     top = $(window).scrollTop()

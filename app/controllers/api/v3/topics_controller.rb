@@ -44,7 +44,9 @@ module Api
           @topics = @topics.recent
         end
         @topics = @topics.withoutDraft.without_suggest.offset(params[:offset]).limit(params[:limit])
-        @topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(3) + @topics
+        if params[:offset] == '0'
+          @topics = Topic.withoutDraft.without_hide_nodes.suggest.fields_for_list.limit(4) + @topics
+        end
 
         if not params[:node_id].blank? and params[:source] == "huawei"
           if @node.id = Node.bugs_id

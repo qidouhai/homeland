@@ -61,6 +61,18 @@
   <%= yield :javascripts %>
 </head>
 <body class="page-<%= controller_name %><%= ' infinite-scroll' if turbolinks_app? %>" data-controller-name="<%= controller_name %>">
+  <div id="welcome-page">
+    <%= raw Setting.welcome_page %>
+    <div class="welcome-action-button">
+      <div class="btn-group">
+        <a id="welcome-page-skip" type="button" class="btn btn-primary">跳过</a>
+      </div>
+      <div class="btn-group">
+        <a href="<%= raw Setting.welcome_page_detail_url %>" type="button" class="btn btn-info">查看详情</a>
+      </div>
+    </div>
+  </div>
+  <div id="main-page">
   <div class="header">
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
       <div class="container">
@@ -78,6 +90,15 @@
         <%= render "shared/usernav" %>
       </div>
     </nav>
+    <% if not Setting.welcome_page.blank? %>
+    <div id="corner" class="">
+      <a id="cornertip" href="">
+        <div id="c-content">
+          <div id="c-button">欢迎</div>
+        </div>
+      </a>
+    </div>
+    <% end %>
   </div>
 
   <%= yield :sub_navbar %>
@@ -120,5 +141,6 @@
     ga('send', 'pageview');
   </script>
   <div class="zoom-overlay"></div>
+  </div>
 </body>
 </html>
