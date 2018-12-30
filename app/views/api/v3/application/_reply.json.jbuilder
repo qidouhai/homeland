@@ -37,7 +37,7 @@ if reply
   # Mention Target
   if reply.action == "mention"
     json.mention_topic do
-      if reply.target_type == "Topic"
+      if reply.target_type == "Topic" or reply.target_type == "Article"
         json.partial! "topic", topic: reply.target
       else
         json.partial! "topic", topic: reply&.target&.topic
