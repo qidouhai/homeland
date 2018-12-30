@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   resources :bugs
   resources :opencourses
   resources :questions
+  resources :tip_offs
 
 
   get 'jump', to: 'jump#index'
@@ -145,6 +146,7 @@ Rails.application.routes.draw do
     resources :locations
     resources :applications
     resources :stats
+    resources :tip_offs
   end
 
   get "api", to: "home#api", as: "api"

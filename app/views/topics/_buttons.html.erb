@@ -22,6 +22,7 @@
     <% if @topic.node_id != Node.no_point.id %>
         <%= link_to raw("<i class='fa fa-arrow-down'></i> 下沉"), down_topic_path(@topic), remote: false, title: "下层此贴" %>
     <% end %>
+    <%= link_to raw("<i class='fa fa-arrow-down'></i> 举报"), new_tip_off_path(), remote: true, title: "下层此贴" %>
 
   <% end %>
   <span class="pull-right opts">
