@@ -6,6 +6,7 @@ module Homeland
       YOUTUBE_URL_REGEXP = %r{(\s|^|<div>|<br>)(https?://)(www.)?(youtube\.com/watch\?v=|youtu\.be/|youtube\.com/watch\?feature=player_embedded&v=)([A-Za-z0-9_\-]*)(\&\S+)?(\?\S+)?}
       YOUKU_URL_REGEXP   = %r{(\s|^|<div>|<br>)(http?://)(v\.youku\.com/v_show/id_)([a-zA-Z0-9\-_\=]*)(\.html)(\&\S+)?(\?\S+)?}
       VIMEO_URL_REGEXP   = %r{(\s|^|<div>|<br>)(https?://)(vimeo\.com/)([0-9]+)(\&\S+)?(\?\S+)?}
+      MYSLIDE_URL_REGEXP = %r{(\s|^|<div>|<br>)(https?://)(myslide\.cn/slides/)([0-9]+)(\&\S+)?(\?\S+)?}
 
       def call
         wmode = context[:video_wmode]
@@ -35,6 +36,13 @@ module Homeland
           youku_id = Regexp.last_match(4)
           src = "//player.youku.com/embed/#{youku_id}"
           close_tag = Regexp.last_match(1) if ["<br>", "<div>"].include? Regexp.last_match(1)
+          embed_tag(close_tag, src)
+        end
+
+        @text.gsub!(MYSLIDE_URL_REGEXP) do
+          slide_id = Regexp.last_match(4)
+          close_tag = Regexp.last_match(1) if ["<br>", "<div>"].include? Regexp.last_match(1)
+          src = "https://myslide.cn/html_player/#{slide_id}"
           embed_tag(close_tag, src)
         end
 
