@@ -61,7 +61,11 @@
   <%= yield :javascripts %>
 </head>
 <body class="page-<%= controller_name %><%= ' infinite-scroll' if turbolinks_app? %>" data-controller-name="<%= controller_name %>">
+<% if not cookies[:hasSkipWelcomePage] %>
   <div id="welcome-page">
+<% else %>
+  <div id="welcome-page" class="hide-page">
+<% end %>
     <%= raw Setting.welcome_page %>
     <div class="welcome-action-button">
       <div class="btn-group">
@@ -72,7 +76,12 @@
       </div>
     </div>
   </div>
-  <div id="main-page">
+
+  <% if cookies[:hasSkipWelcomePage] %>
+    <div id="main-page">
+  <% else %>
+    <div id="main-page" class="hide-page">
+  <% end %>
   <div class="header">
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
       <div class="container">

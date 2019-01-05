@@ -58,6 +58,7 @@ gem "ruby-push-notifications"
 
 # 赞、关注、收藏、屏蔽等功能的数据结构
 gem "action-store"
+gem 'js_cookie_rails'
 
 # 分页
 gem "kaminari"

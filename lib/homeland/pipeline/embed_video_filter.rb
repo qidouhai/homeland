@@ -43,7 +43,7 @@ module Homeland
           slide_id = Regexp.last_match(4)
           close_tag = Regexp.last_match(1) if ["<br>", "<div>"].include? Regexp.last_match(1)
           src = "https://myslide.cn/html_player/#{slide_id}"
-          embed_tag(close_tag, src)
+          slide_embed_tag(close_tag, src)
         end
 
         @text
@@ -51,6 +51,10 @@ module Homeland
 
       def embed_tag(close_tag, src)
         %(#{close_tag}<span class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="#{src}" allowfullscreen></iframe></span>)
+      end
+
+      def slide_embed_tag(close_tag, src)
+        %(#{close_tag}<span class="embed-responsive slide-iframe"><iframe class="embed-responsive-item" src="#{src}" allowfullscreen></iframe></span>)
       end
     end
   end

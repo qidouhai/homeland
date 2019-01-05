@@ -30,6 +30,7 @@
 #= require d3.min
 #= require cal-heatmap.min
 #= require particles.min
+#= require js.cookie
 #= require_self
 
 AppView = Backbone.View.extend
@@ -430,11 +431,15 @@ AppView = Backbone.View.extend
 
   popWelcomePage: ->
     $('#main-page').hide()
-    $('#welcome-page').show()
+    $('#welcome-page').show("fast")
     return false
+
   skipWelcomePage: ->
+
+    if not Cookies.get('hasSkipWelcomePage')
+      Cookies.set("hasSkipWelcomePage", "1", { expires: 0.5 });
     $('#main-page').show()
-    $('#welcome-page').hide()
+    $('#welcome-page').hide("fast");
     return false
 
   toggleNavbarFixed: (e) ->
