@@ -15,14 +15,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta charset='utf-8'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta name="keywords" content="移动测试,游戏测试,性能测试,软件测试,软件测试社区,软件测试资料,软件测试工具,软件测试报告,软件测试方法,自动化测试,软件测试招聘,">
   <meta name="description" content="TesterHome软件测试社区，人气最旺的软件测试技术门户，提供软件测试社区交流，测试沙龙。">
   <title><%= content_for?(:title) ? yield(:title) : Setting.app_name %></title>
-  <link rel="icon" href="<%= asset_path('favicon.png') %>" />
-  <link rel="apple-touch-icon-precomposed" href="<%= asset_path("ios-icon.png") %>" />
-  <link rel="shortcut icon" href="<%= asset_path("big_logo.png") %>" />
+  <link rel="icon" href="<%= asset_path('favicon.png') %>"/>
+  <link rel="apple-touch-icon-precomposed" href="<%= asset_path("ios-icon.png") %>"/>
+  <link rel="shortcut icon" href="<%= asset_path("big_logo.png") %>"/>
   <link rel="apple-touch-icon" href="<%= asset_path('favicon.png') %>">
 
   <!-- http://www.favicon-generator.org/ -->
@@ -35,7 +35,7 @@
   <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -45,8 +45,8 @@
   <meta name="theme-color" content="#ffffff">
 
   <meta name="apple-mobile-web-app-capable" content="no">
-  <meta content='True' name='HandheldFriendly' />
-  <link rel="alternate" type="application/rss+xml" title="订阅最新帖" href="<%= main_app.feed_topics_url %>" />
+  <meta content='True' name='HandheldFriendly'/>
+  <link rel="alternate" type="application/rss+xml" title="订阅最新帖" href="<%= main_app.feed_topics_url %>"/>
   <%= stylesheet_link_tag "front", 'data-turbolinks-track': "reload" %>
   <%= stylesheet_link_tag "turbolinks-app", 'data-turbolinks-track': 'reload' if turbolinks_app? %>
   <%= yield :stylesheets %>
@@ -61,45 +61,48 @@
   <%= yield :javascripts %>
 </head>
 <body class="page-<%= controller_name %><%= ' infinite-scroll' if turbolinks_app? %>" data-controller-name="<%= controller_name %>">
-<% if not cookies[:hasSkipWelcomePage] %>
-  <div id="welcome-page">
-<% else %>
-  <div id="welcome-page" class="hide-page">
-<% end %>
-    <%= raw Setting.welcome_page %>
-    <div class="welcome-action-button">
-      <div class="btn-group">
-        <a id="welcome-page-skip" type="button" class="btn btn-primary">跳过</a>
-      </div>
-      <div class="btn-group">
-        <a href="<%= raw Setting.welcome_page_detail_url %>" type="button" class="btn btn-info">查看详情</a>
-      </div>
+
+<% if not Setting.welcome_page.blank? and not mobile? %>
+  <% if not cookies[:hasSkipWelcomePage] %>
+    <div id="welcome-page">
+  <% else %>
+    <div id="welcome-page" class="hide-page">
+  <% end %>
+  <%= raw Setting.welcome_page %>
+  <div class="welcome-action-button">
+    <div class="btn-group">
+      <a id="welcome-page-skip" type="button" class="btn btn-primary">跳过</a>
+    </div>
+    <div class="btn-group">
+      <a href="<%= raw Setting.welcome_page_detail_url %>" type="button" class="btn btn-info">查看详情</a>
     </div>
   </div>
+  </div>
+<% end %>
 
-  <% if cookies[:hasSkipWelcomePage] %>
-    <div id="main-page">
-  <% else %>
-    <div id="main-page" class="hide-page">
-  <% end %>
-  <div class="header">
-    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
-      <div class="container">
-        <div class="navbar-header" id="navbar-header" data-turbolinks-permanent>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse">
-            <span class="sr-only">Toggle</span>
-            <i class="fa fa-reorder"></i>
-          </button>
-          <%= raw Setting.navbar_brand_html %>
-        </div>
-        <div class="collapse navbar-collapse" id="main-navbar-collapse">
-          <%= yield :header %>
-          <%= render "shared/navbar" %>
-        </div>
-        <%= render "shared/usernav" %>
+<% if cookies[:hasSkipWelcomePage] or mobile? or Setting.welcome_page.blank? %>
+  <div id="main-page">
+<% else %>
+  <div id="main-page" class="hide-page">
+<% end %>
+<div class="header">
+  <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
+    <div class="container">
+      <div class="navbar-header" id="navbar-header" data-turbolinks-permanent>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse">
+          <span class="sr-only">Toggle</span>
+          <i class="fa fa-reorder"></i>
+        </button>
+        <%= raw Setting.navbar_brand_html %>
       </div>
-    </nav>
-    <% if not Setting.welcome_page.blank? %>
+      <div class="collapse navbar-collapse" id="main-navbar-collapse">
+        <%= yield :header %>
+        <%= render "shared/navbar" %>
+      </div>
+      <%= render "shared/usernav" %>
+    </div>
+  </nav>
+  <% if not Setting.welcome_page.blank? and not mobile? %>
     <div id="corner" class="">
       <a id="cornertip" href="">
         <div id="c-content">
@@ -107,49 +110,49 @@
         </div>
       </a>
     </div>
-    <% end %>
-  </div>
+  <% end %>
+</div>
 
-  <%= yield :sub_navbar %>
+<%= yield :sub_navbar %>
 
-  <div id="main" class="main-container container">
-    <%= birthday_tag %>
-    <%= notice_message %>
-    <%= content_for?(:main) ? yield(:main) : yield %>
-  </div>
+<div id="main" class="main-container container">
+  <%= birthday_tag %>
+  <%= notice_message %>
+  <%= content_for?(:main) ? yield(:main) : yield %>
+</div>
 
-  <% if not mobile? %>
+<% if not mobile? %>
   <footer class="footer" id="footer" data-turbolinks-permanent>
     <div class="container">
       <%= raw Setting.footer_html %>
     </div>
   </footer>
-  <% end %>
+<% end %>
 
-  <% if mobile? %>
-    <script type="text/javascript">
-    App.mobile = true;
-    </script>
-  <% end %>
-  <script type="text/javascript" data-turbolinks-eval="false">
+<% if mobile? %>
+  <script type="text/javascript">
+      App.mobile = true;
+  </script>
+<% end %>
+<script type="text/javascript" data-turbolinks-eval="false">
     App.root_url = "<%= main_app.root_url %>";
     App.asset_url = "<%= Setting.upload_url -%>";
     App.twemoji_url = "<%= Twemoji.configuration.asset_root %>";
     App.locale = "<%= I18n.locale %>";
     <% if current_user %>
-      App.current_user_id = <%= current_user.id %>;
+    App.current_user_id = <%= current_user.id %>;
     <% end %>
     <% if turbolinks_app? %>
-      App.turbolinks = true;
+    App.turbolinks = true;
     <% end %>
-  </script>
-  <%= yield :scripts %>
-  <script>
+</script>
+<%= yield :scripts %>
+<script>
     ga('create', '<%= Setting.google_analytics_key %>', 'auto');
     ga('require', 'displayfeatures');
     ga('send', 'pageview');
-  </script>
-  <div class="zoom-overlay"></div>
-  </div>
+</script>
+<div class="zoom-overlay"></div>
+</div>
 </body>
 </html>

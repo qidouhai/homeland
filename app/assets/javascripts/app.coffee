@@ -68,6 +68,9 @@ AppView = Backbone.View.extend
     if $('body').data('controller-name') in ['columns', 'articles']
       window._columnView = new ColumnView({parentView: @})
 
+    if not Cookies.get('hasSkipWelcomePage')
+      setTimeout(@skipWelcomePage, 3000)
+
   initComponents: () ->
     $("abbr.timeago").timeago()
     $(".alert").alert()
@@ -437,9 +440,13 @@ AppView = Backbone.View.extend
   skipWelcomePage: ->
 
     if not Cookies.get('hasSkipWelcomePage')
-      Cookies.set("hasSkipWelcomePage", "1", { expires: 0.5 });
+      today = new Date()
+      tomorrow = new Date()
+      tomorrow.setDate(today.getDate()+1)
+      # inFiveSeconds = new Date(new Date().getTime() + 5 * 1000);
+      Cookies.set("hasSkipWelcomePage", "1", { expires: tomorrow.getTime() - new Date().getTime() })
     $('#main-page').show()
-    $('#welcome-page').hide("fast");
+    $('#welcome-page').hide("fast")
     return false
 
   toggleNavbarFixed: (e) ->
