@@ -11,17 +11,18 @@ class TipOffsController < ::ApplicationController
   def create
     @tipOff = TipOff.new(tip_off_params)
     @tipOff.reporter_id = current_user.id
+    @tipOff.create_time = Time.now
     if @tipOff.save
-      redirect_to((@tipOff.url),  notice: '举报创建成功')
+      redirect_to((@tipOff['content_url']),  notice: '举报创建成功')
     else
-      redirect_to((@tipOff.url),  notice: '举报创建失败，失败原因：')
+      redirect_to((@tipOff['content_url']),  notice: '举报创建失败')
     end
   end
 
   private
 
   def tip_off_params
-    params.require(:tipOff).permit(:reporter_email, :type, :body, :url)
+    params.require(:tip_off).permit(:reporter_email, :tip_off_type, :body, :content_url)
   end
 
 end

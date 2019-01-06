@@ -1,4 +1,4 @@
-<div class="modal" id="ban-modal">
+<div class="modal" id="tip-off-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <%= simple_form_for(@tipOff, method: "post", remote: true) do |f| %>
@@ -6,22 +6,18 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label>选择原因</label>
-          <select class="form-control" onchange="$('#ban-modal textarea').val($(this).val())" name="reason">
-            <option value="" selected>直接屏蔽</option>
-            <% Setting.ban_reason_list.each do |str| %>
-            <option value="<%= str %>"><%= str %></option>
-            <% end %>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>或手工输入原因:</label>
-          <textarea class="form-control" name="reason_text" rows="4"></textarea>
-        </div>
+          <%= f.input :tip_off_type, label: '我要举报此内容，原因是', as: :radio_buttons, collection: [
+              ['垃圾广告信息：恶意灌水、广告、推广、测试等内容', '垃圾广告'],
+              ['违规内容：色情、暴力、血腥、敏感信息等', '违规内容'],
+              ['不友善内容：人身攻击、挑衅辱骂、恶意行为', '不友善内容'],
+              ['其它理由', '其它理由']
+          ]%>
+          <%= f.input :reporter_email, label: '联系邮箱（便于我们和您联系及反馈结果）:' %>
+          <%= f.input :body, as: :text, label: '详尽说明:' %>
+          <%= f.input :content_url, as: :hidden, input_html: { value: params['content_url'] } %>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">确定</button>
+        <%= f.submit '举报', class: "btn btn-primary", 'data-disable-with' => t("common.saving")%>
         <a class="btn btn-default" data-dismiss="modal">取消</a>
       </div>
       <% end %>
