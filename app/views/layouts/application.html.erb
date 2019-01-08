@@ -63,7 +63,7 @@
 <body class="page-<%= controller_name %><%= ' infinite-scroll' if turbolinks_app? %>" data-controller-name="<%= controller_name %>">
 
 <% if not Setting.welcome_page.blank? and not mobile? %>
-  <% if not cookies[:hasSkipWelcomePage] %>
+  <% if not cookies[:hasSkipWelcomePage] || Setting.allow_welcome_page_auto_pop == 'false' %>
     <div id="welcome-page">
   <% else %>
     <div id="welcome-page" class="hide-page">
@@ -80,7 +80,7 @@
   </div>
 <% end %>
 
-<% if cookies[:hasSkipWelcomePage] or mobile? or Setting.welcome_page.blank? %>
+<% if cookies[:hasSkipWelcomePage] or mobile? or Setting.welcome_page.blank? or Setting.allow_welcome_page_auto_pop == 'false'%>
   <div id="main-page">
 <% else %>
   <div id="main-page" class="hide-page">
