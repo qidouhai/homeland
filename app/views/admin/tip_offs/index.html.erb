@@ -1,0 +1,29 @@
+<% content_for :sitemap do %>
+  <span class="current"><%= t("admin.site_configs.tip_offs") %></span>
+<% end %>
+
+<h1><%= t("admin.tip_offs") %></h1>
+
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+    <th>举报人</th>
+    <th>被举报内容</th>
+    <th>举报说明</th>
+    <th>跟进人</th>
+    <th>详情</th>
+  </tr>
+
+<% @tipOffs.each do |tipOff| %>
+  <tr>
+    <td><%= User.find(tipOff[:reporter_id])[:name]  %></td>
+    <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
+    <td><%= tipOff[:body] %></td>
+    <% if tipOff[:follower_id] %>
+      <td><%= User.find(tipOff[:follower_id])[:name] %></td>
+    <% else %>
+      <td>--</td>
+    <% end %>
+    <td class="opts"><a href="<%= edit_admin_tip_off_path(tipOff[:id]) %>">查看详情</a></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,34 @@
+<%= simple_form_for([:admin, @tipOff], url: admin_tip_off_path(@tipOff)) do |f| %>
+  <%= render 'shared/error_messages', target: @tipOff %>
+
+  <div class="row">
+    <div class="col-sm-3">举报人：<a href="<%= user_path(User.find(@tipOff[:reporter_id])[:name]) %>" target="_blank"><%=User.find(@tipOff[:reporter_id])[:name]%></a></div>
+    <div class="col-sm-3">举报人邮箱：<%= @tipOff[:reporter_email] %></div>
+    <div class="col-sm-2">举报类型：<%= @tipOff[:tip_off_type] %></div>
+    <div class="col-sm-4">举报时间：<%= @tipOff[:create_time] %></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">被举报内容地址：<a href="<%= @tipOff[:content_url] %>" target="_blank"><%=@tipOff[:content_url]%></a></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">举报说明：<%= @tipOff[:body] %></a></div>
+  </div>
+
+  <% if @tipOff[:follower_id] %>
+    <div class="col-sm-12">跟进人：<%= User.find(@tipOff[:follower_id])[:name] %></a></div>
+  <% end %>
+
+  <%= f.input :follower_id, as: :hidden, input_html: { value: current_user[:id] } %>
+
+
+
+  <div class="row">
+    <div class="col-sm-12">
+      <% if @tipOff[:follower_id] %>
+        <%= f.submit '我来跟进', class: "btn btn-lg btn-block btn-primary", 'data-disable-with' => '我来跟进', disabled: true %>
+      <% else %>
+        <%= f.submit '我来跟进', class: "btn btn-lg btn-block btn-primary", 'data-disable-with' => '我来跟进' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
