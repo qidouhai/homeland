@@ -139,6 +139,7 @@ Rails.application.routes.draw do
     post '/users/sendMessage', to: 'users#sendSMS', as: 'send_sms'
     post '/topics/d_topics_by_ids', to: 'topics#delete_topics_by_ids', as: 'd_ts_bids'
     resources :photos
+    resources :admin_photos
     resources :comments
     resources :locations
     resources :applications
