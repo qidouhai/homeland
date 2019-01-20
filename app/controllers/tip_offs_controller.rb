@@ -13,10 +13,14 @@ class TipOffsController < ::ApplicationController
     @tipOff.reporter_id = current_user.id
     @tipOff.create_time = Time.now
     if @tipOff.save
-      redirect_to((@tipOff['content_url']),  notice: '举报创建成功')
+      # TODO: 发送提醒给管理员
+      redirect_to((@tipOff['content_url']),  notice: '举报创建成功，后续管理员将会查看您的举报并进行处理。过程中可能会通过邮箱 ' + @tipOff['reporter_email'] + ' 与您联系，请留意。')
     else
-      redirect_to((@tipOff['content_url']),  notice: '举报创建失败')
+      redirect_to((@tipOff['content_url']),  notice: '举报创建失败，请检查表格中所有内容是否均已填写。')
     end
+  end
+
+  def show
   end
 
   private
