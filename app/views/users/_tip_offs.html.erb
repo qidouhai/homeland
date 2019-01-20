@@ -1,5 +1,16 @@
 <table class="node-topics table">
+  <tr class="head">
+    <td class="node hide-ios"><%="举报类型"%></td>
+    <td class="title"><%="举报url"%></td>
+    <td class="title"><%="举报说明 "%></td>
+    <td class="replies"><%="跟进情况"%></td>
+  </tr>
   <% tip_offs.each do |tip_off| %>
-    <div><%=tip_off %></div>
+    <tr>
+      <td class="node"><%=tip_off[:tip_off_type]%></td>
+      <td class="title"><a href="<%=tip_off[:content_url]%>" target="_blank"><%=tip_off[:content_url]%></a></td>
+      <td class="node hide-ios" style="width: 200px"><%=tip_off[:body]%></td>
+      <td class="replies"><%= tip_off[:follower_id] ? "管理员已跟进" : "待跟进" %></td>
+    </tr>
   <% end %>
 </table>

@@ -275,6 +275,7 @@ Rails.application.routes.draw do
         get :following
         get :calendar
         get :reward
+        get :tip_offs
       end
 
       resources :team_users, path: "people" do

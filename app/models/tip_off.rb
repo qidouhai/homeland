@@ -6,4 +6,6 @@ class TipOff < ApplicationRecord
 
   validates :content_url, :reporter_email, :tip_off_type, :body, presence: true
 
+  scope :by_reporter, -> (userId) { where(reporter_id: userId) }
+
 end

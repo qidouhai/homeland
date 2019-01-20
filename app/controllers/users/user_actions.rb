@@ -5,7 +5,8 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts]
+      # TODO: 草稿、我的举报，应该只能本人可见，其它人无权限查看。
+      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts, :@tipOffs]
       before_action :only_user!, only: [:topics, :replies, :favorites, :columns,
                                         :block, :unblock, :follow, :unfollow,
                                         :followers, :following, :calendar, :reward]
@@ -73,6 +74,11 @@ module Users
       @users = @user.follow_users.normal.order('actions.id asc')
       @users = @users.page(params[:page]).per(60)
       render template: "/users/followers"
+    end
+
+    def tip_offs
+      @tipOffs = TipOff.by_reporter(@user.id).order('create_time asc')
+      # @tipOffs = @tipOffs.page(params[:page])
     end
 
     def calendar

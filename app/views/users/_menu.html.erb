@@ -9,4 +9,7 @@
   if owner?(@user) && current_user.has_draft?
     li << link_to(t("users.menu.draft"), drafts_user_path(@user), class: 'hide-ios')
   end
+  if owner?(@user)
+    li << link_to('我的举报', tip_offs_user_path(@user))
+  end
 end %>
