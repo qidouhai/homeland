@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get '/search/users', to: 'search#users', as: 'search_users'
   get '/mtsc/2018', to: 'mtsc#conf2018'
   get '/mtsc/2019', to: 'mtsc#conf2019'
+  get '/mtsc/2019en', to: 'mtsc#conf2019en'
 
   namespace :admin do
     root to: "home#index", as: "root"

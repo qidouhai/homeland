@@ -52,6 +52,7 @@ class Setting < RailsSettings::Base
     notification_sidebar_advertise
     conf2018
     conf2019
+    conf2019en
     allow_welcome_page_auto_pop
     welcome_page
     welcome_page_detail_url
