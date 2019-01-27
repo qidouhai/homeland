@@ -6,11 +6,11 @@
 
 <table class="table table-bordered table-striped table-condensed">
   <tr>
-    <th>举报人</th>
-    <th>被举报内容</th>
-    <th>举报说明</th>
-    <th>跟进人</th>
-    <th>详情</th>
+    <th><%=t('tip_off.reporter')%></th>
+    <th><%=t('tip_off.content_url')%></th>
+    <th><%=t('tip_off.description')%></th>
+    <th><%=t('tip_off.follower')%></th>
+    <th><%=t('admin.tip_off.details')%></th>
   </tr>
 
 <% @tipOffs.each do |tipOff| %>
@@ -23,7 +23,7 @@
     <% else %>
       <td>--</td>
     <% end %>
-    <td class="opts"><a href="<%= edit_admin_tip_off_path(tipOff[:id]) %>">查看详情</a></td>
+    <td class="opts"><a href="<%= edit_admin_tip_off_path(tipOff[:id]) %>"><%=t('admin.tip_off.details')%></a></td>
   </tr>
 <% end %>
 </table>

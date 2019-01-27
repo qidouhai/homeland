@@ -130,4 +130,16 @@
     tsystem: '系統'
     team: '組織'
     personal: '個人'
+  tip_off:
+    reporter: '舉報人'
+    reporter_email: '舉報人郵箱'
+    report_time: '舉報時間'
+    report_type: '舉報類型'
+    content_url: '被舉報信息地址'
+    description: '舉報說明'
+    follower: '跟進人'
+    follow: '我來跟進'
+    follow_status: '跟進情況'
+    following: '管理員跟進中'
+    not_follow: '待跟進'
 

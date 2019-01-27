@@ -13,6 +13,7 @@
       comments: "Comments"
       locations: "Locations"
       exception_logs: "Errors"
+      tip_offs: "Tip Offs"
     overview: "Overview"
     recent_topics: "Recent Topics"
     statics: "Statistics"
@@ -24,3 +25,5 @@
       trust_user_can_modify_wiki: "Allow user to modify Wiki"
     topic_list: "Topic List"
     check_photo: "View Photo"
+    tip_off:
+      details: "Details"

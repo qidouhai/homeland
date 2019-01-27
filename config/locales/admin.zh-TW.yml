@@ -14,6 +14,7 @@
       comments: "評論"
       locations: "城市"
       exception_logs: "異常"
+      tip_offs: "舉報"
     overview: "概覽"
     recent_topics: "最近帖子"
     statics: "統計信息"
@@ -25,3 +26,5 @@
       trust_user_can_modify_wiki: "信任用戶將可以修改 Wiki"
     topic_list: "話題列表"
     check_photo: "瀏覽圖片"
+    tip_off:
+        details: "詳情"

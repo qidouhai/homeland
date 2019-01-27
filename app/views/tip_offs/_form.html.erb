@@ -13,12 +13,12 @@
               ['其它理由', '其它理由']
           ]%>
           <%= f.input :reporter_email, label: '联系邮箱（便于我们和您联系及反馈结果）:' %>
-          <%= f.input :body, as: :text, label: '详尽说明:' %>
+          <%= f.input :body, as: :text, label: t('tip_off.description') %>
           <%= f.input :content_url, as: :hidden, input_html: { value: params[:content_url] } %>
       </div>
       <div class="modal-footer">
-        <%= f.submit '举报', class: "btn btn-primary", 'data-disable-with' => t("common.saving")%>
-        <a class="btn btn-default" data-dismiss="modal">取消</a>
+        <%= f.submit t('common.tip_off'), class: "btn btn-primary", 'data-disable-with' => t("common.saving")%>
+        <a class="btn btn-default" data-dismiss="modal"><%=t('common.cancel')%></a>
       </div>
       <% end %>
     </div>
