@@ -26,7 +26,7 @@ class TipOffsController < ::ApplicationController
   private
 
   def tip_off_params
-    params.require(:tip_off).permit(:reporter_email, :tip_off_type, :body, :content_url)
+    params.require(:tip_off).permit(:reporter_email, :tip_off_type, :body, :content_url, :content_author_id)
   end
 
 end

@@ -136,6 +136,7 @@
     report_time: '舉報時間'
     report_type: '舉報類型'
     content_url: '被舉報信息地址'
+    content_author: '被舉報信息作者'
     description: '舉報說明'
     follower: '跟進人'
     follow: '我來跟進'

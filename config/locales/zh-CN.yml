@@ -160,6 +160,7 @@
     report_time: '举报时间'
     report_type: '举报类型'
     content_url: '被举报信息地址'
+    content_author: '被举报信息作者'
     description: '举报说明'
     follower: '跟进人'
     follow: '我来跟进'

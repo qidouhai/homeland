@@ -116,6 +116,7 @@ en:
     report_time: 'Report Time'
     report_type: 'Report Type'
     content_url: 'Url of content reported'
+    content_author: 'Author of content reported'
     description: 'Description'
     follower: 'Follower'
     follow: 'Let me follow'

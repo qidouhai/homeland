@@ -1,29 +1,30 @@
 <% content_for :sitemap do %>
-  <span class="current"><%= t("admin.site_configs.tip_offs") %></span>
+  <span class="current"><%= t("admin.menu.tip_offs") %></span>
 <% end %>
 
-<h1><%= t("admin.tip_offs") %></h1>
+<h1><%= t("admin.menu.tip_offs") %></h1>
 
 <table class="table table-bordered table-striped table-condensed">
   <tr>
-    <th><%=t('tip_off.reporter')%></th>
-    <th><%=t('tip_off.content_url')%></th>
-    <th><%=t('tip_off.description')%></th>
+    <th style="width:250px"><%=t('tip_off.content_url')%></th>
+    <th><%=t('tip_off.content_author')%></th>
+    <th style="width:400px"><%=t('tip_off.description')%></th>
     <th><%=t('tip_off.follower')%></th>
-    <th><%=t('admin.tip_off.details')%></th>
+    <th></th>
   </tr>
 
-<% @tipOffs.each do |tipOff| %>
-  <tr>
-    <td><%= User.find(tipOff[:reporter_id])[:name]  %></td>
-    <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
-    <td><%= tipOff[:body] %></td>
-    <% if tipOff[:follower_id] %>
-      <td><%= User.find(tipOff[:follower_id])[:name] %></td>
-    <% else %>
-      <td>--</td>
-    <% end %>
-    <td class="opts"><a href="<%= edit_admin_tip_off_path(tipOff[:id]) %>"><%=t('admin.tip_off.details')%></a></td>
-  </tr>
-<% end %>
+  <% @tipOffs.each do |tipOff| %>
+    <tr>
+      <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
+      <td><a href="<%= user_path(User.find(tipOff[:content_author_id])[:name]) %>" target="_blank"><%= User.find(tipOff[:content_author_id])[:name] %></a></td>
+      <td><%= tipOff[:body] %></td>
+      <% if tipOff[:follower_id] %>
+        <td><%= User.find(tipOff[:follower_id])[:name] %></td>
+      <% else %>
+        <td>--</td>
+      <% end %>
+      <td class="opts"><a href="<%= edit_admin_tip_off_path(tipOff[:id]) %>"><%=t('admin.tip_off.details')%></a></td>
+    </tr>
+  <% end %>
+
 </table>

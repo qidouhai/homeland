@@ -1,34 +1,44 @@
 <%= simple_form_for([:admin, @tipOff], url: admin_tip_off_path(@tipOff)) do |f| %>
   <%= render 'shared/error_messages', target: @tipOff %>
 
-  <div class="row">
-    <div class="col-sm-3"><%=t("tip_off.reporter")%>: <a href="<%= user_path(User.find(@tipOff[:reporter_id])[:name]) %>" target="_blank"><%=User.find(@tipOff[:reporter_id])[:name]%></a></div>
-    <div class="col-sm-3"><%=t("tip_off.reporter_email")%>: <%= @tipOff[:reporter_email] %></div>
-    <div class="col-sm-2"><%=t("tip_off.report_type")%>: <%= @tipOff[:tip_off_type] %></div>
-    <div class="col-sm-4"><%=t("tip_off.report_time")%>: <%= @tipOff[:create_time] %></div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12"><%=t("tip_off.content_url")%>: <a href="<%= @tipOff[:content_url] %>" target="_blank"><%=@tipOff[:content_url]%></a></div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12"><%=t("tip_off.description")%>: <%= @tipOff[:body] %></a></div>
-  </div>
+  <dl class="row">
+    <dt class="col-sm-3"><%=t("tip_off.reporter")%></dt>
+    <dd class="col-sm-9"><a href="<%= user_path(User.find(@tipOff[:reporter_id])[:name]) %>" target="_blank"><%=User.find(@tipOff[:reporter_id])[:name]%></a></dd>
 
-  <% if @tipOff[:follower_id] %>
-    <div class="col-sm-12"><%=t("tip_off.follower")%>: <%= User.find(@tipOff[:follower_id])[:name] %></a></div>
-  <% end %>
+    <dt class="col-sm-3"><%=t("tip_off.reporter_email")%></dt>
+    <dd class="col-sm-9"><%= @tipOff[:reporter_email] %></dd>
 
-  <%= f.input :follower_id, as: :hidden, input_html: { value: current_user[:id] } %>
+    <dt class="col-sm-3"><%=t("tip_off.report_type")%></dt>
+    <dd class="col-sm-9"><%= @tipOff[:tip_off_type] %></dd>
 
+    <dt class="col-sm-3"><%=t("tip_off.report_time")%></dt>
+    <dd class="col-sm-9"><%= @tipOff[:create_time] %></dd>
 
+    <dt class="col-sm-3"><%=t("tip_off.content_url")%></dt>
+    <dd class="col-sm-9"><a href="<%= @tipOff[:content_url] %>" target="_blank"><%=@tipOff[:content_url]%></a></dd>
 
-  <div class="row">
-    <div class="col-sm-12">
+    <dt class="col-sm-3"><%=t("tip_off.content_author")%></dt>
+    <dd class="col-sm-9"><%= link_to User.find(@tipOff[:content_author_id])[:name], User.find(@tipOff[:content_author_id]), target: "_blank" %></dd>
+
+    <dt class="col-sm-3"><%=t("tip_off.description")%></dt>
+    <dd class="col-sm-9"><%= @tipOff[:body] %></dd>
+
+    <% if @tipOff[:follower_id] %>
+      <dt class="col-sm-3"><%=t("tip_off.follower")%></dt>
+      <dd class="col-sm-9"><%= User.find(@tipOff[:follower_id])[:name] %></dd>
+    <% end %>
+
+    <%= f.input :follower_id, as: :hidden, input_html: { value: current_user[:id] } %>
+
+  </dl>
+
+  <dl class="row">
+    <dt class="col-sm-12">
       <% if @tipOff[:follower_id] %>
         <%= f.submit t("tip_off.follow"), class: "btn btn-lg btn-block btn-primary", 'data-disable-with' => t("tip_off.follow"), disabled: true %>
       <% else %>
         <%= f.submit t("tip_off.follow"), class: "btn btn-lg btn-block btn-primary", 'data-disable-with' => t("tip_off.follow") %>
       <% end %>
-    </div>
-  </div>
+    </dt>
+  </dl>
 <% end %>

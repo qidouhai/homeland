@@ -7,6 +7,7 @@ class CreateTipOffs < ActiveRecord::Migration[5.2]
       t.string :body # 举报说明
       t.datetime :create_time # 举报时间
       t.string :content_url # 被举报内容 url
+      t.string :content_author_id # 被举报内容作者id
       t.integer :follower_id # 跟进的管理员用户id
       t.datetime :follow_time # 跟进时间
       t.datetime :deleted_at # 删除时间

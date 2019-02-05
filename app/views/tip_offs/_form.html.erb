@@ -15,6 +15,7 @@
           <%= f.input :reporter_email, label: '联系邮箱（便于我们和您联系及反馈结果）:' %>
           <%= f.input :body, as: :text, label: t('tip_off.description') %>
           <%= f.input :content_url, as: :hidden, input_html: { value: params[:content_url] } %>
+          <%= f.input :content_author_id, as: :hidden, input_html: { value: params[:content_author_id] } %>
       </div>
       <div class="modal-footer">
         <%= f.submit t('common.tip_off'), class: "btn btn-primary", 'data-disable-with' => t("common.saving")%>
