@@ -7,8 +7,9 @@
 <table class="table table-bordered table-striped table-condensed">
   <tr>
     <th style="width:250px"><%=t('tip_off.content_url')%></th>
-    <th><%=t('tip_off.content_author')%></th>
+    <th style="width:120px"><%=t('tip_off.content_author')%></th>
     <th style="width:400px"><%=t('tip_off.description')%></th>
+    <th style="width:120px"><%=t('tip_off.report_time')%></th>
     <th><%=t('tip_off.follower')%></th>
     <th></th>
   </tr>
@@ -18,6 +19,7 @@
       <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
       <td><a href="<%= user_path(User.find(tipOff[:content_author_id])[:name]) %>" target="_blank"><%= User.find(tipOff[:content_author_id])[:name] %></a></td>
       <td><%= tipOff[:body] %></td>
+      <td><%= l tipOff[:create_time], format: :short %></td>
       <% if tipOff[:follower_id] %>
         <td><%= User.find(tipOff[:follower_id])[:name] %></td>
       <% else %>
