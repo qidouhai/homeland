@@ -5,7 +5,7 @@ module Admin
     before_action :set_tip_off, only: %i[edit update]
 
     def index
-      @tipOffs = TipOff.all
+      @tipOffs = TipOff.all.order(create_time: :desc, follow_time: :desc)
     end
 
     def edit
