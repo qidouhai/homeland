@@ -13,7 +13,16 @@ module Admin
     end
 
     def update
-      if @tipOff.update(params.require(:tip_off).permit(:follower_id))
+      tip_off_params = params.require(:tip_off).permit(:follower_id, :follow_result)
+      tip_off_params[:follow_time] = Time.now
+
+      # fixme: 比较笨的一种办法，用于防止 follow_result 为空
+      if tip_off_params[:follow_result] == ''
+        redirect_to(edit_admin_tip_off_path(@tipOff), notice: "处理失败，请检查必填字段是否都已填上")
+        return
+      end
+
+      if @tipOff.update(tip_off_params)
         # 给管理员群发通知
         admin_users = User.admin_users
         default_note = {notify_type: "admin_follow_tip_off", target_type: TipOff,
@@ -37,7 +46,9 @@ module Admin
         Notification.create opts
         Notification.realtime_push_to_client(@tipOff.reporter)
 
-        redirect_to(admin_tip_offs_path, notice: "您已成功跟进此举报")
+        redirect_to(edit_admin_tip_off_path(@tipOff), notice: "您已成功处理此举报")
+      else
+        redirect_to(edit_admin_tip_off_path(@tipOff), notice: "处理失败，请检查必填字段是否都已填上")
       end
     end
 
