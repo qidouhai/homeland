@@ -6,6 +6,7 @@
 
 <table class="table table-bordered table-striped table-condensed">
   <tr>
+    <th>#</th>
     <th style="width:250px"><%=t('tip_off.content_url')%></th>
     <th style="width:120px"><%=t('tip_off.content_author')%></th>
     <th style="width:400px"><%=t('tip_off.description')%></th>
@@ -16,6 +17,7 @@
 
   <% @tipOffs.each do |tipOff| %>
     <tr>
+      <td><%= tipOff[:id]%></td>
       <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
       <td><a href="<%= user_path(User.find(tipOff[:content_author_id])[:name]) %>" target="_blank"><%= User.find(tipOff[:content_author_id])[:name] %></a></td>
       <td><%= tipOff[:body] %></td>
