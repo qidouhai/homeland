@@ -13,10 +13,21 @@ class TipOffsController < ::ApplicationController
     @tipOff.reporter_id = current_user.id
     @tipOff.create_time = Time.now
     if @tipOff.save
-      # TODO: 发送提醒给管理员
-      redirect_to((@tipOff['content_url']),  notice: '举报创建成功，后续管理员将会查看您的举报并进行处理。过程中可能会通过邮箱 ' + @tipOff['reporter_email'] + ' 与您联系，请留意。')
+      # 给管理员群发通知
+      admin_users = User.admin_users
+      default_note = {notify_type: "create_tip_off", target_type: TipOff,
+                      target_id: @tipOff.id, actor_id: current_user.id
+      }
+      Notification.bulk_insert(set_size: 100) do |worker|
+        admin_users.each do |admin_user|
+          note = default_note.merge(user_id: admin_user[:id])
+          worker.add(note)
+        end
+      end
+
+      redirect_to((@tipOff[:content_url]),  notice: '举报创建成功，后续管理员将会查看您的举报并进行处理。过程中可能会通过邮箱 ' + @tipOff['reporter_email'] + ' 与您联系，请留意。')
     else
-      redirect_to((@tipOff['content_url']),  notice: '举报创建失败，请检查表格中所有内容是否均已填写。')
+      redirect_to((@tipOff[:content_url]),  notice: '举报创建失败，请检查表格中所有内容是否均已填写。')
     end
   end
 
