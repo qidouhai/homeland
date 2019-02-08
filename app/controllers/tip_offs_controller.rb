@@ -27,7 +27,7 @@ class TipOffsController < ::ApplicationController
 
       redirect_to((@tipOff[:content_url]),  notice: '举报创建成功，后续管理员将会查看您的举报并进行处理。过程中可能会通过邮箱 ' + @tipOff['reporter_email'] + ' 与您联系，请留意。')
     else
-      redirect_to((@tipOff[:content_url]),  notice: '举报创建失败，请检查表格中所有内容是否均已填写。')
+      redirect_to((@tipOff[:content_url]),  alert: '举报创建失败，请检查表格中所有必填字段是否均已选上。')
     end
   end
 
