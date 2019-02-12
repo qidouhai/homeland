@@ -30,6 +30,7 @@
             li << link_to(t("admin.menu.comments"), main_app.admin_comments_path )
             li << link_to(t("admin.menu.photos"), main_app.admin_photos_path )
             li << link_to(t("admin.menu.locations"), main_app.admin_locations_path )
+            li << link_to(t("admin.menu.tip_offs"), main_app.admin_tip_offs_path )
             Homeland.admin_navbar_plugins.each do |plugin|
               li << link_to(plugin.display_name, plugin.admin_path)
             end

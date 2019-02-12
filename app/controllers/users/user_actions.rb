@@ -5,10 +5,13 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts]
+
+      before_action :authenticate_user!, only: [:block, :unblock, :blocked, :follow, :unfollow, :drafts, :tip_offs]
       before_action :only_user!, only: [:topics, :replies, :favorites, :columns,
                                         :block, :unblock, :follow, :unfollow,
                                         :followers, :following, :calendar, :reward]
+      # 只能本人可见，其它人无权限查看。
+      before_action :only_owner!, only: [:drafts, :tip_offs]
     end
 
     def topics
@@ -75,6 +78,10 @@ module Users
       render template: "/users/followers"
     end
 
+    def tip_offs
+      @tipOffs = TipOff.by_reporter(@user.id).order('create_time desc').page(params[:page])
+    end
+
     def calendar
       data = @user.calendar_data
       render json: data if stale?(data)
@@ -85,9 +92,13 @@ module Users
 
     private
 
-      def only_user!
-        render_404 if @user_type != :user
-      end
+    def only_user!
+      render_404 if @user_type != :user
+    end
+
+    def only_owner!
+      render_404 if @user !=current_user
+    end
 
     def user_show
       # 排除掉几个非技术的节点
