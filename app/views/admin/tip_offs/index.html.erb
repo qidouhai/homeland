@@ -19,7 +19,7 @@
     <tr>
       <td><%= tipOff[:id]%></td>
       <td><a href="<%= tipOff[:content_url] %>" target="_blank"><%= tipOff[:content_url] %></a></td>
-      <td><a href="<%= user_path(User.find(tipOff[:content_author_id])[:name]) %>" target="_blank"><%= User.find(tipOff[:content_author_id])[:name] %></a></td>
+      <td><%=user_name_tag tipOff.content_author %></td>
       <td><%= tipOff[:body] %></td>
       <td><%= l tipOff[:create_time], format: :short %></td>
       <% if tipOff[:follower_id] %>

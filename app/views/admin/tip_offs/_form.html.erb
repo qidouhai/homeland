@@ -3,7 +3,7 @@
 
   <dl class="row">
     <dt class="col-sm-3"><%=t("tip_off.reporter")%></dt>
-    <dd class="col-sm-9"><a href="<%= user_path(User.find(@tipOff[:reporter_id])[:name]) %>" target="_blank"><%=User.find(@tipOff[:reporter_id])[:name]%></a></dd>
+    <dd class="col-sm-9"><%=user_name_tag @tipOff.reporter%></dd>
 
     <dt class="col-sm-3"><%=t("tip_off.reporter_email")%></dt>
     <dd class="col-sm-9"><%= @tipOff[:reporter_email] %></dd>
