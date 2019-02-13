@@ -32,6 +32,8 @@
   </div>
 <% end %>
 
+<%= raw Setting.topic_index_sidebar_important_ads_html %>
+
 <% cache(["hot-nodes",Time.now.strftime("%Y-%m-%d")]) do %>
     <div class="index-locations panel panel-default">
       <div class="panel-heading"><%=t("common.hot_nodes")%> <i class="fa fa-dot-circle-o" aria-hidden="true"></i></div>

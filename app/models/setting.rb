@@ -56,6 +56,7 @@ class Setting < RailsSettings::Base
     allow_welcome_page_auto_pop
     welcome_page
     welcome_page_detail_url
+    topic_index_sidebar_important_ads_html
   )
 
   class << self
