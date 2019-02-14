@@ -4,7 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">相关话题</div>
       <ul class="list-group">
-        <li class="list-group-item"><%= raw Setting.before_realte_topic_html %></li>
+        <%= raw Setting.before_realte_topic_html %>
         <% @topic.related_topics.each do |topic| %>
           <li class="list-group-item"><%= link_to topic.title, topic %></li>
         <% end %>
