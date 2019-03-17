@@ -11,6 +11,8 @@ class Ability
       roles_for_anonymous
     elsif @user.roles?(:admin)
       can :manage, :all
+    elsif @user.roles?(:editor)
+      roles_for_editors
     elsif @user.roles?(:member)
       roles_for_members
     else
@@ -30,6 +32,20 @@ class Ability
       roles_for_team_users
       roles_for_columns
       roles_for_articles
+      basic_read_only
+    end
+
+    # 普通会员权限
+    def roles_for_editors
+      roles_for_topics
+      roles_for_replies
+      roles_for_comments
+      roles_for_photos
+      roles_for_teams
+      roles_for_team_users
+      roles_for_columns
+      roles_for_articles
+      can :raw_markdown, Topic
       basic_read_only
     end
 

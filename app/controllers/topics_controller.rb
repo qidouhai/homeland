@@ -5,9 +5,9 @@ class TopicsController < ApplicationController
 
   before_action :authenticate_user!, only: %i[new edit create update destroy
                                               favorite unfavorite follow unfollow
-                                              action favorites]
+                                              action favorites raw_markdown]
   load_and_authorize_resource only: %i[new edit create update destroy
-                                       favorite unfavorite follow unfollow]
+                                       favorite unfavorite follow unfollow raw_markdown]
 
   before_action :set_topic, only: [:ban, :append, :edit, :update, :destroy, :follow,
                                    :unfollow, :action, :down]

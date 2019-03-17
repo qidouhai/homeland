@@ -45,6 +45,7 @@ class User
         when :wiki_editor then wiki_editor?
         when :site_editor then site_editor?
         when :column_editor then column_editor?
+        when :editor then editor?
         when :member then self.normal?
       else false
       end
