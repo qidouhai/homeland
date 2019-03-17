@@ -45,5 +45,8 @@
     <% if admin? %>
       <%= link_to "", new_ad_path(topic_id: @topic.id), class: "fa fa-space-shuttle", title: "推送本帖到客户端头条" %>
     <% end %>
+    <% if editor? %>
+      <%= link_to "", raw_markdown_topic_path(topic_id: @topic.id), class: "fa fa-file-code-o", title: "markdown" %>
+    <% end %>
   </span>
 </div>

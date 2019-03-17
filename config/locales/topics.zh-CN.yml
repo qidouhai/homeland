@@ -2,6 +2,7 @@
   topics:
     new_topic: "发布新话题"
     edit_topic: "修改话题"
+    raw_topic: "话题markdown"
     edit_article: "修改文章"
     no_replies: "暂无回复。"
     recent_topics: "最近发布的话题"

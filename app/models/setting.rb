@@ -57,6 +57,7 @@ class Setting < RailsSettings::Base
     welcome_page
     welcome_page_detail_url
     topic_index_sidebar_important_ads_html
+    editor
   )
 
   class << self

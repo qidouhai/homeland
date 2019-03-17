@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       get :down
       post :action
       get :show_wechat
+      get :raw_markdown
     end
     collection do
       get :no_reply

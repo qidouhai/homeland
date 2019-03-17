@@ -126,6 +126,17 @@ class TopicsController < ApplicationController
     render template: "topics/show_wechat", handler: [:erb], layout: 'wechat'
   end
 
+  def raw_markdown
+    @topic = Topic.unscoped.includes(:user).find(params[:id])
+    if @topic.deleted?
+      render_404
+      return
+    end
+
+    @node = @topic.node
+    render template: "topics/raw_markdown"
+  end
+
   def new
     @topic = Topic.new(user_id: current_user.id)
     unless params[:node].blank?

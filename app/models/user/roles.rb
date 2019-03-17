@@ -50,6 +50,17 @@ class User
       end
     end
 
+    # 是否可以编辑帖子
+    def editor?
+      return false if Setting.editor.nil?
+      if Setting.editor.split(Setting.SEPARATOR_REGEXP).include? login
+        return true
+      else
+        return false
+      end
+
+    end
+
     # 用户的账号类型
     def level
       if admin?
