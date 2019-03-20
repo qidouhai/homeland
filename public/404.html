@@ -20,8 +20,6 @@
             }
 
             body {
-                max-width: 500px;
-                _width: 500px;
                 padding: 30px 20px 50px;
                 background-color: white;
                 margin: 40px auto;
@@ -57,8 +55,6 @@
             }
 
             .container {
-                max-width: 380px;
-                _width: 380px;
                 margin: 0 auto;
             }
 
@@ -131,15 +127,47 @@
     </head>
     <body>
         <div class="container">
-            <h1>此页面不存在 <span>:(</span></h1>
-            <p>对不起，没有这么个页面给你查看.</p>
+            <h1>TesterHome 社区公告<span>:(</span></h1>
+            <p>各位同学：
+
+                因技术服务合约到期，社区部分服务需要迁移，预计耗时 2 周左右。在调整期间，社区可能无法访问，给您带来的不便，敬请谅解！
+
+                MTSC2019 第五届中国移动互联网测试开发大会官网可正常访问，演讲嘉宾和热点 topic 即时更新中。
+
+            </p>
             <ul>
-                <li>是不是地址错误了？</li>
-                <li>或者这个页面被删除了!</li>
+                <li>大会官网：http://2019.test-china.org/</li>
+                <li>购票地址：https://www.bagevent.com/event/2202999</li>
+                <li>议题提交：请发邮件至 topic@testerhome.com</li>
             </ul>
+            <p>在此期间，您可以关注 TesterHome 社区公众号或加 TesterHome 官方小助手微信「testerhome」获取最新动态，或咨询服务。
+
+                特此通知！
+            </p>
+            <p>
+                TesterHome
+                2019年3月20日
+            </p>
             <div class="links">
-              <a href="/">回到首页</a>
+              <a href="https://www.bagevent.com/event/2202999">支持大会吧</a>
             </div>
+
+            <iframe id="promote_ticket_iframe" width="100%" src="//www.bagevent.com/widget/ticket/2202999?widget=2" frameborder="0" scrolling="no"></iframe>
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['BagEventIFrameResize'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    };
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.bagevent.com/resources/js/iframeResizer/iframeResizer.min.js', 'bfr');
+                bfr('iFrameResize', {checkOrigin: false, heightCalculationMethod: 'taggedElement'}, "#promote_ticket_iframe");
+            </script>
+
             <script>
                 var GOOG_FIXURL_LANG = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
             </script>
