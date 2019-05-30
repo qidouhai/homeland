@@ -7,6 +7,8 @@ module Homeland
       YOUKU_URL_REGEXP   = %r{(\s|^|<div>|<br>)(http?://)(v\.youku\.com/v_show/id_)([a-zA-Z0-9\-_\=]*)(\.html)(\&\S+)?(\?\S+)?}
       VIMEO_URL_REGEXP   = %r{(\s|^|<div>|<br>)(https?://)(vimeo\.com/)([0-9]+)(\&\S+)?(\?\S+)?}
       MYSLIDE_URL_REGEXP = %r{(\s|^|<div>|<br>)(https?://)(myslide\.cn/slides/)([0-9]+)(\&\S+)?(\?\S+)?}
+      JINSHUJU_URL_REGEXP = %r{(\s|^|<div>|<br>)(https://)(jinshuju\.net/f/)([A-Za-z0-9_\-]*)\?(height=)([0-9]+)(\&\S+)?(\?\S+)?}
+
 
       def call
         wmode = context[:video_wmode]
@@ -46,6 +48,13 @@ module Homeland
           slide_embed_tag(close_tag, src)
         end
 
+        @text.gsub!(JINSHUJU_URL_REGEXP) do
+          shuju_id = Regexp.last_match(4)
+          height = Regexp.last_match(6)
+          close_tag = Regexp.last_match(1) if ["<br>", "<div>"].include? Regexp.last_match(1)
+          src = "https://jinshuju.net/f/#{shuju_id}?background=white&banner=show&embedded=true"
+          jinshuju_embed_tag(src, height, shuju_id)
+        end
         @text
       end
 
@@ -56,6 +65,11 @@ module Homeland
       def slide_embed_tag(close_tag, src)
         %(#{close_tag}<span class="embed-responsive slide-iframe"><iframe class="embed-responsive-item" src="#{src}" allowfullscreen></iframe></span>)
       end
+
+      def jinshuju_embed_tag(src, height, shuju_id)
+        %(<iframe id="goldendata_form_#{shuju_id}" src="#{src}" width="100%" frameborder=0 allowTransparency="true" height="#{height}"></iframe>)
+      end
+
     end
   end
 end
