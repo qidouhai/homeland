@@ -36,7 +36,7 @@ module Homeland
       end
 
       # myslide
-      if node["src"].match?(%r{\A(?:http[s]{0,1}?:)?//myslide\.cn/html_player/})
+      if node["src"].match?(%r{\A(?:http[s]{0,1}?:)?//myslide\.cn/})
         valid_video_url = true
       end
 
