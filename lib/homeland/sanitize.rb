@@ -41,7 +41,7 @@ module Homeland
       end
 
       # jinshuju
-      if node["src"].match?(%r{\A(?:http[s]{0,1}?:)?//jinshuju\.net/})
+      if node["src"].match?(%r{\A(?:http[s]{0,1}?:)?//([A-Za-z0-9_\-]*\.)?jinshuju\.(net|com)/})
         valid_video_url = true
       end
 
