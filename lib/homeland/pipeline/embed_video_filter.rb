@@ -8,6 +8,7 @@ module Homeland
       VIMEO_URL_REGEXP   = %r{(\s|^|<div>|<br>)(https?://)(vimeo\.com/)([0-9]+)(\&\S+)?(\?\S+)?}
       MYSLIDE_URL_REGEXP = %r{(\s|^|<div>|<br>)(https?://)(myslide\.cn/slides/)([0-9]+)(\&\S+)?(\?\S+)?}
       JINSHUJU_URL_REGEXP = %r{(\s|^|<div>|<br>)(https://)(jinshuju\.net/f/)([A-Za-z0-9_\-]*)\?(height=)([0-9]+)(\&\S+)?(\?\S+)?}
+      SHENGXIANG_URL_REGEXP = %r{(\s|^|<div>|<br>)(https://)(ppt\.baomitu\.com/d/)([A-Za-z0-9_\-]*)(\&\S+)?(\?\S+)?}
 
 
       def call
@@ -55,6 +56,14 @@ module Homeland
           src = "https://jinshuju.net/f/#{shuju_id}?background=white&banner=show&embedded=true"
           jinshuju_embed_tag(src, height, shuju_id)
         end
+
+        @text.gsub!(SHENGXIANG_URL_REGEXP) do
+          slide_id = Regexp.last_match(4)
+          close_tag = Regexp.last_match(1) if ["<br>", "<div>"].include? Regexp.last_match(1)
+          src = "https://ppt.baomitu.com/embed/#{slide_id}?style=dark"
+          shengxiang_embed_tag(close_tag, src)
+        end
+
         @text
       end
 
@@ -68,6 +77,10 @@ module Homeland
 
       def jinshuju_embed_tag(src, height, shuju_id)
         %(<iframe id="goldendata_form_#{shuju_id}" src="#{src}" width="100%" frameborder=0 allowTransparency="true" height="#{height}"></iframe>)
+      end
+
+      def shengxiang_embed_tag(close_tag, src)
+        %(#{close_tag}<iframe src="#{src}" width="100%" height="100%" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allowfullscreen></iframe>)
       end
 
     end
