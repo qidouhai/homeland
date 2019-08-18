@@ -18,8 +18,7 @@
     <dd class="col-sm-9"><a href="<%= @tipOff[:content_url] %>" target="_blank"><%=@tipOff[:content_url]%></a></dd>
 
     <dt class="col-sm-3"><%=t("tip_off.content_author")%></dt>
-    <dd class="col-sm-9"><%= link_to User.find(@tipOff[:content_author_id])[:name], User.find(@tipOff[:content_author_id]), target: "_blank" %></dd>
-
+    <dd class="col-sm-9"><%=user_name_tag @tipOff.content_author %></dd>
     <dt class="col-sm-3"><%=t("tip_off.description")%></dt>
     <dd class="col-sm-9"><%= @tipOff[:body] %></dd>
 
