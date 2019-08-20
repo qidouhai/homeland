@@ -228,6 +228,12 @@ table.node-topics {
   .user-teams-avatar {
     padding: 10px;
   }
+  .user-team-name {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    width: 100%;
+  }
 }
 
 .user-card {

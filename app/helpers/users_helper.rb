@@ -100,7 +100,7 @@ module UsersHelper
     html_options[:title] = team.fullname
     html_options[:style] = 'text-decoration: none'
 
-    template = "<p style='text-decoration: none;'> #{img} #{team.name} </p>"
+    template = "<div class='user-team-name'> #{img} #{team.name} </div>"
     if link
       link_to(raw(template), "/#{team.login}", html_options)
     else
