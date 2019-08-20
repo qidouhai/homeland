@@ -21,13 +21,12 @@
         <% end %>
       </div>
 
-
       <% if Setting.has_module?(:team) %>
           <% if !@topic.user.teams.blank? %>
               <div class="user-teams">
                 <div>
                   <% @topic.user.valid_teams.each do |team| %>
-                      <%= user_avatar_tag(team, :sm) %>
+                      <%= team_avatar_tag(team, :sm) %>
                   <% end %>
                 </div>
               </div>
