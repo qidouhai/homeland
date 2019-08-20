@@ -79,7 +79,34 @@ module UsersHelper
       raw img
     end
   end
-  alias team_avatar_tag user_avatar_tag
+
+  def team_avatar_tag(team, version = :md, link: true, timestamp: nil)
+    # 不仅显示团队图标，也显示团队名称
+    width     = user_avatar_width_for_size(version)
+    img_class = "media-object avatar-#{width}"
+
+    img =
+        if team.blank?
+          image_tag("avatar/#{version}.png", class: img_class)
+        elsif team.avatar?
+          image_url = team.avatar.url(version)
+          image_url += "?t=#{team.updated_at.to_i}" if timestamp
+          image_tag(image_url, class: img_class)
+        else
+          image_tag(team.letter_avatar_url(width * 2), class: img_class)
+        end
+
+    html_options = {}
+    html_options[:title] = team.fullname
+    html_options[:style] = 'text-decoration: none'
+
+    template = "<div class='user-team-name'> #{img} #{team.name} </div>"
+    if link
+      link_to(raw(template), "/#{team.login}", html_options)
+    else
+      raw template
+    end
+  end
 
   def render_user_level_tag(user)
     return "" if user.blank?

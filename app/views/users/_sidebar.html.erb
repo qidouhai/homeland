@@ -118,7 +118,7 @@
           <div class="panel user-teams">
             <div class="panel-body user-teams-avatar">
               <% @user.valid_teams.each do |team| %>
-                  <%= user_avatar_tag(team, :md) %>
+                  <%= team_avatar_tag(team, :md) %>
               <% end %>
             </div>
           </div>

@@ -222,10 +222,17 @@ table.node-topics {
   }
 
   .user-teams {
+    padding: 12px 0px;
     .media-object { display: inline-block; margin:4px 2px; }
   }
   .user-teams-avatar {
     padding: 10px;
+  }
+  .user-team-name {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    width: 100%;
   }
 }
 
