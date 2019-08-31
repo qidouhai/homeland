@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><%= t("github_statistics.TTF_repos") %></div>
+  <div class="panel-body">
+    <% if @opensource_repos.blank?%>
+      <%= t("github_statistics.no_data") %>
+    <% end %>
+    <% for opensource_repo in @opensource_repos %>
+      <p><%= link_to opensource_repo['url'], opensource_repo['url'] %></p>
+    <% end %>
+  </div>
+</div>

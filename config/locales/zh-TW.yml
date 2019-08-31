@@ -145,4 +145,11 @@
     follow_status: '跟進情況'
     following: '管理員已處理'
     not_follow: '待處理'
-
+  github_statistics:
+    no_data: '暫無數據'
+    TTF_contributor_list: 'TTF 貢獻者榜單'
+    TTF_total_contributors: '共計有 %{count} 人給 TTF 項目進行了代碼貢獻'
+    testerhome_user: '社區用戶'
+    contribution: '貢獻指數：%{value}'
+    TTF_repos: 'TTF 統計項目列表'
+    contribution_calculate_rule: '貢獻指數計算規則'
