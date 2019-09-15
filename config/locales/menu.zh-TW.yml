@@ -142,6 +142,7 @@
     ban_reasons: "屏蔽原因，將會在屏蔽話題的時候作為選項（一行一個）"
     column_user_white_list: "專欄功能白名單列表，寫入可使用專欄功能的用戶名稱（一行一個）。非白名單用戶看不到創建專欄入口。"
     column_enabled: "專欄功能開關。若值不為空，表示開。關閉時用戶可編輯已有專欄，但不能新增"
+    github_stats_repos: "github 排行榜的 repo 列表（一行一個）"
   pagination:
     next: "下一頁"
     prev: "上一頁"

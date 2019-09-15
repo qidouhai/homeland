@@ -169,3 +169,11 @@
     follow_status: '处理情况'
     following: '管理员已处理'
     not_follow: '待处理'
+  github_statistics:
+    no_data: '暂无数据'
+    TTF_contributor_list: 'TTF 贡献者榜单'
+    TTF_total_contributors: '共计有 %{count} 人给 TTF 项目进行了代码贡献'
+    testerhome_user: '社区用户'
+    contribution: '贡献指数：%{value}'
+    TTF_repos: 'TTF 统计项目列表'
+    contribution_calculate_rule: '贡献指数计算规则'

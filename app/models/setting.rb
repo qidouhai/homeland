@@ -58,6 +58,7 @@ class Setting < RailsSettings::Base
     welcome_page_detail_url
     topic_index_sidebar_important_ads_html
     editor
+    github_stats_repos
   )
 
   class << self
@@ -89,6 +90,11 @@ class Setting < RailsSettings::Base
 
     def ban_reason_list
       (self.ban_reasons || "").split("\n")
+    end
+
+    def github_stats_repos_list
+      # 去掉其中空字符串的元素
+      self.github_stats_repos.split(SEPARATOR_REGEXP).select {|urls| urls != '' }
     end
 
     def has_profile_field?(name)

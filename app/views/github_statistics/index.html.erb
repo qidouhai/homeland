@@ -1,0 +1,27 @@
+<% title_tag t("github_statistics.TTF_contributor_list") %>
+<%= stylesheet_link_tag "github_statistics" %>
+
+<div class="row">
+  <div class="col-md-9">
+
+    <div id="opensource_project-list" class="panel panel-default">
+      <div class="panel-heading">
+        <strong><%= t("github_statistics.TTF_contributor_list") %></strong>
+        <div class="pull-right hidden-xs"><%= t("github_statistics.TTF_total_contributors", count: @opensource_contributors.length) %></div>
+      </div>
+      <div class="panel-body">
+        <% if @opensource_contributors.blank? %>
+          <div class="no-result"><%= t("github_statistics.no_data") %></div>
+        <% else %>
+          <%= render partial: 'opensource_contributor', collection: @opensource_contributors %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar col-md-3">
+    <%= render "github_statistics/sidebar_box_rules" %>
+    <%= render "github_statistics/sidebar_box_repos" %>
+  </div>
+
+</div>

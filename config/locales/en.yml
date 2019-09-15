@@ -125,3 +125,6 @@ en:
     follow_status: 'Follow status'
     following: 'Admin followed'
     not_follow: 'Waiting for follow'
+  github_statistics:
+    TTF_total_contributors: 'TTF project totally have %{count} contributor'
+    contribution: 'Contribution: %{value}'

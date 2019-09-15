@@ -55,10 +55,11 @@ module UsersHelper
     end
   end
 
-  def user_avatar_tag(user, version = :md, link: true, timestamp: nil)
+  def user_avatar_tag(user, version = :md, link: true, timestamp: nil, default: nil)
     width     = user_avatar_width_for_size(version)
     img_class = "media-object avatar-#{width}"
 
+    return image_tag("/github.svg", class: img_class) if user.blank? and default == 'github'
     return image_tag("avatar/#{version}.png", class: img_class) if user.blank?
 
     img =
