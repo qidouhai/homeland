@@ -14,7 +14,7 @@
     </div>
     <div class="media-body">
       <div class="media-left">
-        <%= user_avatar_tag(User.find_by_github(opensource_contributor['github_login']), version=:md, default='github') %>
+        <%= user_avatar_tag(User.find_by_github(opensource_contributor['github_login']), version=:md, default: 'github') %>
       </div>
       <div class="media-body" style="vertical-align: middle">
         <% if opensource_contributor['is_testerhome_user'] and not User.find_by_github(opensource_contributor['github_login']).nil? %>
