@@ -1,35 +1,33 @@
-<div class="col-xs-12 col-sm-12 col-md-12 ">
-  <div class="media user-card">
-    <div class="media-left avatar-48 font-size-h1">
-      <%
-        if opensource_contributor_counter + 1 <= 3 # 前三名
-          @style = 'danger'
-        elsif opensource_contributor['is_testerhome_user'] and not User.find_by_github(opensource_contributor['github_login']).nil? # 社区用户
-          @style = 'success'
-        else
-          @style = 'muted'
-        end
-      %>
-        <p class="statistics-number text-<%=@style %>"><%= "#{opensource_contributor_counter + 1}" %></p>
-    </div>
-    <div class="media-body">
-      <div class="media-left">
-        <%= user_avatar_tag(User.find_by_github(opensource_contributor['github_login']), version=:md, default: 'github') %>
-      </div>
-      <div class="media-body" style="vertical-align: middle">
-        <% if opensource_contributor['is_testerhome_user'] and not User.find_by_github(opensource_contributor['github_login']).nil? %>
-          <%= link_to User.find_by_github(opensource_contributor['github_login']).login,  user_path(User.find_by_github(opensource_contributor['github_login'])) %> <span class="label label-info role"><%= t("github_statistics.testerhome_user") %></span>
-        <% else %>
-          <%= link_to opensource_contributor['github_login'], "https://github.com/#{opensource_contributor['github_login']}" %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="media-right">
-      <div class="infos">
-        <div class="item statistics-count text-<%=@style %>"><%= t("github_statistics.contribution", value: opensource_contributor['total']) %></div>
-      </div>
-    </div>
-
+<div class="col-md-12 col-xs-12 col-sm-12 user-card">
+  <div class="media-left">
+    <%
+      if opensource_contributor_counter + 1 <= 3 # 前三名
+        @style = 'danger'
+      elsif opensource_contributor['is_testerhome_user'] and not User.find_by_github(opensource_contributor['github_login']).nil? # 社区用户
+        @style = 'success'
+      else
+        @style = 'muted'
+      end
+    %>
+      <p class="statistics-number text-<%=@style %>"><%= "#{opensource_contributor_counter + 1}" %></p>
   </div>
+  <div class="media-body">
+    <div class="media-left">
+      <%= user_avatar_tag(User.find_by_github(opensource_contributor['github_login']), version=:md, default: 'github') %>
+    </div>
+    <div class="media-body" style="vertical-align: middle">
+      <% if opensource_contributor['is_testerhome_user'] and not User.find_by_github(opensource_contributor['github_login']).nil? %>
+        <%= link_to User.find_by_github(opensource_contributor['github_login']).login,  user_path(User.find_by_github(opensource_contributor['github_login'])) %> <span class="label label-info role"><%= t("github_statistics.testerhome_user") %></span>
+      <% else %>
+        <%= link_to opensource_contributor['github_login'], "https://github.com/#{opensource_contributor['github_login']}" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="media-right">
+    <div class="infos">
+      <div class="item statistics-count text-<%=@style %>"><%= t("github_statistics.contribution", value: opensource_contributor['total']) %></div>
+    </div>
+  </div>
+
 </div>
