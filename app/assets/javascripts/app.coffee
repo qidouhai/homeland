@@ -22,6 +22,7 @@
 #= require form_storage
 #= require topics
 #= require columns
+#= require github-statistics
 #= require editor
 #= require toc
 #= require turbolinks
@@ -67,6 +68,8 @@ AppView = Backbone.View.extend
 
     if $('body').data('controller-name') in ['columns', 'articles']
       window._columnView = new ColumnView({parentView: @})
+
+    window._githubStatisticsView = new GitHubStatisticsView({parentView: @})
 
     if not Cookies.get('hasSkipWelcomePage')
       setTimeout(@skipWelcomePage, 3000)

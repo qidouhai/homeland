@@ -3,7 +3,6 @@
 
 <div class="row">
   <div class="col-md-9">
-
     <div id="opensource_project-list" class="panel panel-default">
       <div class="panel-heading">
         <strong><%= t("github_statistics.TTF_contributor_list") %></strong>
@@ -13,6 +12,7 @@
         <% if @opensource_contributors.blank? %>
           <div class="no-result"><%= t("github_statistics.no_data") %></div>
         <% else %>
+            <label><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"  id="display-all">显示非社区用户</button></label>
           <%= render partial: 'opensource_contributor', collection: @opensource_contributors %>
         <% end %>
       </div>
