@@ -1,15 +1,17 @@
 .statistics-number {
-  width: 80px;
-  top: 2px;
-  left: 0;
-  padding-right: 10px;
+  min-width: 50px;
+  font-size: 24px;
   text-align: right;
-  font-size: 36px;
+  margin-bottom: 0px;
 }
 
-.statistics-count {
-  width: 120px;
-  text-align: right;
-  padding-top: 15px;
-  font-size: 14px;
+.text-middle {
+  vertical-align: middle;
 }
+
+
+.statistics-count {
+  width: 110px;
+  text-align: right;
+}
+
