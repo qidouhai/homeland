@@ -16,14 +16,14 @@
 
 
 <div class="col-md-12 col-xs-12 col-sm-12 user-card <%= @user.blank? ? 'not_testehome_user' : '' %> ">
-  <div class="media-left">
-      <p class="statistics-number text-<%=@style %>"><%= "#{opensource_contributor_counter + 1}" %></p>
+  <div class="media-left statistics-number">
+      <div class="text-<%=@style %>"><%= "#{opensource_contributor_counter + 1}" %></div>
   </div>
   <div class="media-body">
     <div class="media-left">
       <%= user_avatar_tag(@user, version=:md, default: 'github') %>
     </div>
-    <div class="media-body" style="vertical-align: middle">
+    <div class="media-body text-middle">
       <% if not @user.blank? %>
         <%= link_to @user.login,  user_path(@user) %> <span class="label label-info role"><%= t("github_statistics.testerhome_user") %></span>
       <% else %>
@@ -32,10 +32,8 @@
     </div>
   </div>
 
-  <div class="media-right">
-    <div class="infos">
-      <div class="item statistics-count text-<%=@style %>"><%= t("github_statistics.contribution", value: opensource_contributor['total']) %></div>
-    </div>
+  <div class="media-right text-middle">
+    <div class="statistics-count text-<%=@style %>"><%= t("github_statistics.contribution", value: opensource_contributor['total']) %></div>
   </div>
 
 </div>

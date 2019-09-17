@@ -12,7 +12,7 @@
         <% if @opensource_contributors.blank? %>
           <div class="no-result"><%= t("github_statistics.no_data") %></div>
         <% else %>
-            <label><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"  id="display-all">显示非社区用户</button></label>
+          <label><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"  id="display-all">显示非社区用户</button></label>
           <%= render partial: 'opensource_contributor', collection: @opensource_contributors %>
         <% end %>
       </div>

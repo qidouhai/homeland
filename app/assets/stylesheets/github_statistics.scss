@@ -1,10 +1,17 @@
 .statistics-number {
-  font-size: 34px;
+  min-width: 50px;
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 0px;
 }
+
+.text-middle {
+  vertical-align: middle;
+}
+
 
 .statistics-count {
   width: 110px;
   text-align: right;
-  padding-top: 15px;
-  font-size: 14px;
 }
+
